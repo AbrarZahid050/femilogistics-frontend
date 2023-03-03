@@ -12,6 +12,8 @@ import Input from "../../components/input/Input";
 //css file
 import "./Auth.css";
 
+//this is a comment.
+
 const SignUp = () => {
   const [values, setValues] = useState({
     Email: "",
