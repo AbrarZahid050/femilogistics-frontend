@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUp from "./views/signUp/SignUp";
 import SignIn from "./views/signIn/SignIn";
 import ForgetPassword from "./views/forgetPassword/ForgetPassword";
+import FeedbackAdmin from "./views/feedbackAdmin/FeedbackAdmin";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/forgotPassword" element={<ForgetPassword />} />
+          <Route path="/feedbackAdmin" element={<FeedbackAdmin />} />
         </Routes>
       </BrowserRouter>
     </>
