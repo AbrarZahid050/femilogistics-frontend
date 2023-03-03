@@ -59,8 +59,6 @@ const SignIn = () => {
       password: values.Password,
     };
 
-    console.log(newUser);
-
     //Asychornous func for posting the request to server for user registration.
     const dataFetchingFunction = async () => {
       // try {
