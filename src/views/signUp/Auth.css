@@ -10,14 +10,12 @@
 
 .signUp-card {
   width: 447px;
-  height: 544px;
+  /* height: 544px; */
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0px 0px 1px rgba(12, 26, 75, 0.24),
     0px 3px 8px -1px rgba(50, 50, 71, 0.05);
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* justify-content: center; */
+  padding: 40px 12px;
 }
 
 .signUp-card-heading {
@@ -29,6 +27,7 @@
   text-align: center;
   margin-bottom: 50px;
   font-family: "Roboto";
+  margin: 0 0 38px 0;
   /* margin-bottom: 48px; */
 }
 
@@ -75,8 +74,9 @@
   margin: 30px 0;
 }
 
-.signUp-btn {
+.Auth-btn {
   background-color: #0062ff;
+  cursor: pointer;
   width: 330px;
   height: 50px;
   border: none;
@@ -105,4 +105,27 @@
 .link-to-signIn-span {
   text-decoration: none !important;
   color: #0062ff;
+}
+.signUp-card-terms-forget-password {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: "Roboto";
+  cursor: pointer;
+}
+.signIn-card-terms-forgetPassword {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 60px;
+}
+.signUp-card-terms-forgotPassword {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  font-family: "Roboto";
+  text-align: center;
+  margin: 0;
+  color: #6f758b;
 }

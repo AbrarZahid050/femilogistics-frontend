@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 //layoput components
-import { Container, Box, Stack } from "@mui/system";
+import { Container, Box } from "@mui/system";
 
 //react-router-dom
 import { Link } from "react-router-dom";
@@ -10,13 +10,13 @@ import { Link } from "react-router-dom";
 import Input from "../../components/input/Input";
 
 //css file
-import "./signUp.css";
+import "./Auth.css";
 
 const SignUp = () => {
   const [values, setValues] = useState({
     Email: "",
     Password: "",
-    ConfirmPassword: "",
+    Re_enterPassword: "",
   });
 
   console.log(values);
@@ -34,7 +34,7 @@ const SignUp = () => {
     if (
       values.Email === "" ||
       values.Password === "" ||
-      values.ConfirmPassword === ""
+      values.Re_enterPassword === ""
     ) {
       alert("please enter all the values...");
       return;
@@ -46,15 +46,15 @@ const SignUp = () => {
       return;
     }
 
-    if (values.ConfirmPassword !== values.Password) {
-      alert("Error!");
+    if (values.Re_enterPassword !== values.Password) {
+      alert("Confirm Password does not match!");
       return;
     }
 
-    let newUser = {
-      email: values.Email,
-      password: values.Password,
-    };
+    // let newUser = {
+    //   email: values.Email,
+    //   password: values.Password,
+    // };
 
     //Asychornous func for posting the request to server for user registration.
     const dataFetchingFunction = async () => {
@@ -124,7 +124,7 @@ const SignUp = () => {
                 </div>
                 <div className="signUp-card-form-container">
                   <Input
-                    placeHolder="Confirm Password"
+                    placeHolder="Re-enter Password"
                     changeHandler={inputChangeHandler}
                   />
                 </div>
@@ -136,16 +136,23 @@ const SignUp = () => {
                 <div className="signUp-card-terms-para">
                   <p className="signUp-card-terms">
                     By signing up, you confirm that you’ve read and accepted our
-                    <span className="link-to-signIn-span"> User Notice </span>
+                    <span className="link-to-signIn-span">
+                      <Link className="link-to-signIn-span"> User Notice </Link>
+                    </span>
                     and
-                    <span className="link-to-signIn-span"> Privacy Policy</span>
+                    <span className="link-to-signIn-span">
+                      <Link className="link-to-signIn-span">
+                        {" "}
+                        Privacy Policy
+                      </Link>
+                    </span>
                     .
                   </p>
                 </div>
 
                 {/* //2 */}
                 <div className="signUp-btn-container">
-                  <button className="signUp-btn" onClick={handlerSignup}>
+                  <button className="Auth-btn" onClick={handlerSignup}>
                     SIGN UP
                   </button>
                 </div>
