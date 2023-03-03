@@ -17,8 +17,10 @@ const SignIn = () => {
     Email: "",
     Password: "",
   });
-
-  console.log(values);
+  const [error, setError] = useState({
+    email: "",
+    password: "",
+  });
 
   //this handler function will run with the onChange event in the input fields.
   const inputChangeHandler = (event) => {
@@ -30,21 +32,34 @@ const SignIn = () => {
   //this handler function will run with the onClick event from register button.
   const handlerSignup = () => {
     //condition for checking if the required input fields are empty or not.
-    if (values.Email === "" || values.Password === "") {
-      alert("please enter all the values...");
+    if (values.Email === "") {
+      setError({ ...error, email: "Please enter the email.", password: "" });
       return;
     }
 
     //condition for checking the email validation.
     if (validateEmail(values.Email) === null) {
-      alert("please enter a valid email...");
+      setError({
+        ...error,
+        email: "Please enter a valid email.",
+        password: "",
+      });
       return;
     }
 
-    // let newUser = {
-    //   email: values.Email,
-    //   password: values.Password,
-    // };
+    if (values.Password === "") {
+      setError({ ...error, password: "Please enter the password.", email: "" });
+      return;
+    }
+
+    setError({ ...error, email: "", password: "", re_enterPassword: "" });
+
+    let newUser = {
+      email: values.Email,
+      password: values.Password,
+    };
+
+    console.log(newUser);
 
     //Asychornous func for posting the request to server for user registration.
     const dataFetchingFunction = async () => {
@@ -104,12 +119,14 @@ const SignIn = () => {
                   <Input
                     placeHolder="Email"
                     changeHandler={inputChangeHandler}
+                    error={error.email}
                   />
                 </div>
                 <div className="signUp-card-form-container">
                   <Input
                     placeHolder="Password"
                     changeHandler={inputChangeHandler}
+                    error={error.password}
                   />
                 </div>
               </form>

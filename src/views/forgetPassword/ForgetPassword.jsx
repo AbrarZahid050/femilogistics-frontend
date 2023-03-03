@@ -17,6 +17,10 @@ const ForgotPassword = () => {
     Email: "",
   });
 
+  const [error, setError] = useState({
+    email: "",
+  });
+
   //this handler function will run with the onChange event in the input fields.
   const inputChangeHandler = (event) => {
     let key = event.target.name; //value is an object, and to enter the target.value in appropriate key
@@ -28,20 +32,23 @@ const ForgotPassword = () => {
   const handlerSignup = () => {
     //condition for checking if the required input fields are empty or not.
     if (values.Email === "") {
-      alert("please enter all the values...");
+      setError({ ...error, email: "Please enter the email." });
       return;
     }
 
     //condition for checking the email validation.
     if (validateEmail(values.Email) === null) {
-      alert("please enter a valid email...");
+      setError({ ...error, email: "Please enter a valid email." });
       return;
     }
 
-    // let newUser = {
-    //   email: values.Email,
-    //   password: values.Password,
-    // };
+    setError({ ...error, email: "" });
+
+    let newUser = {
+      email: values.Email,
+    };
+
+    console.log(newUser);
 
     //Asychornous func for posting the request to server for user registration.
     const dataFetchingFunction = async () => {
@@ -101,6 +108,7 @@ const ForgotPassword = () => {
                   <Input
                     placeHolder="Email"
                     changeHandler={inputChangeHandler}
+                    error={error.email}
                   />
                 </div>
               </form>

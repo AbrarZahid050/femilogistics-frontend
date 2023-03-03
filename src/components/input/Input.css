@@ -96,3 +96,7 @@ input:focus {
   right: 15px;
   cursor: pointer;
 }
+
+.error {
+  border: 1.5px solid #ff2020;
+}

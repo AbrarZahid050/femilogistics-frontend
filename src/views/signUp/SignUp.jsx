@@ -19,7 +19,11 @@ const SignUp = () => {
     Re_enterPassword: "",
   });
 
-  console.log(values);
+  const [error, setError] = useState({
+    email: "",
+    password: "",
+    re_enterPassword: "",
+  });
 
   //this handler function will run with the onChange event in the input fields.
   const inputChangeHandler = (event) => {
@@ -31,30 +35,65 @@ const SignUp = () => {
   //this handler function will run with the onClick event from register button.
   const handlerSignup = () => {
     //condition for checking if the required input fields are empty or not.
-    if (
-      values.Email === "" ||
-      values.Password === "" ||
-      values.Re_enterPassword === ""
-    ) {
-      alert("please enter all the values...");
+    if (values.Email === "") {
+      setError({
+        ...error,
+        email: "Please enter the email.",
+        password: "",
+        re_enterPassword: "",
+      });
       return;
     }
 
     //condition for checking the email validation.
     if (validateEmail(values.Email) === null) {
-      alert("please enter a valid email...");
+      setError({
+        ...error,
+        email: "Please enter a valid email...",
+        password: "",
+        re_enterPassword: "",
+      });
+      return;
+    }
+
+    if (values.Password === "") {
+      setError({
+        ...error,
+        password: "Please enter the password.",
+        email: "",
+        re_enterPassword: "",
+      });
+      return;
+    }
+
+    if (values.Re_enterPassword === "") {
+      setError({
+        ...error,
+        re_enterPassword: "Please re-enter the password.",
+        email: "",
+        password: "",
+      });
       return;
     }
 
     if (values.Re_enterPassword !== values.Password) {
-      alert("Confirm Password does not match!");
+      setError({
+        ...error,
+        re_enterPassword: "Please re-enter the same password.",
+        email: "",
+        password: "",
+      });
       return;
     }
 
-    // let newUser = {
-    //   email: values.Email,
-    //   password: values.Password,
-    // };
+    setError({ ...error, email: "", password: "", re_enterPassword: "" });
+
+    let newUser = {
+      email: values.Email,
+      password: values.Password,
+    };
+
+    console.log(newUser);
 
     //Asychornous func for posting the request to server for user registration.
     const dataFetchingFunction = async () => {
@@ -114,18 +153,21 @@ const SignUp = () => {
                   <Input
                     placeHolder="Email"
                     changeHandler={inputChangeHandler}
+                    error={error.email}
                   />
                 </div>
                 <div className="signUp-card-form-container">
                   <Input
                     placeHolder="Password"
                     changeHandler={inputChangeHandler}
+                    error={error.password}
                   />
                 </div>
                 <div className="signUp-card-form-container">
                   <Input
                     placeHolder="Re-enter Password"
                     changeHandler={inputChangeHandler}
+                    error={error.re_enterPassword}
                   />
                 </div>
               </form>

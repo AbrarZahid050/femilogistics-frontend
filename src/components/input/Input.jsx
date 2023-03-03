@@ -2,12 +2,14 @@ import { useState } from "react";
 
 import "./Input.css";
 
+import { Box } from "@mui/system";
+
 import emailPic from "../../assets/signUp/mail.png";
 import passPic from "../../assets/signUp/pass.png";
 import eyeOn from "../../assets/signUp/Eye On.png";
 import eyeOff from "../../assets/signUp/Eye Off.png";
 
-const CustomInput = ({ placeHolder, changeHandler }) => {
+const CustomInput = ({ placeHolder, changeHandler, error }) => {
   const [display, setDisplay] = useState(true);
 
   // return (
@@ -62,21 +64,25 @@ const CustomInput = ({ placeHolder, changeHandler }) => {
         <div className="image-container">
           <img src={emailPic} className="input-pic" />
           <input
+            className={error && "error"}
             placeholder={placeHolder}
             type="text"
             name={placeHolder}
             onChange={changeHandler}
           />
+          {error && <Box sx={{ color: "red" }}>{error}</Box>}
         </div>
       ) : (
         <div className="image-container">
           <img src={passPic} className="input-pic" />
           <input
+            className={error && "error"}
             placeholder={placeHolder}
             type={display ? "password" : "text"}
             onChange={changeHandler}
             name={placeHolder.replace(" ", "").replace("-", "_")}
           />
+          {error && <Box sx={{ color: "red" }}>{error}</Box>}
           <img
             src={display ? eyeOff : eyeOn}
             className="input-pic-end"
