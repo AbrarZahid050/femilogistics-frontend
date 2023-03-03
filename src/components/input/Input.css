@@ -83,6 +83,7 @@ input:focus {
   position: absolute;
   top: 15px;
   left: 15px;
+  object-fit: contain;
 }
 
 .image-container > input {
@@ -95,6 +96,7 @@ input:focus {
   top: 15px;
   right: 15px;
   cursor: pointer;
+  object-fit: contain;
 }
 
 .error {
