@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axiosInstance from "../../../components/Axios/axiosInstance";
 
 import emailPic from "../../../assets/signUp/mail.png";
-import pwdPic from "../../../assets/signUp/pass.png";
-import eyeOff from "../../../assets/signUp/Eye Off.png";
-import eyeOn from "../../../assets/signUp/Eye On.png";
 
 import classes from "./forgotPwd.module.css";
 
@@ -18,7 +16,7 @@ const ForgotPwd = () => {
   });
 
   const [serverErrMsg, setServerErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
 
   const inputChangeHandler = (event) => {
     let key = event.target.name; //value is an object, and to enter the target.value in appropriate key
@@ -58,15 +56,16 @@ const ForgotPwd = () => {
 
     //Asychornous func for posting the request to server for user registration.
     const dataFetchingFunction = async () => {
-      // try {
-      //   let response = await axiosInstance.post("/api/register", newUser);
-      //   console.log(response.data.message);
-      // let JWTDecodedToken = jwt_decode(response.data.access_token);
-      // console.log(JWTDecodedToken);
-      // navigate({ pathname: "/login" });
-      // } catch (err) {
-      //   console.log(err);
-      // }
+      try {
+        let response = await axiosInstance.post("/api/register", newUser);
+        console.log(response.data.message);
+        // let JWTDecodedToken = jwt_decode(response.data.access_token);
+        // console.log(JWTDecodedToken);
+        // navigate({ pathname: "/login" });
+      } catch (err) {
+        console.log(err);
+        setServerErrMsg(err.message);
+      }
     };
 
     dataFetchingFunction(); //calling the Asychoronous func defined above.
@@ -107,7 +106,7 @@ const ForgotPwd = () => {
 
             {/* email input */}
             <div className={classes.inputContainer}>
-              <img className={classes.inputPic} src={emailPic} />
+              <img className={classes.inputPic} src={emailPic} alt="" />
               <input
                 className={error.email ? classes.error : classes.inputField}
                 placeholder="Email"

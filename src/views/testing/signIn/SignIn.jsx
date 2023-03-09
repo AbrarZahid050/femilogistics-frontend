@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axiosInstance from "../../../components/Axios/axiosInstance";
 
 import emailPic from "../../../assets/signUp/mail.png";
 import pwdPic from "../../../assets/signUp/pass.png";
@@ -66,23 +67,23 @@ const SignIn = () => {
     setError({ ...error, email: "", password: "" });
 
     let newUser = {
-      email: values.Email,
-      password: values.Password,
+      email: "arsalanahmad@gmail.com",
+      password: "Xavor0011003",
     };
 
-    console.log(newUser);
+    // console.log(newUser);
 
     //Asychornous func for posting the request to server for user registration.
     const dataFetchingFunction = async () => {
-      // try {
-      //   let response = await axiosInstance.post("/api/register", newUser);
-      //   console.log(response.data.message);
-      // let JWTDecodedToken = jwt_decode(response.data.access_token);
-      // console.log(JWTDecodedToken);
-      // navigate({ pathname: "/login" });
-      // } catch (err) {
-      //   console.log(err);
-      // }
+      try {
+        let response = await axiosInstance.post("api/v1/signup", newUser);
+        console.log(response.data.message);
+        // let JWTDecodedToken = jwt_decode(response.data.access_token);
+        // console.log(JWTDecodedToken);
+        // navigate({ pathname: "/login" });
+      } catch (err) {
+        setServerErrMsg(err.message);
+      }
     };
 
     dataFetchingFunction(); //calling the Asychoronous func defined above.
@@ -123,7 +124,7 @@ const SignIn = () => {
 
             {/* email input */}
             <div className={classes.inputContainer}>
-              <img className={classes.inputPic} src={emailPic} />
+              <img className={classes.inputPic} src={emailPic} alt="" />
               <input
                 className={error.email ? classes.error : classes.inputField}
                 placeholder="Email"
@@ -141,7 +142,7 @@ const SignIn = () => {
 
             {/* input for pwd */}
             <div className={classes.inputContainer}>
-              <img className={classes.inputPic} src={pwdPic} />
+              <img className={classes.inputPic} src={pwdPic} alt="" />
               <input
                 className={error.password ? classes.error : classes.inputField}
                 placeholder="Password"
@@ -153,6 +154,7 @@ const SignIn = () => {
               <img
                 className={classes.inputPicEnd}
                 src={display1 ? eyeOn : eyeOff}
+                alt=""
                 onClick={() => {
                   setDisplay1((preVal) => !preVal);
                 }}
