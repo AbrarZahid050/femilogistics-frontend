@@ -1,31 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@400;700&display=swap");
 
-/* Color templates:*/
-
-.Deep-color {
-  background-color: #282842;
-}
-.Magneta-color {
-  color: #a80382;
-}
-.PlaceholderText-color {
-  color: #989fae;
-}
-.Stroke-color {
-  color: #f9f9f9f9;
-}
-.White-color {
-  color: #fff;
-}
-.LightBg-color {
-  color: #fafafa;
-}
-.Yellow-color {
-  color: #fed13a;
-}
-.Red-color {
-  color: #ff2020;
-}
-.primary-color {
-  color: #0062ff;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
