@@ -10,11 +10,9 @@ const ForgotPwd = () => {
   const [values, setValues] = useState({
     Email: "",
   });
-
   const [error, setError] = useState({
     email: "",
   });
-
   const [serverErrMsg, setServerErrMsg] = useState("");
   // const [success, setSuccess] = useState(false);
 
@@ -27,7 +25,7 @@ const ForgotPwd = () => {
   //this handler function will run with the onClick event from register button.
   const handlerSignup = (event) => {
     event.preventDefault();
-    console.log(values);
+
     //condition for checking if the required input fields are empty or not.
     if (values.Email === "") {
       setError({
@@ -51,8 +49,6 @@ const ForgotPwd = () => {
     let newUser = {
       email: values.Email,
     };
-
-    console.log(newUser);
 
     //Asychornous func for posting the request to server for user registration.
     const dataFetchingFunction = async () => {

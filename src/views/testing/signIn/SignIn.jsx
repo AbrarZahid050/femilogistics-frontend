@@ -11,17 +11,14 @@ import classes from "./signIn.module.css";
 
 const SignIn = () => {
   const [display1, setDisplay1] = useState(false);
-
   const [values, setValues] = useState({
     Email: "",
     Password: "",
   });
-
   const [error, setError] = useState({
     email: "",
     password: "",
   });
-
   const [serverErrMsg, setServerErrMsg] = useState("");
   //   const [success, setSuccess] = useState(false);
 
@@ -34,7 +31,7 @@ const SignIn = () => {
   //this handler function will run with the onClick event from register button.
   const handlerSignup = (event) => {
     event.preventDefault();
-    console.log(values);
+
     //condition for checking if the required input fields are empty or not.
     if (values.Email === "") {
       setError({
@@ -70,8 +67,6 @@ const SignIn = () => {
       email: "arsalanahmad@gmail.com",
       password: "Xavor0011003",
     };
-
-    // console.log(newUser);
 
     //Asychornous func for posting the request to server for user registration.
     const dataFetchingFunction = async () => {
