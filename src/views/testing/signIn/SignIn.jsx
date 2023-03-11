@@ -1,15 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import axiosInstance from "../../../components/Axios/axiosInstance";
+// import useAuth from "../../../hooks/useAuth";
+import classes from "./signIn.module.css";
 
 import emailPic from "../../../assets/signUp/mail.png";
 import pwdPic from "../../../assets/signUp/pass.png";
 import eyeOff from "../../../assets/signUp/Eye Off.png";
 import eyeOn from "../../../assets/signUp/Eye On.png";
 
-import classes from "./signIn.module.css";
-
 const SignIn = () => {
+  // const { auth, setAuth } = useAuth();
+
+  // const navigate = useNavigate();
+
   const [display1, setDisplay1] = useState(false);
   const [values, setValues] = useState({
     Email: "",
@@ -20,19 +26,26 @@ const SignIn = () => {
     password: "",
   });
   const [serverErrMsg, setServerErrMsg] = useState("");
-  //   const [success, setSuccess] = useState(false);
 
+  //* fn to handle onChange attr of input fields.
   const inputChangeHandler = (event) => {
-    let key = event.target.name; //value is an object, and to enter the target.value in appropriate key
+    let key = event.target.name;
     let value = event.target.value;
-    setValues({ ...values, [key]: value }); //setting the values from input fields to state hook.
+    setValues({ ...values, [key]: value });
   };
 
-  //this handler function will run with the onClick event from register button.
+  //* fn to show toast message.
+  const showToastMessage = (txt) => {
+    toast.success(txt, {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  };
+
+  //* fn will run upon submition of the form.
   const handlerSignup = (event) => {
     event.preventDefault();
 
-    //condition for checking if the required input fields are empty or not.
+    //condition for checking if the email field is empty & setting the error.
     if (values.Email === "") {
       setError({
         ...error,
@@ -42,7 +55,7 @@ const SignIn = () => {
       return;
     }
 
-    //condition for checking the email validation.
+    //condition for checking the email validation & setting the error.
     if (validateEmail(values.Email) === null) {
       setError({
         ...error,
@@ -52,6 +65,7 @@ const SignIn = () => {
       return;
     }
 
+    //condition for checking if the pwd field is empty & setting error.
     if (values.Password === "") {
       setError({
         ...error,
@@ -61,30 +75,43 @@ const SignIn = () => {
       return;
     }
 
+    //just to be sure!
     setError({ ...error, email: "", password: "" });
 
     let newUser = {
-      email: "arsalanahmad@gmail.com",
-      password: "Xavor0011003",
+      email: values.Email,
+      password: values.Password,
     };
 
-    //Asychornous func for posting the request to server for user registration.
-    const dataFetchingFunction = async () => {
+    const payload = JSON.stringify(newUser);
+    console.log(payload);
+
+    // setAuth({ user: newUser.email, pwd: newUser.password });
+    // navigate({ pathname: "/testroute" });
+
+    // Asychornous func for posting the request to server for user registration.
+    const signInAPIHandler = async () => {
       try {
-        let response = await axiosInstance.post("api/v1/signup", newUser);
-        console.log(response.data.message);
+        let response = await axiosInstance.post("api/vi/sigin/", payload);
+
+        console.log(response);
+        showToastMessage("User registered successfully!");
         // let JWTDecodedToken = jwt_decode(response.data.access_token);
         // console.log(JWTDecodedToken);
         // navigate({ pathname: "/login" });
       } catch (err) {
+        console.log(err);
         setServerErrMsg(err.message);
+        setTimeout(() => {
+          setServerErrMsg("");
+        }, 5000);
       }
     };
 
-    dataFetchingFunction(); //calling the Asychoronous func defined above.
+    signInAPIHandler(); //calling the Asychoronous func defined above.
   };
 
-  //email validation function.
+  //* fn for email validation.
   const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
