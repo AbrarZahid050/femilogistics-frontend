@@ -20,11 +20,10 @@ function App() {
           {/* public routes */}
           <Route path="/" element={<SignIn />} />
           <Route path="forgotpassword" element={<ForgotPwd />} />
+          <Route path="dashboard" element={<Dashboard />} />
 
           {/* protected routes */}
-          <Route element={<RequireAuth />}>
-            <Route path="dashboard" element={<Dashboard />} />
-          </Route>
+          <Route element={<RequireAuth />}></Route>
 
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Route>
