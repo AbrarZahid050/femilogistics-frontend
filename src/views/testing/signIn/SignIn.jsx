@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import jwt_decode from "jwt-decode";
+import Cookie from "js-cookie";
 
 import axiosInstance from "../../../components/Axios/axiosInstance";
-// import useAuth from "../../../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
 import classes from "./signIn.module.css";
 
 import emailPic from "../../../assets/signUp/mail.png";
@@ -12,9 +14,8 @@ import eyeOff from "../../../assets/signUp/Eye Off.png";
 import eyeOn from "../../../assets/signUp/Eye On.png";
 
 const SignIn = () => {
-  // const { auth, setAuth } = useAuth();
-
-  // const navigate = useNavigate();
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
 
   const [display1, setDisplay1] = useState(false);
   const [values, setValues] = useState({
@@ -34,7 +35,7 @@ const SignIn = () => {
     setValues({ ...values, [key]: value });
   };
 
-  //* fn to show toast message.
+  //* fn to show toastify message. for temporary testing purposes.
   const showToastMessage = (txt) => {
     toast.success(txt, {
       position: toast.POSITION.TOP_RIGHT,
@@ -86,19 +87,20 @@ const SignIn = () => {
     const payload = JSON.stringify(newUser);
     console.log(payload);
 
-    // setAuth({ user: newUser.email, pwd: newUser.password });
-    // navigate({ pathname: "/testroute" });
-
     // Asychornous func for posting the request to server for user registration.
     const signInAPIHandler = async () => {
       try {
-        let response = await axiosInstance.post("api/vi/sigin/", payload);
-
+        let response = await axiosInstance.post("api/v1/login/", payload);
         console.log(response);
-        showToastMessage("User registered successfully!");
-        // let JWTDecodedToken = jwt_decode(response.data.access_token);
-        // console.log(JWTDecodedToken);
-        // navigate({ pathname: "/login" });
+        showToastMessage("successfully!"); //this command is only for testing purpose, it will be removed once the app is in final production stage.
+        let JWTDecodedToken = jwt_decode(response.data.token[0]);
+        Cookie.set("accessToken", response.data.token[0], {
+          sameSite: "strict",
+          expires: 1,
+        });
+        setAuth(JWTDecodedToken.email);
+
+        navigate({ pathname: "/dashboard" });
       } catch (err) {
         console.log(err);
         setServerErrMsg(err.message);
@@ -197,13 +199,13 @@ const SignIn = () => {
           </form>
 
           {/* already-signedIn */}
-          <p className={classes.bottomText}>
+          {/* <p className={classes.bottomText}>
             Don't have an account?
             <Link className={classes.linkText} to="/signUp">
               {" "}
               Sign Up
             </Link>
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

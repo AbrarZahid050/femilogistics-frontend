@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axiosInstance from "../../../components/Axios/axiosInstance";
+// import axiosInstance from "../../../components/Axios/axiosInstance";
 
 import emailPic from "../../../assets/signUp/mail.png";
 
@@ -14,19 +14,19 @@ const ForgotPwd = () => {
     email: "",
   });
   const [serverErrMsg, setServerErrMsg] = useState("");
-  // const [success, setSuccess] = useState(false);
 
+  //* fn to handle onChange attr of input fields.
   const inputChangeHandler = (event) => {
-    let key = event.target.name; //value is an object, and to enter the target.value in appropriate key
+    let key = event.target.name;
     let value = event.target.value;
-    setValues({ ...values, [key]: value }); //setting the values from input fields to state hook.
+    setValues({ ...values, [key]: value });
   };
 
-  //this handler function will run with the onClick event from register button.
+  //* fn will run upon submition of the form.
   const handlerSignup = (event) => {
     event.preventDefault();
 
-    //condition for checking if the required input fields are empty or not.
+    //condition for checking if the required input field is empty or not.
     if (values.Email === "") {
       setError({
         ...error,
@@ -50,11 +50,12 @@ const ForgotPwd = () => {
       email: values.Email,
     };
 
-    //Asychornous func for posting the request to server for user registration.
+    console.log(newUser); //for testing puposes only.
+
+    //Asychornous func for posting the request to server.
     const dataFetchingFunction = async () => {
       try {
-        let response = await axiosInstance.post("/api/register", newUser);
-        console.log(response.data.message);
+        // let response = await axiosInstance.post("/forgotpwd", newUser);
         // let JWTDecodedToken = jwt_decode(response.data.access_token);
         // console.log(JWTDecodedToken);
         // navigate({ pathname: "/login" });
