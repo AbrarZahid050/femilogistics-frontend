@@ -1,0 +1,89 @@
+.main-navbar-container {
+  background: #ffffff;
+  box-shadow: inset 0px -1px 0px #e2e2ea;
+  /* height: 9vh; */
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+.navbar-wrapper-left {
+  display: flex;
+  align-items: center;
+  min-width: 94%;
+}
+
+.left-name-wrapper {
+  min-width: 19.4%;
+}
+.left-name-wrapper > h2 {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  color: #44444f;
+}
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.new-order-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.new-order-wrapper > img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.new-order-wrapper > p {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.1px;
+  color: #282842;
+}
+.search-icon {
+  width: 18, 5px;
+  height: 18.5px;
+  cursor: pointer;
+}
+.navbar-wrapper-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.bell-icon-image {
+  width: 18px;
+  height: 19.5px;
+  cursor: pointer;
+}
+.avatar-image {
+  border-radius: 100px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1400px) {
+  .navbar-wrapper-left {
+    display: flex;
+    align-items: center;
+    min-width: 92%;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .navbar-wrapper-left {
+    display: flex;
+    align-items: center;
+    min-width: 90%;
+  }
+}

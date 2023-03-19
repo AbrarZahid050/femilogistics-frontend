@@ -1,17 +1,17 @@
+import Cookie from "js-cookie";
+import jwt_decode from "jwt-decode";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import jwt_decode from "jwt-decode";
-import Cookie from "js-cookie";
 
-import axiosInstance from "../../../components/Axios/axiosInstance";
-import useAuth from "../../../hooks/useAuth";
+import axiosInstance from "../../components/Axios/axiosInstance";
+import useAuth from "../../hooks/useAuth";
 import classes from "./signIn.module.css";
 
-import emailPic from "../../../assets/signUp/mail.png";
-import pwdPic from "../../../assets/signUp/pass.png";
-import eyeOff from "../../../assets/signUp/Eye Off.png";
-import eyeOn from "../../../assets/signUp/Eye On.png";
+import eyeOff from "../../assets/SignupImages/Eye Off.png";
+import eyeOn from "../../assets/SignupImages/Eye On.png";
+import emailPic from "../../assets/SignupImages/mail.png";
+import pwdPic from "../../assets/SignupImages/pass.png";
 
 const SignIn = () => {
   const { setAuth } = useAuth();

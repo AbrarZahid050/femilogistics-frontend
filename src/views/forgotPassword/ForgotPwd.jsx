@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 // import axiosInstance from "../../../components/Axios/axiosInstance";
 
-import emailPic from "../../../assets/signUp/mail.png";
+import emailPic from "../../assets/SignupImages/mail.png";
 
 import classes from "./forgotPwd.module.css";
 
