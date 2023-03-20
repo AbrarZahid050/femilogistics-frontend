@@ -1,6 +1,6 @@
-import { createContext, useState } from "react";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
+import { createContext, useState } from "react";
 
 const AuthContext = createContext({});
 
@@ -10,11 +10,7 @@ export const AuthProvider = ({ children }) => {
   if (accessToken) {
     user = jwtDecode(accessToken);
   }
-
   const [auth, setAuth] = useState(user ? user.email : {});
-
-  console.log(auth);
-
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {children}

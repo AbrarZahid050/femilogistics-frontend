@@ -6,13 +6,13 @@ import {
   TableHead,
   TableRow
 } from "@mui/material";
+import { nanoid } from '@reduxjs/toolkit';
 import React, { useState } from "react";
 import divider from "../../../assets/DashboardImages/divider.svg";
 import download_icon from "../../../assets/DashboardImages/download_icon.svg";
 import dropdown_arrow from "../../../assets/DashboardImages/dropdown_arrow.svg";
 import { LoadsListTableData } from "../MockData";
 import "../style.css";
-
 const LoadsListTable = () => {
   const [isDropdown, setIsDropdown] = useState(false);
   const dropdownList = ["All Loads", "Cancelled", "Delivered", "In Transit"];
@@ -49,19 +49,19 @@ const LoadsListTable = () => {
                 <img
                   src={dropdown_arrow}
                   alt="error"
-                  className={isDropdown && "dropdown-arrow-reverse"}
+                  className={isDropdown ? "dropdown-arrow-reverse" : undefined}
                 />
               </div>
-              {isDropdown && (
+              {isDropdown ? (
                 <div className="dropdown-list-container">
                   {dropdownList.map((e) => (
-                    <div className="dropdown-list-text">
+                    <div className="dropdown-list-text"  key={nanoid()}>
                       <input type="checkbox" />
                       <p>{e}</p>
                     </div>
                   ))}
                 </div>
-              )}
+              ) : undefined}
             </div>
             <div className="loads-list-download-container">
               <img src={download_icon} alt="" />
@@ -73,7 +73,7 @@ const LoadsListTable = () => {
             <TableHead>
               <TableRow style={{ background: "#F9FAFB" }}>
                 {LoadsListTableHeaderData.map((e) => (
-                  <TableCell align="left">
+                  <TableCell align="left" key={nanoid()}>
                     <p className="loads-list-table-header-text">{e}</p>
                   </TableCell>
                 ))}
@@ -81,7 +81,7 @@ const LoadsListTable = () => {
             </TableHead>
             <TableBody>
               {LoadsListTableData.map((e) => (
-                <TableRow>
+                <TableRow key={nanoid()}> 
                   <TableCell
                     align="left"
                     className="loads-list-table-data-text"
@@ -95,7 +95,7 @@ const LoadsListTable = () => {
                     <div
                       className="list-dropdown-header-wrapper"
                     >
-                      <p className={e.Status == "Cancelled" ? "list-dropdown-text-cancelled":"list-dropdown-text-delivered"}>{e.Status}</p>
+                      <p className={e.Status === "Cancelled" ? "list-dropdown-text-cancelled":"list-dropdown-text-delivered"}>{e.Status}</p>
                       <img
                         src={dropdown_arrow}
                         alt="error"

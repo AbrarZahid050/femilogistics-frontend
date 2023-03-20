@@ -1,3 +1,4 @@
+import { nanoid } from '@reduxjs/toolkit';
 import React from "react";
 import {
   Area,
@@ -10,7 +11,6 @@ import {
 } from "recharts";
 import { dataRaw } from "../MockData";
 import "../style.css";
-
 const LoadsGraph = () => {
   const [tabId, setTabId] = React.useState("Monthly");
   const tabs = ["Weekly", "Monthly", "Yearly"];
@@ -23,7 +23,8 @@ const LoadsGraph = () => {
           <div className="tabs-container">
             {tabs.map((e) => (
               <div
-                className={tabId == e ? "tab-text-active" : "tab-text"}
+              key={nanoid()}
+                className={tabId === e ? "tab-text-active" : "tab-text"}
                 onClick={() => setTabId(e)}
               >
                 {e}

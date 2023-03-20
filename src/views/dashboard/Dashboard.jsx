@@ -1,4 +1,5 @@
 import { Grid } from "@mui/material";
+import { nanoid } from '@reduxjs/toolkit';
 import React from "react";
 import line_arrow from "../../assets/DashboardImages/line_arrow.svg";
 import Navbar from "../navbar/Navbar";
@@ -27,7 +28,7 @@ const Dashboard = () => {
 
           <Grid container style={{ padding: "6px 12px" }} spacing={2}>
             {loadsActivity.map((e) => (
-              <Grid item md={4} lg={2.4}>
+              <Grid item md={4} lg={2.4}  key={nanoid()}>
                 <div className="loads-main-wrapper">
                   <h2>{e.loadsText}</h2>
                   <div className="loads-main-container">
