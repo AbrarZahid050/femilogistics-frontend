@@ -1,14 +1,19 @@
+import { nanoid } from "@reduxjs/toolkit";
+
+//styling imports:
 import { Grid } from "@mui/material";
-import { nanoid } from '@reduxjs/toolkit';
-import React from "react";
+import "./style.css";
+
+//svg imports:
 import line_arrow from "../../assets/DashboardImages/line_arrow.svg";
 import Navbar from "../navbar/Navbar";
 import SideDrawer from "../sideDrawer/SideDrawer";
 import Graph from "./components/Graph";
 import LoadsListTable from "./components/LoadsListTable";
 import LoadsTransfer from "./components/LoadsTransfer";
+
+//data imports:
 import { loadsActivity } from "./MockData";
-import "./style.css";
 
 const Dashboard = () => {
   return (
@@ -28,7 +33,7 @@ const Dashboard = () => {
 
           <Grid container style={{ padding: "6px 12px" }} spacing={2}>
             {loadsActivity.map((e) => (
-              <Grid item md={4} lg={2.4}  key={nanoid()}>
+              <Grid item md={4} lg={2.4} key={nanoid()}>
                 <div className="loads-main-wrapper">
                   <h2>{e.loadsText}</h2>
                   <div className="loads-main-container">

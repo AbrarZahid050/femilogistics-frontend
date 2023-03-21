@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   if (accessToken) {
     user = jwtDecode(accessToken);
   }
-  const [auth, setAuth] = useState(user ? user.email : {});
+  const [auth, setAuth] = useState(user ? { user: user.email } : {});
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {children}

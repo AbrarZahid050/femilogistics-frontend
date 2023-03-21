@@ -2,7 +2,6 @@ import Cookie from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import axiosInstance from "../../components/Axios/axiosInstance";
 import useAuth from "../../hooks/useAuth";
@@ -33,13 +32,6 @@ const SignIn = () => {
     let key = event.target.name;
     let value = event.target.value;
     setValues({ ...values, [key]: value });
-  };
-
-  //* fn to show toastify message. for temporary testing purposes.
-  const showToastMessage = (txt) => {
-    toast.success(txt, {
-      position: toast.POSITION.TOP_RIGHT,
-    });
   };
 
   //* fn will run upon submition of the form.
@@ -85,21 +77,17 @@ const SignIn = () => {
     };
 
     const payload = JSON.stringify(newUser);
-    console.log(payload);
 
     // Asychornous func for posting the request to server for user registration.
     const signInAPIHandler = async () => {
       try {
         let response = await axiosInstance.post("api/v1/login/", payload);
-        console.log(response);
-        showToastMessage("successfully!"); //this command is only for testing purpose, it will be removed once the app is in final production stage.
         let JWTDecodedToken = jwt_decode(response.data.token[0]);
         Cookie.set("accessToken", response.data.token[0], {
           sameSite: "strict",
           expires: 1,
         });
-        setAuth(JWTDecodedToken.email);
-
+        setAuth({ user: JWTDecodedToken.email });
         navigate({ pathname: "/dashboard" });
       } catch (err) {
         console.log(err);

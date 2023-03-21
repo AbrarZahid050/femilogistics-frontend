@@ -1,18 +1,25 @@
+import { useState } from "react";
+import { nanoid } from "@reduxjs/toolkit";
+
+//styling imports:
 import {
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
-  TableRow
+  TableRow,
 } from "@mui/material";
-import { nanoid } from '@reduxjs/toolkit';
-import React, { useState } from "react";
+import "../style.css";
+
+//svg imports:
 import divider from "../../../assets/DashboardImages/divider.svg";
 import download_icon from "../../../assets/DashboardImages/download_icon.svg";
 import dropdown_arrow from "../../../assets/DashboardImages/dropdown_arrow.svg";
+
+//data import:
 import { LoadsListTableData } from "../MockData";
-import "../style.css";
+
 const LoadsListTable = () => {
   const [isDropdown, setIsDropdown] = useState(false);
   const dropdownList = ["All Loads", "Cancelled", "Delivered", "In Transit"];
@@ -55,7 +62,7 @@ const LoadsListTable = () => {
               {isDropdown ? (
                 <div className="dropdown-list-container">
                   {dropdownList.map((e) => (
-                    <div className="dropdown-list-text"  key={nanoid()}>
+                    <div className="dropdown-list-text" key={nanoid()}>
                       <input type="checkbox" />
                       <p>{e}</p>
                     </div>
@@ -81,7 +88,7 @@ const LoadsListTable = () => {
             </TableHead>
             <TableBody>
               {LoadsListTableData.map((e) => (
-                <TableRow key={nanoid()}> 
+                <TableRow key={nanoid()}>
                   <TableCell
                     align="left"
                     className="loads-list-table-data-text"
@@ -92,14 +99,17 @@ const LoadsListTable = () => {
                     align="left"
                     className="loads-list-table-data-text"
                   >
-                    <div
-                      className="list-dropdown-header-wrapper"
-                    >
-                      <p className={e.Status === "Cancelled" ? "list-dropdown-text-cancelled":"list-dropdown-text-delivered"}>{e.Status}</p>
-                      <img
-                        src={dropdown_arrow}
-                        alt="error"
-                      />
+                    <div className="list-dropdown-header-wrapper">
+                      <p
+                        className={
+                          e.Status === "Cancelled"
+                            ? "list-dropdown-text-cancelled"
+                            : "list-dropdown-text-delivered"
+                        }
+                      >
+                        {e.Status}
+                      </p>
+                      <img src={dropdown_arrow} alt="error" />
                     </div>
                   </TableCell>
                   <TableCell
@@ -178,13 +188,13 @@ const LoadsListTable = () => {
                     align="left"
                     className="loads-list-table-data-text"
                   >
-                    <p>{e.owner}</p>
+                    <p>{e.owner1}</p>
                   </TableCell>
                   <TableCell
                     align="left"
                     className="loads-list-table-data-text"
                   >
-                    <p>{e.owner}</p>
+                    <p>{e.owner2}</p>
                   </TableCell>
                 </TableRow>
               ))}

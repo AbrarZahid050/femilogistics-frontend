@@ -1,12 +1,17 @@
-import { nanoid } from '@reduxjs/toolkit';
-import React, { useState } from "react";
+import { useState } from "react";
+import { nanoid } from "@reduxjs/toolkit";
+
+//styling imports:
+import "./style.css";
+
+//svg imports:
 import carrier from "../../assets/SideDrawerImages/carrier.svg";
 import customer from "../../assets/SideDrawerImages/customer.svg";
 import loads from "../../assets/SideDrawerImages/loads.svg";
 import loads_arrow from "../../assets/SideDrawerImages/loads_arrow.svg";
 import overview from "../../assets/SideDrawerImages/overview.svg";
 import user from "../../assets/SideDrawerImages/user.svg";
-import "./style.css";
+
 const SideDrawer = () => {
   const [isLoadsArrow, setIsLoadsArrow] = useState(false);
   const sideDrawerLisnk = [
@@ -31,13 +36,14 @@ const SideDrawer = () => {
       link_text: "Loads",
     },
   ];
+
   return (
     <div className="main-side-drawer-wrapper">
       <h2>Main</h2>
       <div className="side-drawer-wrapper">
         {sideDrawerLisnk.map((e) => (
           <div
-          key={nanoid()}
+            key={nanoid()}
             className="link-wrapper"
             onClick={() => {
               e.link_text === "Loads" && setIsLoadsArrow(!isLoadsArrow);

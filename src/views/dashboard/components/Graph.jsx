@@ -1,5 +1,7 @@
-import { nanoid } from '@reduxjs/toolkit';
-import React from "react";
+import { useState } from "react";
+import { nanoid } from "@reduxjs/toolkit";
+
+//chart library:
 import {
   Area,
   AreaChart,
@@ -7,13 +9,19 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
-  YAxis
+  YAxis,
 } from "recharts";
-import { dataRaw } from "../MockData";
+
+//styling imports:
 import "../style.css";
+
+//data imports:
+import { dataRaw } from "../MockData";
+
 const LoadsGraph = () => {
-  const [tabId, setTabId] = React.useState("Monthly");
+  const [tabId, setTabId] = useState("Monthly");
   const tabs = ["Weekly", "Monthly", "Yearly"];
+
   return (
     <>
       <div className="graph-container">
@@ -23,7 +31,7 @@ const LoadsGraph = () => {
           <div className="tabs-container">
             {tabs.map((e) => (
               <div
-              key={nanoid()}
+                key={nanoid()}
                 className={tabId === e ? "tab-text-active" : "tab-text"}
                 onClick={() => setTabId(e)}
               >

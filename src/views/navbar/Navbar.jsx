@@ -1,9 +1,12 @@
-import React from "react";
+//styling imports:
+import "./style.css";
+
+//svg imports:
 import avatar from "../../assets/NavbarImages/avatar.jpg";
 import bell_icon from "../../assets/NavbarImages/bell_icon.svg";
 import plus_order from "../../assets/NavbarImages/plus_order.svg";
 import search from "../../assets/NavbarImages/search.svg";
-import "./style.css";
+
 const Navbar = () => {
   return (
     <div className="main-navbar-container">

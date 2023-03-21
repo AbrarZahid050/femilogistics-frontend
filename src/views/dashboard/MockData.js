@@ -14,8 +14,8 @@ export const LoadsListTableData = [
     commodity: "aliquet",
     mileage: "lorem",
     owner: "Admin",
-    owner: "Admin",
-    owner: "sodales",
+    owner1: "Admin",
+    owner2: "sodales",
   },
   {
     Load: "Haevy 203",
@@ -32,8 +32,8 @@ export const LoadsListTableData = [
     commodity: "Admin",
     mileage: "Admin",
     owner: "Admin",
-    owner: "Admin",
-    owner: "suspendisse",
+    owner1: "Admin",
+    owner2: "suspendisse",
   },
   {
     Load: "Some loads",
@@ -50,8 +50,8 @@ export const LoadsListTableData = [
     commodity: "Admin",
     mileage: "lorem",
     owner: "Admin",
-    owner: "Admin",
-    owner: "accumsan",
+    owner1: "Admin",
+    owner2: "accumsan",
   },
   {
     Load: "Haevy 203",
@@ -68,8 +68,8 @@ export const LoadsListTableData = [
     commodity: "Admin",
     mileage: "Admin",
     owner: "Admin",
-    owner: "Admin",
-    owner: "suspendisse",
+    owner1: "Admin",
+    owner2: "suspendisse",
   },
   {
     Load: "Some loads",
@@ -86,8 +86,8 @@ export const LoadsListTableData = [
     commodity: "Admin",
     mileage: "lorem",
     owner: "Admin",
-    owner: "Admin",
-    owner: "accumsan",
+    owner1: "Admin",
+    owner2: "accumsan",
   },
   {
     Load: "Haevy 203",
@@ -104,8 +104,8 @@ export const LoadsListTableData = [
     commodity: "Admin",
     mileage: "Admin",
     owner: "Admin",
-    owner: "Admin",
-    owner: "suspendisse",
+    owner1: "Admin",
+    owner2: "suspendisse",
   },
   {
     Load: "Some loads",
@@ -122,8 +122,8 @@ export const LoadsListTableData = [
     commodity: "Admin",
     mileage: "lorem",
     owner: "Admin",
-    owner: "Admin",
-    owner: "accumsan",
+    owner1: "Admin",
+    owner2: "accumsan",
   },
 ];
 

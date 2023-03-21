@@ -1,13 +1,17 @@
-import Chart from "chart.js/auto";
-import React from "react";
+//styling imports:
 import { Doughnut } from "react-chartjs-2";
+import { Chart, ArcElement } from "chart.js";
+import "../style.css";
+
+//svg imports:
 import arrow_left from "../../../assets/DashboardImages/arrow_left.svg";
 import arrow_right from "../../../assets/DashboardImages/arrow_right.svg";
 import blue from "../../../assets/DashboardImages/blue.svg";
 import green from "../../../assets/DashboardImages/green.svg";
 import orange from "../../../assets/DashboardImages/orange.svg";
 import yellow from "../../../assets/DashboardImages/yellow.svg";
-import "../style.css";
+
+Chart.register(ArcElement);
 
 const LoadsTransfer = () => {
   const data = {
@@ -24,7 +28,7 @@ const LoadsTransfer = () => {
       },
     ],
   };
-  
+
   const options = {
     cutout: 84,
     aspectRatio: 1,

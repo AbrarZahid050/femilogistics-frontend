@@ -50,7 +50,7 @@ const ForgotPwd = () => {
       email: values.Email,
     };
 
-    console.log(newUser); //for testing puposes only.
+    console.log(newUser); //for testing purposes only.
 
     //Asychornous func for posting the request to server.
     const dataFetchingFunction = async () => {
