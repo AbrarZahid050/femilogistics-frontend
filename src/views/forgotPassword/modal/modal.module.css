@@ -1,0 +1,140 @@
+.inputContainer {
+  position: relative;
+}
+
+.inputContainer .inputPic {
+  position: absolute;
+  top: 13px;
+  left: 15px;
+}
+
+.inputField {
+  box-sizing: border-box;
+  padding-left: 45px;
+  padding-right: 45px;
+  height: 50px;
+  width: 100%;
+  background: #fafafa;
+  border: 0.5px solid #e4e4e4;
+  box-shadow: inset 0px 1px 1px rgba(16, 32, 89, 0.12);
+  border-radius: 5px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #6f758b;
+  margin-bottom: 1rem;
+}
+
+.inputContainer .inputPicEnd {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.errorText {
+  color: red;
+  width: 250px;
+}
+
+.error {
+  border: 1.5px solid #ff2020;
+}
+
+input:focus {
+  outline: none;
+  border: 1.5px solid #545dff;
+}
+
+::placeholder {
+  color: #6f758b;
+  font-size: 16px;
+}
+
+::-ms-input-placeholder {
+  color: #6f758b;
+}
+
+.codeInputContainer {
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.codeInputField {
+  height: 50px;
+  width: 50px;
+  background: #fafafa;
+  box-shadow: inset 0px 1px 1px rgba(16, 32, 89, 0.12);
+  border-radius: 5px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 24px;
+  color: #6f758b;
+  text-align: center;
+}
+
+.codeInputFieldBorder {
+  border: 0.5px solid #e4e4e4;
+}
+
+.codeInputDash {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 24px;
+  color: #6f758b;
+}
+
+.btn {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  background: #0062ff;
+  display: block;
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 2rem;
+}
+
+.errorText {
+  color: red;
+  width: 280px;
+}
+
+.serverErr {
+  background-color: #ec6c6c;
+  border: 1px solid red;
+  /* opacity: 0.5; */
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.serverErrTxt {
+  margin: 0 auto;
+  width: 250px;
+  color: white;
+}
+
+/* input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+/* input[type="number"] {
+  -moz-appearance: textfield;
+}  */

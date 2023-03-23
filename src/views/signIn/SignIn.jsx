@@ -1,12 +1,16 @@
-import Cookie from "js-cookie";
-import jwt_decode from "jwt-decode";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Cookie from "js-cookie";
+import jwt_decode from "jwt-decode";
 
+//custom imports
 import axiosInstance from "../../components/Axios/axiosInstance";
 import useAuth from "../../hooks/useAuth";
+
+//styling imports
 import classes from "./signIn.module.css";
 
+//pic imports
 import eyeOff from "../../assets/SignupImages/Eye Off.png";
 import eyeOn from "../../assets/SignupImages/Eye On.png";
 import emailPic from "../../assets/SignupImages/mail.png";
@@ -90,11 +94,9 @@ const SignIn = () => {
         setAuth({ user: JWTDecodedToken.email });
         navigate({ pathname: "/dashboard" });
       } catch (err) {
-        console.log(err);
-        setServerErrMsg(err.message);
-        setTimeout(() => {
-          setServerErrMsg("");
-        }, 5000);
+        if (err.response.status === 400) {
+          setServerErrMsg(err.response.data.non_field_errors[0]);
+        }
       }
     };
 
@@ -141,6 +143,10 @@ const SignIn = () => {
                 className={error.email ? classes.error : classes.inputField}
                 placeholder="Email"
                 onChange={inputChangeHandler}
+                onFocus={() => {
+                  setError({ ...error, email: "" });
+                  setServerErrMsg("");
+                }}
                 name="Email"
                 autoComplete="off"
                 type="text"
@@ -159,6 +165,10 @@ const SignIn = () => {
                 className={error.password ? classes.error : classes.inputField}
                 placeholder="Password"
                 onChange={inputChangeHandler}
+                onFocus={() => {
+                  setError({ ...error, password: "" });
+                  setServerErrMsg("");
+                }}
                 name="Password"
                 autoComplete="off"
                 type={display1 ? "text" : "password"}

@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import axiosInstance from "../../../components/Axios/axiosInstance";
 
-import emailPic from "../../assets/SignupImages/mail.png";
+//custom imports
+import axiosInstance from "../../components/Axios/axiosInstance";
+import ModalForgotPwd from "./modal/ModalForgotPwd";
 
+//stylying imports
 import classes from "./forgotPwd.module.css";
 
+//pic imports
+import emailPic from "../../assets/SignupImages/mail.png";
+
 const ForgotPwd = () => {
+  const [isModal, setIsModal] = useState(false);
+
   const [values, setValues] = useState({
     Email: "",
   });
@@ -44,28 +51,32 @@ const ForgotPwd = () => {
       return;
     }
 
-    setError({ ...error, email: "", password: "" });
+    setError({ ...error, email: "" });
 
     let newUser = {
       email: values.Email,
     };
 
-    console.log(newUser); //for testing purposes only.
+    const payload = JSON.stringify(newUser);
 
     //Asychornous func for posting the request to server.
-    const dataFetchingFunction = async () => {
+    const forgotPwdApi = async () => {
       try {
-        // let response = await axiosInstance.post("/forgotpwd", newUser);
-        // let JWTDecodedToken = jwt_decode(response.data.access_token);
-        // console.log(JWTDecodedToken);
-        // navigate({ pathname: "/login" });
+        let response = await axiosInstance.post(
+          "users/forget_password/",
+          payload
+        );
+        if (response.data) {
+          setIsModal(true);
+        }
       } catch (err) {
-        console.log(err);
-        setServerErrMsg(err.message);
+        if (err.response.data.errorCode === 400) {
+          setServerErrMsg(err.response.data.message);
+        }
       }
     };
 
-    dataFetchingFunction(); //calling the Asychoronous func defined above.
+    forgotPwdApi(); //calling the Asychoronous func defined above.
   };
 
   //email validation function.
@@ -111,6 +122,10 @@ const ForgotPwd = () => {
                 name="Email"
                 autoComplete="off"
                 type="text"
+                onFocus={() => {
+                  setServerErrMsg("");
+                  setError({ ...error, email: "" });
+                }}
               />
             </div>
 
@@ -133,6 +148,9 @@ const ForgotPwd = () => {
               Sign In
             </Link>
           </p>
+
+          {/* condition for modal to open */}
+          {isModal && <ModalForgotPwd isOpen={isModal} />}
         </div>
       </div>
     </div>

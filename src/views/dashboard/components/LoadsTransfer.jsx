@@ -1,6 +1,6 @@
 //styling imports:
 import { Doughnut } from "react-chartjs-2";
-import { Chart, ArcElement } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
 import "../style.css";
 
 //svg imports:
@@ -11,15 +11,15 @@ import green from "../../../assets/DashboardImages/green.svg";
 import orange from "../../../assets/DashboardImages/orange.svg";
 import yellow from "../../../assets/DashboardImages/yellow.svg";
 
-Chart.register(ArcElement);
+ChartJS.register(ArcElement, Tooltip);
 
 const LoadsTransfer = () => {
   const data = {
     labels: [],
     datasets: [
       {
-        label: "# of Votes",
-        data: [12, 19, 3],
+        label: " Value: ",
+        data: [21, 19, 3],
         backgroundColor: [
           "rgb(255, 99, 132)",
           "rgb(54, 162, 235)",
