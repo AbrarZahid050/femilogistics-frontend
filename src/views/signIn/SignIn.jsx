@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Cookie from "js-cookie";
-import jwt_decode from "jwt-decode";
+import { useDispatch } from "react-redux";
+// import Cookie from "js-cookie";
+// import jwt_decode from "jwt-decode";
 
 //custom imports
 import axiosInstance from "../../components/Axios/axiosInstance";
-import useAuth from "../../hooks/useAuth";
+import { setLogin } from "../../redux/slices/authSlice";
+// import useAuth from "../../hooks/useAuth";
 
 //styling imports
 import classes from "./signIn.module.css";
@@ -17,7 +19,9 @@ import emailPic from "../../assets/SignupImages/mail.png";
 import pwdPic from "../../assets/SignupImages/pass.png";
 
 const SignIn = () => {
-  const { setAuth } = useAuth();
+  const dispatch = useDispatch();
+
+  // const { setAuth } = useAuth();
   const navigate = useNavigate();
 
   const [display1, setDisplay1] = useState(false);
@@ -86,12 +90,15 @@ const SignIn = () => {
     const signInAPIHandler = async () => {
       try {
         let response = await axiosInstance.post("api/v1/login/", payload);
-        let JWTDecodedToken = jwt_decode(response.data.token[0]);
-        Cookie.set("accessToken", response.data.token[0], {
-          sameSite: "strict",
-          expires: 1,
-        });
-        setAuth({ user: JWTDecodedToken.email });
+
+        // let JWTDecodedToken = jwt_decode(response.data.token[0]);
+        // Cookie.set("accessToken", response.data.token[0], {
+        //   sameSite: "strict",
+        //   expires: 1,
+        // });
+        // setAuth({ user: JWTDecodedToken.email });
+
+        dispatch(setLogin(response.data.token[0]));
         navigate({ pathname: "/dashboard" });
       } catch (err) {
         if (err.response.status === 400) {

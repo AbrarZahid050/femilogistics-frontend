@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookie from "js-cookie";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+// import Cookie from "js-cookie";
 
 //custom imports
 import axiosInstance from "../../../components/Axios/axiosInstance";
-import useAuth from "../../../hooks/useAuth";
+import { setLogout } from "../../../redux/slices/authSlice";
+// import useAuth from "../../../hooks/useAuth";
 
 //styling imports
 import { Box, Typography, Modal } from "@mui/material";
@@ -17,8 +19,10 @@ import eyeOn from "../../../assets/SignupImages/Eye On.png";
 import pwdPic from "../../../assets/SignupImages/pass.png";
 
 const ModalForgotPwd = ({ isOpen }) => {
+  // const { setAuth } = useAuth();
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { setAuth } = useAuth();
 
   const [open, SetOpen] = useState(isOpen);
   const [display, setDisplay] = useState(false);
@@ -107,8 +111,10 @@ const ModalForgotPwd = ({ isOpen }) => {
         );
         if (response.status === 200) {
           showToastMessage(response.data.message);
-          Cookie.remove("accessToken");
-          setAuth({});
+          // Cookie.remove("accessToken");
+          // setAuth({});
+
+          dispatch(setLogout());
           navigate({ pathname: "/" });
         }
       } catch (err) {

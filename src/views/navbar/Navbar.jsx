@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 //custom imports:
-import useAuth from "../../hooks/useAuth";
-import Cookies from "js-cookie";
+// import useAuth from "../../hooks/useAuth";
+// import Cookies from "js-cookie";
 
 //styling imports:
 import {
@@ -21,9 +22,13 @@ import avatar from "../../assets/NavbarImages/avatar.jpg";
 import bell_icon from "../../assets/NavbarImages/bell_icon.svg";
 import plus_order from "../../assets/NavbarImages/plus_order.svg";
 import search from "../../assets/NavbarImages/search.svg";
+import { setLogout } from "../../redux/slices/authSlice";
 
 const Navbar = () => {
-  const { setAuth } = useAuth();
+  // const { setAuth } = useAuth();
+
+  const dispatch = useDispatch();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -33,8 +38,10 @@ const Navbar = () => {
 
   const handleClose = (event) => {
     if (event.target.getAttribute("name") === "signOut") {
-      Cookies.remove("accessToken");
-      setAuth({});
+      // Cookies.remove("accessToken");
+      // setAuth({});
+
+      dispatch(setLogout());
     }
     setAnchorEl(null);
   };
