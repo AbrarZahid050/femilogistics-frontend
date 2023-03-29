@@ -1,9 +1,15 @@
+.right-main-container {
+  width: 100%;
+  overflow: hidden;
+  background-color: #fafafb;
+}
 .graph-container {
   box-shadow: 0px 3px 8px -1px rgba(50, 50, 71, 0.05);
   filter: drop-shadow(0px 0px 1px rgba(12, 26, 75, 0.24));
   background: #ffffff;
   border-radius: 20px;
   overflow: hidden !important;
+  padding: 5px 20px 20px 20px;
 }
 .graph-text-container {
   display: flex;
@@ -21,9 +27,91 @@
   letter-spacing: 0.1px;
   color: #171725;
 }
+
+/* .recharts-cartesian-grid-vertical line:first-of-type {
+  display: none !important;
+} */
+
+.recharts-cartesian-grid-vertical line:last-of-type {
+  display: none !important;
+}
+
+.graph-tooltip {
+  height: 68px;
+  width: 154px;
+  background-color: #0062ff;
+  box-shadow: 0px 5px 15px rgba(68, 68, 79, 0.1);
+  border-radius: 20px;
+  padding: 14px 20px 0px 20px;
+  position: relative;
+  top: -100px;
+  left: -82px;
+}
+
+.triangle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #0062ff;
+  left: 40%;
+  bottom: -26%;
+  clip-path: polygon(51% 49%, 0 100%, 100% 100%);
+  transform: scale(-1);
+}
+
+.square {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #0062ff;
+  left: 40%;
+  bottom: -38%;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  border: 2px solid #ffffff;
+  box-shadow: 0px 2px 4px rgba(68, 68, 79, 0.15);
+  border-radius: 7px;
+}
+
+.recharts-tooltip-wrapper {
+  outline: none !important;
+}
+
+.active-line {
+  position: absolute;
+  height: 400px;
+  width: 1.3px;
+  left: 46%;
+  margin-top: 40px;
+  background-color: #0062ff;
+}
+
+.graph-tooltip > h4 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.1px;
+  color: #ffffff;
+}
+
+.graph-tooltip > p {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.1px;
+  margin-top: 6px;
+  color: #fafafa;
+}
+
 .tabs-container {
   display: flex;
   align-items: center;
+  border: 1px solid #f1f1f5;
+  border-radius: 8px;
+  padding: 2px;
 }
 .tab-text-active {
   font-family: "Roboto";
@@ -75,7 +163,7 @@
   background: #ffffff;
   padding: 20px 20px;
   overflow: hidden;
-  height: 466px;
+  height: 496px;
 }
 .month-wrapper {
   display: flex;
@@ -99,13 +187,14 @@
 }
 .doughnut-container {
   position: relative;
+  top: 16px;
 }
 .doughnut-container-text {
   display: flex;
   align-items: center;
   flex-direction: column;
   position: absolute;
-  top: 38%;
+  top: 36%;
   left: 22%;
 }
 .doughnut-container-text > h1 {
@@ -130,7 +219,7 @@
 .loads-ratio-first-container {
   display: flex;
   flex-direction: column;
-  margin: 20px 20px 20px -10px;
+  margin: 28px 20px 20px -10px;
 }
 .loads-ratio-second-container {
   display: flex;

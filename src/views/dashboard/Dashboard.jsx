@@ -21,7 +21,7 @@ const Dashboard = () => {
       <Navbar />
       <div style={{ display: "flex" }}>
         <SideDrawer />
-        <div style={{ width: "100%", overflow: "hidden" }}>
+        <div className="right-main-container">
           <Grid container style={{ padding: "24px 10px" }} spacing={2}>
             <Grid item md={8} lg={9}>
               <Graph />
