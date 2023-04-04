@@ -160,77 +160,21 @@ export const loadsActivity = [
   },
 ];
 
+export const labels = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 export const dataRaw = [
-  {
-    name: "Jan",
-    uv: 800,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Feb",
-    uv: 500,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Mar",
-    uv: 1000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Apr",
-    uv: 900,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "May",
-    uv: 1000,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Jun",
-    uv: 1400,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Jul",
-    uv: 2000,
-    pv: 4300,
-    amt: 2100,
-  },
-  {
-    name: "Aug",
-    uv: 1600,
-    pv: 4300,
-    amt: 2100,
-  },
-  {
-    name: "Sep",
-    uv: 2000,
-    pv: 4300,
-    amt: 2100,
-  },
-  {
-    name: "Oct",
-    uv: 1600,
-    pv: 4300,
-    amt: 2100,
-  },
-  {
-    name: "Nov",
-    uv: 2000,
-    pv: 4300,
-    amt: 2100,
-  },
-  {
-    name: "Dec",
-    uv: 3800,
-    pv: 4300,
-    amt: 2100,
-  },
+  200, 100, 200, 400, 360, 400, 600, 580, 520, 640, 620, 500,
 ];

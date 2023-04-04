@@ -1,48 +1,156 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { useState } from "react";
-
 //chart library:
 import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  ResponsiveContainer,
+  CategoryScale,
+  Chart as ChartJS,
+  Filler,
+  Legend,
+  LineElement,
+  LinearScale,
+  PointElement,
+  Title,
   Tooltip,
-  XAxis,
-  YAxis
-} from "recharts";
+} from "chart.js";
+import { Line } from "react-chartjs-2";
 
 //styling imports:
 import "../style.css";
 
 //data imports:
-import { dataRaw } from "../MockData";
+import { dataRaw, labels } from "../MockData";
 
-const CustomTooltip = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="graph-tooltip">
-        <h4>${`${payload[0].payload.amt}`}</h4>
-        <p>{label}</p>
-        <span className="triangle"></span>
-        <span className="square"></span>
-        <span className="active-line"></span>
-      </div>
-    );
-  }
-  return null;
-};
+// image import
+import tooltip_pointer from "../../../assets/DashboardImages/tooltip_pointer.svg";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 const LoadsGraph = () => {
   const [tabId, setTabId] = useState("Monthly");
   const tabs = ["Weekly", "Monthly", "Yearly"];
 
+  const getPointStyle = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 30;
+    canvas.height = 30;
+    const ctx = canvas.getContext("2d");
+    const img = new Image();
+    img.src = tooltip_pointer;
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+    return canvas;
+  };
+
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        data: dataRaw,
+        fill: true,
+        backgroundColor: (context) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+          gradient.addColorStop(1, "rgba(255,255,255, 0.9)");
+          gradient.addColorStop(0, "rgba(201,215,255, 1)");
+          return gradient;
+        },
+        borderColor: "rgba(255,255,255,1)",
+      },
+    ],
+  };
+
+  const options = {
+    maintainAspectRatio: false,
+    hover: {
+      intersect: false,
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        callbacks: {
+          title: (tooltipItem) => {
+            return `  $${tooltipItem[0].raw}`;
+          },
+          label: (context) => {
+            return `   ${context.label}                      `;
+          },
+        },
+        displayColors: false,
+        backgroundColor: "#0062FF",
+        cornerRadius: 20,
+        titleAlign: "left",
+        bodyAlign: "left",
+        padding: 10,
+        yAlign: "bottom",
+        caretPadding: 8,
+        caretSize: 10,
+        titleColor: "#FFFFFF",
+        bodyColor: "#FAFAFA",
+        bodyFont: {
+          size: 14,
+        },
+        titleFont: {
+          size: 16,
+        },
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          padding: 20,
+        },
+        grid: {
+          tickColor: "white",
+          color: "#F1F1F5",
+        },
+        border: {
+          color: "white",
+        },
+      },
+      y: {
+        border: {
+          color: "#F1F1F5",
+        },
+        grid: {
+          display: false,
+        },
+        min: 0,
+        max: 1000,
+        ticks: {
+          stepSize: 200,
+          padding: 20,
+        },
+      },
+    },
+    elements: {
+      line: {
+        tension: 0.4,
+        stepped: false,
+      },
+      point: {
+        pointStyle: getPointStyle,
+        radius: 0,
+        hoverRadius: 10,
+      },
+    },
+  };
   return (
     <>
       <div className="graph-container">
         <div className="graph-text-container">
           <p>Loads Delivered</p>
-
           <div className="tabs-container">
             {tabs.map((e) => (
               <div
@@ -55,40 +163,9 @@ const LoadsGraph = () => {
             ))}
           </div>
         </div>
-        <ResponsiveContainer>
-          <AreaChart
-            data={dataRaw}
-            margin={{ top: 0, right: 30, left: 10, bottom: 0 }}
-          >
-            <defs>
-              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#4D7CFE" stopOpacity={0.8} />
-                <stop offset="95%" stopColor="#FFFFFF" stopOpacity={1} />
-              </linearGradient>
-            </defs>
-            <XAxis
-              dataKey="name"
-              axisLine={false}
-              tickLine={false}
-              padding={{ left: 30 }}
-            />
-            <YAxis axisLine={false} tickLine={false} />
-            <CartesianGrid
-              strokeDasharray="0 0"
-              horizontal={false}
-              axisLine={true}
-              width={100}
-            />
-            <Tooltip content={<CustomTooltip />} />
-            <Area
-              type="monotone"
-              stroke="none"
-              dataKey="uv"
-              fillOpacity={1}
-              fill="url(#colorUv)"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+        <div className="line-chart-container">
+          <Line data={data} options={options} />
+        </div>
       </div>
     </>
   );
