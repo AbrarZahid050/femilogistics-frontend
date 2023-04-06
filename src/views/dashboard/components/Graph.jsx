@@ -1,5 +1,6 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { useState } from "react";
+
 //chart library:
 import {
   CategoryScale,
@@ -20,10 +21,132 @@ import "../style.css";
 //data imports:
 import { dataRaw, labels } from "../MockData";
 
-// image import
-import tooltip_pointer from "../../../assets/DashboardImages/tooltip_pointer.svg";
+const customCursorLine = {
+  id: "customCursorLine",
+  afterDatasetsDraw(chart) {
+    const {
+      ctx,
+      tooltip,
+      chartArea: { bottom },
+      scales: { x, y },
+    } = chart;
+    if (tooltip._active.length > 0) {
+      const xCoordinate = x.getPixelForValue(tooltip.dataPoints[0].dataIndex);
+      const yCoordinate = y.getPixelForValue(tooltip.dataPoints[0].parsed.y);
+      ctx.save();
+      ctx.beginPath();
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = "#0062FF";
+      ctx.moveTo(xCoordinate, yCoordinate);
+      ctx.lineTo(xCoordinate, bottom);
+      ctx.stroke();
+      ctx.closePath();
+    }
+  },
+};
+
+const data = {
+  labels: labels,
+  datasets: [
+    {
+      data: dataRaw,
+      fill: true,
+      backgroundColor: (context) => {
+        const ctx = context.chart.ctx;
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(1, "rgba(255,255,255, 0.9)");
+        gradient.addColorStop(0, "rgba(201,215,255, 1)");
+        return gradient;
+      },
+      borderColor: "rgba(255,255,255,1)",
+    },
+  ],
+};
+
+const options = {
+  maintainAspectRatio: false,
+  hover: {
+    intersect: false,
+  },
+  plugins: {
+    legend: {
+      display: false,
+    },
+    tooltip: {
+      callbacks: {
+        title: (tooltipItem) => {
+          return `  $${tooltipItem[0].raw}`;
+        },
+        label: (context) => {
+          return `   ${context.label}                      `;
+        },
+      },
+      displayColors: false,
+      backgroundColor: "#0062FF",
+      cornerRadius: 20,
+      titleAlign: "left",
+      bodyAlign: "left",
+      padding: 10,
+      yAlign: "bottom",
+      caretPadding: 6.5,
+      caretSize: 10,
+      titleColor: "#FFFFFF",
+      bodyColor: "#FAFAFA",
+      bodyFont: {
+        size: 14,
+      },
+      titleFont: {
+        size: 16,
+      },
+    },
+  },
+  scales: {
+    x: {
+      ticks: {
+        padding: 20,
+      },
+      grid: {
+        tickColor: "white",
+        color: "#F1F1F5",
+      },
+      border: {
+        color: "white",
+      },
+    },
+    y: {
+      border: {
+        color: "#F1F1F5",
+      },
+      grid: {
+        display: false,
+      },
+      min: 0,
+      max: 1000,
+      ticks: {
+        stepSize: 200,
+        padding: 20,
+      },
+    },
+  },
+  elements: {
+    line: {
+      tension: 0.4,
+      stepped: false,
+    },
+    point: {
+      pointStyle: "rectRounded",
+      pointHoverBackgroundColor: '#0062FF',
+      pointHoverBorderColor: '#FFFFFF',
+      pointHoverBorderWidth: 3,
+      pointRadius: 0,
+      hoverRadius: 12,
+      hitRadius: 300,
+    },
+  },
+};
 
 ChartJS.register(
+  customCursorLine,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -38,114 +161,6 @@ const LoadsGraph = () => {
   const [tabId, setTabId] = useState("Monthly");
   const tabs = ["Weekly", "Monthly", "Yearly"];
 
-  const getPointStyle = () => {
-    const canvas = document.createElement("canvas");
-    canvas.width = 30;
-    canvas.height = 30;
-    const ctx = canvas.getContext("2d");
-    const img = new Image();
-    img.src = tooltip_pointer;
-    img.onload = () => {
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    };
-    return canvas;
-  };
-
-  const data = {
-    labels: labels,
-    datasets: [
-      {
-        data: dataRaw,
-        fill: true,
-        backgroundColor: (context) => {
-          const ctx = context.chart.ctx;
-          const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-          gradient.addColorStop(1, "rgba(255,255,255, 0.9)");
-          gradient.addColorStop(0, "rgba(201,215,255, 1)");
-          return gradient;
-        },
-        borderColor: "rgba(255,255,255,1)",
-      },
-    ],
-  };
-
-  const options = {
-    maintainAspectRatio: false,
-    hover: {
-      intersect: false,
-    },
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        callbacks: {
-          title: (tooltipItem) => {
-            return `  $${tooltipItem[0].raw}`;
-          },
-          label: (context) => {
-            return `   ${context.label}                      `;
-          },
-        },
-        displayColors: false,
-        backgroundColor: "#0062FF",
-        cornerRadius: 20,
-        titleAlign: "left",
-        bodyAlign: "left",
-        padding: 10,
-        yAlign: "bottom",
-        caretPadding: 8,
-        caretSize: 10,
-        titleColor: "#FFFFFF",
-        bodyColor: "#FAFAFA",
-        bodyFont: {
-          size: 14,
-        },
-        titleFont: {
-          size: 16,
-        },
-      },
-    },
-    scales: {
-      x: {
-        ticks: {
-          padding: 20,
-        },
-        grid: {
-          tickColor: "white",
-          color: "#F1F1F5",
-        },
-        border: {
-          color: "white",
-        },
-      },
-      y: {
-        border: {
-          color: "#F1F1F5",
-        },
-        grid: {
-          display: false,
-        },
-        min: 0,
-        max: 1000,
-        ticks: {
-          stepSize: 200,
-          padding: 20,
-        },
-      },
-    },
-    elements: {
-      line: {
-        tension: 0.4,
-        stepped: false,
-      },
-      point: {
-        pointStyle: getPointStyle,
-        radius: 0,
-        hoverRadius: 10,
-      },
-    },
-  };
   return (
     <>
       <div className="graph-container">
@@ -164,7 +179,7 @@ const LoadsGraph = () => {
           </div>
         </div>
         <div className="line-chart-container">
-          <Line data={data} options={options} />
+          <Line data={data} options={options} plugins={[customCursorLine]} />
         </div>
       </div>
     </>
