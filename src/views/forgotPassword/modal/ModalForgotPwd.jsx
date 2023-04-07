@@ -111,6 +111,7 @@ const ModalForgotPwd = ({ isOpen }) => {
         );
         if (response.status === 200) {
           showToastMessage(response.data.message);
+          console.log(response.data.message);
           // Cookie.remove("accessToken");
           // setAuth({});
 

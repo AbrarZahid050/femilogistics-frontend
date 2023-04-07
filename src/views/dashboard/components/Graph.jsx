@@ -81,10 +81,10 @@ const LoadsGraph = () => {
       tooltip: {
         callbacks: {
           title: (tooltipItem) => {
-            return `  $${tooltipItem[0].raw}`;
+            return `$${tooltipItem[0].raw}`;
           },
           label: (context) => {
-            return `   ${context.label}                      `;
+            return `${context.label}`;
           },
         },
         displayColors: false,
@@ -142,7 +142,7 @@ const LoadsGraph = () => {
       point: {
         pointStyle: getPointStyle,
         radius: 0,
-        hoverRadius: 10,
+        hoverRadius: 5,
       },
     },
   };

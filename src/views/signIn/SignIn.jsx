@@ -11,6 +11,7 @@ import { setLogin } from "../../redux/slices/authSlice";
 
 //styling imports
 import classes from "./signIn.module.css";
+import { Box, CircularProgress } from "@mui/material";
 
 //pic imports
 import eyeOff from "../../assets/SignupImages/Eye Off.png";
@@ -24,6 +25,7 @@ const SignIn = () => {
   // const { setAuth } = useAuth();
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
   const [display1, setDisplay1] = useState(false);
   const [values, setValues] = useState({
     Email: "",
@@ -99,15 +101,18 @@ const SignIn = () => {
         // setAuth({ user: JWTDecodedToken.email });
 
         dispatch(setLogin(response.data.token[0]));
+        setLoading(false);
         navigate({ pathname: "/dashboard" });
       } catch (err) {
         if (err.response.status === 400) {
+          setLoading(false);
           setServerErrMsg(err.response.data.non_field_errors[0]);
         }
       }
     };
 
     signInAPIHandler(); //calling the Asychoronous func defined above.
+    setLoading(true);
   };
 
   //* fn for email validation.
@@ -200,7 +205,24 @@ const SignIn = () => {
             </div>
 
             {/* submit-btn */}
-            <button className={classes.btn}>SIGN IN</button>
+            <button className={classes.btn}>
+              {loading ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <CircularProgress
+                    sx={{ color: "white", height: "5px" }}
+                    size={30}
+                  />
+                </Box>
+              ) : (
+                "SIGN IN"
+              )}
+            </button>
           </form>
 
           {/* already-signedIn */}
