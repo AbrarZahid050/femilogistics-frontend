@@ -1,7 +1,7 @@
-/* .main-side-drawer-wrapper {
+.main_side_drawer_wrapper {
   min-width: 250px;
   background: #282842;
-  
+  /* height: 91vh; */
   min-height: 100vh;
   box-shadow: inset -1px 0px 0px #e2e2ea;
   overflow: auto;
@@ -9,11 +9,11 @@
   scrollbar-width: none;
 }
 
-.main-side-drawer-wrapper::-webkit-scrollbar {
+.main_side_drawer_wrapper::-webkit-scrollbar {
   display: none;
 }
 
-.main-side-drawer-wrapper > h2 {
+.main_side_drawer_wrapper > h2 {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 600;
@@ -25,12 +25,12 @@
   padding: 30px 20px 10px 20px;
 }
 
-.side-drawer-wrapper {
+.side_drawer_wrapper {
   display: flex;
   width: 100%;
   flex-direction: column;
 }
-.link-wrapper {
+.link_wrapper {
   display: flex;
   align-items: center;
   padding: 18px 20px;
@@ -38,19 +38,19 @@
   cursor: pointer;
 }
 
-.link-wrapper:hover {
+.link_wrapper:hover {
   background: #000029;
   border-left: 1px solid #ffffff;
   margin-right: 1px;
 }
 
-.link-wrapper-image {
+.link_wrapper_image {
   width: 18.5px;
   height: 18.5px;
-  
+  /* filter: invert(0.5); */
 }
 
-.link-wrapper > p {
+.link_wrapper > p {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
@@ -59,18 +59,18 @@
   letter-spacing: 0.1px;
   color: #ffffff;
 }
-.loads-dropdown-wrapper {
+.loads_dropdown_wrapper {
   padding: 0px 20px 20px 58px;
   margin-top: -15px;
 }
-.loads-link-wrapper {
+.loads_link_wrapper {
   display: flex;
   align-items: center;
   width: 100%;
   padding: 30px 10px 0px 0px;
   justify-content: space-between;
 }
-.loads-link-wrapper > p {
+.loads_link_wrapper > p {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
@@ -79,7 +79,7 @@
   letter-spacing: 0.1px;
   color: #ffffff;
 }
-.loads-link-wrapper > span {
+.loads_link_wrapper > span {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
@@ -88,17 +88,17 @@
   text-align: right;
   color: #6f758b;
 }
-.loads-arrow-icon {
+.loads_arrow_icon {
   width: 12px !important;
   height: 14px !important;
   position: relative;
   right: -86px;
 }
 
-.loads-arrow-icon-reverse {
+.loads_arrow_icon_reverse {
   transform: scaleY(-1);
   width: 12px !important;
   height: 14px !important;
   position: relative;
   right: -86px;
-} */
+}

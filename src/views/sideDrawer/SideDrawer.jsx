@@ -2,7 +2,8 @@ import { useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 
 //styling imports:
-import "./style.css";
+import classes from "./sideDrawer.module.css";
+// import "./style.css";
 
 //svg imports:
 import carrier from "../../assets/SideDrawerImages/carrier.svg";
@@ -38,49 +39,55 @@ const SideDrawer = () => {
   ];
 
   return (
-    <div className="main-side-drawer-wrapper">
+    <div className={classes.main_side_drawer_wrapper}>
       <h2>Main</h2>
-      <div className="side-drawer-wrapper">
+      <div className={classes.side_drawer_wrapper}>
         {sideDrawerLisnk.map((e) => (
           <div
             key={nanoid()}
-            className="link-wrapper"
+            className={classes.link_wrapper}
             onClick={() => {
               e.link_text === "Loads" && setIsLoadsArrow(!isLoadsArrow);
             }}
           >
-            <img src={e.link_image} alt="" className="link-wrapper-image" />
+            <img
+              src={e.link_image}
+              alt=""
+              className={classes.link_wrapper_image}
+            />
             <p>{e.link_text}</p>
             {e.link_text === "Loads" && (
               <img
                 src={loads_arrow}
                 alt=""
                 className={
-                  isLoadsArrow ? "loads-arrow-icon" : "loads-arrow-icon-reverse"
+                  isLoadsArrow
+                    ? classes.loads_arrow_icon
+                    : classes.loads_arrow_icon_reverse
                 }
               />
             )}
           </div>
         ))}
         {isLoadsArrow && (
-          <div className="loads-dropdown-wrapper">
-            <div className="loads-link-wrapper">
+          <div className={classes.loads_dropdown_wrapper}>
+            <div className={classes.loads_link_wrapper}>
               <p>All Loads</p>
               <span>195</span>
             </div>
-            <div className="loads-link-wrapper">
+            <div className={classes.loads_link_wrapper}>
               <p>Canceled</p>
               <span>2</span>
             </div>
-            <div className="loads-link-wrapper">
+            <div className={classes.loads_link_wrapper}>
               <p>Delivered</p>
               <span>8</span>
             </div>
-            <div className="loads-link-wrapper">
+            <div className={classes.loads_link_wrapper}>
               <p>Available</p>
               <span>4</span>
             </div>
-            <div className="loads-link-wrapper">
+            <div className={classes.loads_link_wrapper}>
               <p>In Transit</p>
               <span>9</span>
             </div>

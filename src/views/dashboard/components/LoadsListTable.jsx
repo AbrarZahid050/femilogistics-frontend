@@ -10,7 +10,8 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import "../style.css";
+import classes from "../dashboard.module.css";
+// import "../style.css";
 
 //svg imports:
 import divider from "../../../assets/DashboardImages/divider.svg";
@@ -43,26 +44,28 @@ const LoadsListTable = () => {
   ];
   return (
     <>
-      <div className="loads-list-main-container">
-        <div className="loads-list-text-container">
+      <div className={classes.loads_list_main_container}>
+        <div className={classes.loads_list_text_container}>
           <h1>Loads List of</h1>
-          <div className="loads-list-dropdown-container">
-            <div className="dropdown-main-container">
+          <div className={classes.loads_list_dropdown_container}>
+            <div className={classes.dropdown_main_container}>
               <div
-                className="dropdown-header-wrapper"
+                className={classes.dropdown_header_wrapper}
                 onClick={() => setIsDropdown(!isDropdown)}
               >
                 <p>Sort by:All</p>
                 <img
                   src={dropdown_arrow}
                   alt="error"
-                  className={isDropdown ? "dropdown-arrow-reverse" : undefined}
+                  className={
+                    isDropdown ? classes.dropdown_arrow_reverse : undefined
+                  }
                 />
               </div>
               {isDropdown ? (
-                <div className="dropdown-list-container">
+                <div className={classes.dropdown_list_container}>
                   {dropdownList.map((e) => (
-                    <div className="dropdown-list-text" key={nanoid()}>
+                    <div className={classes.dropdown_list_text} key={nanoid()}>
                       <input type="checkbox" />
                       <p>{e}</p>
                     </div>
@@ -70,18 +73,18 @@ const LoadsListTable = () => {
                 </div>
               ) : undefined}
             </div>
-            <div className="loads-list-download-container">
+            <div className={classes.loads_list_download_container}>
               <img src={download_icon} alt="" />
             </div>
           </div>
         </div>
-        <TableContainer className="loads-list-table-container">
-          <Table className="loads-list-table-wrapper">
+        <TableContainer className={classes.loads_list_table_container}>
+          <Table className={classes.loads_list_table_wrapper}>
             <TableHead>
               <TableRow style={{ background: "#F9FAFB" }}>
                 {LoadsListTableHeaderData.map((e) => (
                   <TableCell align="left" key={nanoid()}>
-                    <p className="loads-list-table-header-text">{e}</p>
+                    <p className={classes.loads_list_table_header_text}>{e}</p>
                   </TableCell>
                 ))}
               </TableRow>
@@ -91,20 +94,20 @@ const LoadsListTable = () => {
                 <TableRow key={nanoid()}>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.Load}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
-                    <div className="list-dropdown-header-wrapper">
+                    <div className={classes.list_dropdown_header_wrapper}>
                       <p
                         className={
                           e.Status === "Cancelled"
-                            ? "list-dropdown-text-cancelled"
-                            : "list-dropdown-text-delivered"
+                            ? classes.list_dropdown_text_cancelled
+                            : classes.list_dropdown_text_delivered
                         }
                       >
                         {e.Status}
@@ -114,85 +117,85 @@ const LoadsListTable = () => {
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.customer}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.origin}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.LatestNote}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.destination}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.Pickuptime}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.pickup}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.dropofftime}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.carrier}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.equip}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.commodity}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.mileage}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.owner}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.owner1}</p>
                   </TableCell>
                   <TableCell
                     align="left"
-                    className="loads-list-table-data-text"
+                    className={classes.loads_list_table_data_text}
                   >
                     <p>{e.owner2}</p>
                   </TableCell>
@@ -204,38 +207,38 @@ const LoadsListTable = () => {
         <div>
           <img src={divider} alt="" className="divider-image" />
         </div>
-        <div className="result-container">
+        <div className={classes.result_container}>
           <p>Showing 1 to 10 of 97 results</p>
-          <div className="paginator-container">
+          <div className={classes.paginator_container}>
             <div
-              className="paginator"
+              className={classes.paginator}
               style={{ borderRadius: "6px 0px 0px 6px" }}
             >
               <p>{"<"}</p>
             </div>
-            <div className="paginator">
+            <div className={classes.paginator}>
               <p>1</p>
             </div>
-            <div className="paginator">
+            <div className={classes.paginator}>
               <p>2</p>
             </div>
-            <div className="paginator">
+            <div className={classes.paginator}>
               <p>3</p>
             </div>
-            <div className="paginator">
+            <div className={classes.paginator}>
               <p>...</p>
             </div>
-            <div className="paginator">
+            <div className={classes.paginator}>
               <p>8</p>
             </div>
-            <div className="paginator">
+            <div className={classes.paginator}>
               <p>9</p>
             </div>
-            <div className="paginator">
+            <div className={classes.paginator}>
               <p>10</p>
             </div>
             <div
-              className="paginator"
+              className={classes.paginator}
               style={{ borderRadius: "0px 6px 6px 0px" }}
             >
               <p>{">"}</p>

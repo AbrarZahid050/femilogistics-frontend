@@ -1,4 +1,4 @@
-import { Menu, styled, alpha } from "@mui/material";
+import { Menu, styled } from "@mui/material";
 
 export const StyledMenu = styled((props) => (
   <Menu
@@ -32,12 +32,6 @@ export const StyledMenu = styled((props) => (
         fontSize: 18,
         color: theme.palette.text.secondary,
         marginRight: theme.spacing(1.5),
-      },
-      "&:active": {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          theme.palette.action.selectedOpacity
-        ),
       },
     },
   },

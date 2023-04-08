@@ -1,7 +1,8 @@
 //styling imports:
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
-import "../style.css";
+import classes from "../dashboard.module.css";
+// import "../style.css";
 
 //svg imports:
 import arrow_left from "../../../assets/DashboardImages/arrow_left.svg";
@@ -11,9 +12,8 @@ import green from "../../../assets/DashboardImages/green.svg";
 import orange from "../../../assets/DashboardImages/orange.svg";
 import yellow from "../../../assets/DashboardImages/yellow.svg";
 
-ChartJS.register(ArcElement, Tooltip);
-
 const LoadsTransfer = () => {
+  ChartJS.register(ArcElement, Tooltip);
   const data = {
     labels: [],
     datasets: [
@@ -36,45 +36,45 @@ const LoadsTransfer = () => {
   };
 
   return (
-    <div className="main-loads-transfer-container">
-      <div className="month-wrapper">
+    <div className={classes.main_loads_transfer_container}>
+      <div className={classes.month_wrapper}>
         <img src={arrow_left} alt="error" />
         <h2>January</h2>
         <img src={arrow_right} alt="error" />
       </div>
-      <div className="doughnut-container">
+      <div className={classes.doughnut_container}>
         <Doughnut data={data} options={options} width={200} height={200} />
-        <div className="doughnut-container-text">
+        <div className={classes.doughnut_container_text}>
           <h1>229 lbs</h1>
           <p>Loads Trasnfered</p>
         </div>
       </div>
-      <div className="loads-ratio-first-container">
-        <div className="loads-ratio-second-container">
-          <div className="loads-ratio-wrapper">
-            <div className="dashboard-text-first-container">
+      <div className={classes.loads_ratio_first_container}>
+        <div className={classes.loads_ratio_second_container}>
+          <div className={classes.loads_ratio_wrapper}>
+            <div className={classes.dashboard_text_first_container}>
               <img src={blue} alt="error" />
               <p>In Transit</p>
             </div>
             <span>2.1k</span>
           </div>
-          <div className="loads-ratio-wrapper">
-            <div className="dashboard-text-first-container">
+          <div className={classes.loads_ratio_wrapper}>
+            <div className={classes.dashboard_text_first_container}>
               <img src={orange} alt="error" /> <p>Upcoming</p>
             </div>
             <span>1k</span>
           </div>
         </div>
 
-        <div className="loads-ratio-second-container">
-          <div className="loads-ratio-wrapper">
-            <div className="dashboard-text-first-container">
+        <div className={classes.loads_ratio_second_container}>
+          <div className={classes.loads_ratio_wrapper}>
+            <div className={classes.dashboard_text_first_container}>
               <img src={green} alt="error" /> <p>Delivered</p>
             </div>
             <span>1.9k</span>
           </div>
-          <div className="loads-ratio-wrapper">
-            <div className="dashboard-text-first-container">
+          <div className={classes.loads_ratio_wrapper}>
+            <div className={classes.dashboard_text_first_container}>
               <img src={yellow} alt="error" /> <p>LoadsAvailable</p>
             </div>
             <span>15.7k</span>
