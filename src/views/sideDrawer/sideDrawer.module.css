@@ -30,6 +30,27 @@
   width: 100%;
   flex-direction: column;
 }
+.link_wrapper_active {
+  display: flex;
+  align-items: center;
+  padding: 18px 20px;
+  gap: 20px;
+  cursor: pointer;
+  background: #000029;
+  border-left: 1px solid #ffffff;
+  margin-right: 1px;
+}
+
+.link_wrapper_active > p {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.1px;
+  color: #ffffff;
+}
+
 .link_wrapper {
   display: flex;
   align-items: center;
@@ -47,7 +68,6 @@
 .link_wrapper_image {
   width: 18.5px;
   height: 18.5px;
-  /* filter: invert(0.5); */
 }
 
 .link_wrapper > p {

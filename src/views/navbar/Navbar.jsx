@@ -7,12 +7,12 @@ import { useDispatch } from "react-redux";
 
 //styling imports:
 import {
-  MenuItem,
-  Typography,
-  Divider,
   Box,
+  Divider,
   IconButton,
+  MenuItem,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import { StyledMenu } from "./StyledMenu";
 import "./style.css";
@@ -57,7 +57,9 @@ const Navbar = () => {
             <img src={plus_order} alt="error" />
             <p>New Order</p>
           </div>
-          <img src={search} alt="error" className="search-icon" />
+          <div className="search-icon">
+          <img src={search} alt="error"  />
+          </div>
         </div>
       </div>
 

@@ -20,11 +20,26 @@ import classes from "../dashboard.module.css";
 import "../style.css";
 
 //data imports:
-import { dataRaw, labels } from "../MockData";
+import { dataRaw } from "../MockData";
 
 const LoadsGraph = () => {
   const [tabId, setTabId] = useState("Monthly");
   const tabs = ["Weekly", "Monthly", "Yearly"];
+
+  const labels = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
   const customCursorLine = {
     id: "customCursorLine",

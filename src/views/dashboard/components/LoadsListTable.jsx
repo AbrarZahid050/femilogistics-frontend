@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
+import { useState } from "react";
 
 //styling imports:
 import {
@@ -10,8 +10,9 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import classes from "../dashboard.module.css";
+
 // import "../style.css";
+import classes from "../dashboard.module.css";
 
 //svg imports:
 import divider from "../../../assets/DashboardImages/divider.svg";
@@ -19,11 +20,27 @@ import download_icon from "../../../assets/DashboardImages/download_icon.svg";
 import dropdown_arrow from "../../../assets/DashboardImages/dropdown_arrow.svg";
 
 //data import:
+import Paginator from "../../common/Paginator";
 import { LoadsListTableData } from "../MockData";
 
 const LoadsListTable = () => {
   const [isDropdown, setIsDropdown] = useState(false);
   const dropdownList = ["All Loads", "Cancelled", "Delivered", "In Transit"];
+
+  // Paginator
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 7;
+  const endOffset = itemOffset + itemsPerPage;
+  const currentItems = LoadsListTableData.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(LoadsListTableData.length / itemsPerPage);
+
+  const handlePageClick = (event) => {
+    const newOffset =
+      (event.selected * itemsPerPage) % LoadsListTableData.length;
+    setItemOffset(newOffset);
+  };
+  // Paginator
+
   const LoadsListTableHeaderData = [
     "Load",
     "Status",
@@ -42,6 +59,7 @@ const LoadsListTable = () => {
     "owner",
     "owner",
   ];
+
   return (
     <>
       <div className={classes.loads_list_main_container}>
@@ -50,7 +68,11 @@ const LoadsListTable = () => {
           <div className={classes.loads_list_dropdown_container}>
             <div className={classes.dropdown_main_container}>
               <div
-                className={classes.dropdown_header_wrapper}
+                className={
+                  !isDropdown
+                    ? classes.dropdown_header_wrapper
+                    : classes.dropdown_header_wrapper_open
+                }
                 onClick={() => setIsDropdown(!isDropdown)}
               >
                 <p>Sort by:All</p>
@@ -66,7 +88,7 @@ const LoadsListTable = () => {
                 <div className={classes.dropdown_list_container}>
                   {dropdownList.map((e) => (
                     <div className={classes.dropdown_list_text} key={nanoid()}>
-                      <input type="checkbox" />
+                      <input type="checkbox" id="myCheckbox" />
                       <p>{e}</p>
                     </div>
                   ))}
@@ -90,7 +112,7 @@ const LoadsListTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {LoadsListTableData.map((e) => (
+              {currentItems.map((e) => (
                 <TableRow key={nanoid()}>
                   <TableCell
                     align="left"
@@ -205,46 +227,16 @@ const LoadsListTable = () => {
           </Table>
         </TableContainer>
         <div>
-          <img src={divider} alt="" className="divider-image" />
+          <img src={divider} alt="" className={classes.divider_image} />
         </div>
-        <div className={classes.result_container}>
-          <p>Showing 1 to 10 of 97 results</p>
-          <div className={classes.paginator_container}>
-            <div
-              className={classes.paginator}
-              style={{ borderRadius: "6px 0px 0px 6px" }}
-            >
-              <p>{"<"}</p>
-            </div>
-            <div className={classes.paginator}>
-              <p>1</p>
-            </div>
-            <div className={classes.paginator}>
-              <p>2</p>
-            </div>
-            <div className={classes.paginator}>
-              <p>3</p>
-            </div>
-            <div className={classes.paginator}>
-              <p>...</p>
-            </div>
-            <div className={classes.paginator}>
-              <p>8</p>
-            </div>
-            <div className={classes.paginator}>
-              <p>9</p>
-            </div>
-            <div className={classes.paginator}>
-              <p>10</p>
-            </div>
-            <div
-              className={classes.paginator}
-              style={{ borderRadius: "0px 6px 6px 0px" }}
-            >
-              <p>{">"}</p>
-            </div>
-          </div>
-        </div>
+        <Paginator
+          itemOffset={itemOffset}
+          endOffset={endOffset}
+          itemsLength={LoadsListTableData?.length}
+          handlePageClick={handlePageClick}
+          pageCount={pageCount}
+          renderOnZeroPageCount={null}
+        />
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 //styling imports:
+import { ArcElement, Chart as ChartJS, Tooltip } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
 import classes from "../dashboard.module.css";
 // import "../style.css";
 
@@ -19,20 +19,25 @@ const LoadsTransfer = () => {
     datasets: [
       {
         label: " Value: ",
-        data: [21, 19, 3],
-        backgroundColor: [
-          "rgb(255, 99, 132)",
-          "rgb(54, 162, 235)",
-          "rgb(255, 205, 86)",
-        ],
+        data: [26, 5, 10, 10],
+        backgroundColor: ["#FFC542", "#FF974A", "#3DD598", "#0062FF"],
+        spacing: -10,
+        borderRadius: 10,
+        borderWidth: 0,
       },
     ],
   };
 
   const options = {
-    cutout: 84,
+    cutout: 92.5,
+    hover: false,
     aspectRatio: 1,
     responsive: true,
+    plugins: {
+      tooltip: {
+        enabled: false,
+      },
+    },
   };
 
   return (

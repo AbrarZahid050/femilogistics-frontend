@@ -43,7 +43,16 @@
   display: flex;
   align-items: center;
 }
-.loads_text_container > span {
+.loads_text_red {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.1px;
+  color: #fc5a5a;
+}
+.loads_text_green {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 600;
@@ -52,10 +61,16 @@
   letter-spacing: 0.1px;
   color: #3dd598;
 }
-.loads_text_container > img {
+.loads_arrow_down {
+  transform: scale(-1);
   width: 10px;
   height: 12px;
-  margin-left: 6px;
+  margin: 0 0 2px 4px;
+}
+.loads_arrow_up {
+  width: 10px;
+  height: 12px;
+  margin: 0 0 2px 4px;
 }
 
 .comparison_text {
@@ -180,15 +195,30 @@
   justify-content: space-between;
   padding: 4px 10px 0px 10px;
   margin-right: 20px;
+  background: #ffffff;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.dropdown_header_wrapper_open {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 180px;
+  height: 36px;
+  justify-content: space-between;
+  padding: 4px 10px 0px 10px;
+  margin-right: 20px;
+  background: #ffffff;
+  border-radius: 10px;
   border-radius: 10px 10px 0px 0px;
-  box-shadow: 0px 3px 8px -1px rgba(50, 50, 71, 0.05);
-  filter: drop-shadow(0px 0px 1px rgba(12, 26, 75, 0.24));
   cursor: pointer;
 }
 
 .dropdown_arrow_reverse {
   transform: scaleY(-1);
 }
+
 .dropdown_header_wrapper > p {
   font-family: "Roboto";
   font-style: normal;
@@ -198,14 +228,24 @@
   letter-spacing: 0.1px;
   color: #696974;
 }
+
+.dropdown_header_wrapper_open > p {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.1px;
+  color: #696974;
+}
+
 .dropdown_list_container {
   position: absolute;
   width: 180px;
   justify-content: space-between;
   padding: 6px 0px 0px 0px;
   border-radius: 0px 0px 10px 10px;
-  box-shadow: 0px 3px 8px -1px rgba(50, 50, 71, 0.05);
-  filter: drop-shadow(0px 0px 1px rgba(12, 26, 75, 0.24));
+  box-shadow: 0px 5px 15px rgba(68, 68, 79, 0.1);
   background-color: white;
 }
 .dropdown_list_text {
@@ -224,8 +264,42 @@
   margin-top: 4px;
   color: #696974;
 }
-.dropdown_list_text > input[type="checkbox"] {
-  accent-color: #3dd598;
+/* .dropdown_list_text > input[type="checkbox"] {
+  accent-color: #3dd598 !important;
+} */
+
+/* #myCheckbox{
+
+} */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 13px;
+  height: 13px;
+  border: 1px solid #b5b5be;
+  border-radius: 3px;
+  outline: none;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #3dd598;
+}
+
+input[type="checkbox"]:focus {
+  border: 1px solid #b5b5be;
+}
+
+input[type="checkbox"]:checked::before {
+  content: "";
+  display: block;
+  width: 2px;
+  height: 5px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-left: 3.4px;
+  margin-top: 2px;
 }
 
 .loads_list_download_container {
@@ -245,10 +319,10 @@
 }
 
 .loads_list_table_container {
-  
-  overflow-x: auto;
-  margin: 10px 0px;
   background: #ffffff;
+  border: 1px solid #e5e7eb;
+  overflow-x: auto;
+  margin: 14px 0px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06);
   border-radius: 8px;
 }
@@ -314,45 +388,8 @@
 .divider_image {
   width: 99%;
   position: relative;
-  top: -14px;
+  top: -18px;
 }
-.result_container {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0px 20px;
-}
-.result_container > p {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: #374151;
-}
-.paginator_container {
-  display: flex;
-  align-items: center;
-}
-.paginator {
-  width: 30px;
-  height: 30px;
-  background: #ffffff;
-  border: 1px solid #d1d5db;
-  cursor: pointer;
-}
-.paginator > p {
-  margin-top: 4px;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  text-align: center;
-  color: #6b7280;
-}
-
 
 /* custom scrollbar: ==================================================================
 ======================================================================================= */
@@ -372,12 +409,8 @@
   border-radius: 10px;
 } */
 
-
-
-
 /* doughnut graph component styles:=================================================
 ====================================================================================*/
-
 
 .main_loads_transfer_container {
   border-radius: 20px;
@@ -484,8 +517,6 @@
   letter-spacing: 0.1px;
   color: #44444f;
 }
-
-
 
 @media screen and (max-width: 1440px) {
   .loads-ratio-second-container {

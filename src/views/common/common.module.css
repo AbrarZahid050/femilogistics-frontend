@@ -1,0 +1,77 @@
+.result_container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
+.result_container > p {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #374151;
+}
+.react_pagination {
+  display: flex;
+  align-items: center;
+}
+
+.react_pagination li {
+  list-style: none;
+  padding: 9px 10px;
+  width: 40px;
+  height: 38px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  cursor: pointer;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.react_pagination li {
+  list-style: none;
+  padding: 9px 10px;
+  width: 40px;
+  height: 38px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  cursor: pointer;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.active_link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef2ff;
+  border: 1px solid #0062ff;
+  padding: 10px 18px 6px 18px;
+  margin: -10px 0px 0px -10px;
+  color: #0062ff;
+}
+.previous_link > img,
+.next_link > img {
+  width: 6px;
+  height: 10px;
+}
+
+.previous_button {
+  border-radius: 6px 0px 0px 6px;
+}
+
+.next_button {
+  border-radius: 0px 6px 6px 0px;
+}

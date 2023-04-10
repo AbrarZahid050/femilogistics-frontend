@@ -3,8 +3,8 @@ import "./App.css";
 
 import Layout from "./components/Layout/Layout";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
-import Dashboard from "./views/dashboard/Dashboard.jsx";
 import ForgotPwd from "./views/forgotPassword/ForgotPwd.jsx";
+import Panel from "./views/panel/Panel";
 import SignIn from "./views/signIn/SignIn.jsx";
 
 import { ToastContainer } from "react-toastify";
@@ -27,7 +27,7 @@ const App = () => {
 
           {/* protected routes */}
           <Route element={<RequireAuth />}>
-            <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/panel" element={<Panel />} />
           </Route>
 
           <Route path="*" element={<h1>404 Not Found</h1>} />

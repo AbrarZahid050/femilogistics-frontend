@@ -30,12 +30,19 @@
 .search-wrapper {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 13px;
 }
 .new-order-wrapper {
   display: flex;
   align-items: center;
   gap: 6px;
+  justify-content: center;
+  cursor: pointer;
+  width: 115px;
+  height: 40px;
+  background: #fafafa;
+  border: 1px solid #f3f4f6;
+  border-radius: 5px;
 }
 .new-order-wrapper > img {
   width: 20px;
@@ -52,9 +59,19 @@
   color: #282842;
 }
 .search-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: #fafafa;
+  border: 1px solid #f3f4f6;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.search-icon > img {
   width: 18, 5px;
   height: 18.5px;
-  cursor: pointer;
 }
 .navbar-wrapper-right {
   display: flex;
