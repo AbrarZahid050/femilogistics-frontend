@@ -2,6 +2,7 @@ import ReactPaginate from "react-paginate";
 import arrow_left from "../../assets/Paginator/arrow_left.svg";
 import arrow_right from "../../assets/Paginator/arrow_right.svg";
 import classes from "./common.module.css";
+
 const Paginator = ({
   itemOffset,
   endOffset,

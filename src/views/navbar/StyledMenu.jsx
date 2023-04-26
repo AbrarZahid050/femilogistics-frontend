@@ -1,19 +1,21 @@
 import { Menu, styled } from "@mui/material";
 
-export const StyledMenu = styled((props) => (
-  <Menu
-    elevation={12}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "right",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "right",
-    }}
-    {...props}
-  />
-))(({ theme }) => ({
+export const StyledMenu = styled((props) => {
+  return (
+    <Menu
+      elevation={12}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      {...props}
+    />
+  );
+})(({ theme }) => ({
   "& .MuiPaper-root": {
     borderRadius: 6,
     marginTop: theme.spacing(1.5),

@@ -43,7 +43,7 @@
   border: 1.5px solid #ff2020;
 }
 
-input:focus {
+.inputField:focus {
   outline: none;
   border: 1.5px solid #545dff;
 }

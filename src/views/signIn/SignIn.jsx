@@ -7,10 +7,12 @@ import { useDispatch } from "react-redux";
 //custom imports
 import axiosInstance from "../../components/Axios/axiosInstance";
 import { setLogin } from "../../redux/slices/authSlice";
+import { LoginBtn } from "../../components/Styles/StyledBtns";
 // import useAuth from "../../hooks/useAuth";
 
 //styling imports
 import classes from "./signIn.module.css";
+import { CircularProgress } from "@mui/material";
 
 //pic imports
 import eyeOff from "../../assets/SignupImages/Eye Off.png";
@@ -20,9 +22,8 @@ import pwdPic from "../../assets/SignupImages/pass.png";
 
 const SignIn = () => {
   const dispatch = useDispatch();
-
-  // const { setAuth } = useAuth();
   const navigate = useNavigate();
+  // const { setAuth } = useAuth();
 
   const [display1, setDisplay1] = useState(false);
   const [values, setValues] = useState({
@@ -34,6 +35,7 @@ const SignIn = () => {
     password: "",
   });
   const [serverErrMsg, setServerErrMsg] = useState("");
+  const [isLoading, setLoad] = useState(false);
 
   //* fn to handle onChange attr of input fields.
   const inputChangeHandler = (event) => {
@@ -85,6 +87,7 @@ const SignIn = () => {
     };
 
     const payload = JSON.stringify(newUser);
+    setLoad((preVal) => !preVal);
 
     // Asychornous func for posting the request to server for user registration.
     const signInAPIHandler = async () => {
@@ -98,11 +101,16 @@ const SignIn = () => {
         // });
         // setAuth({ user: JWTDecodedToken.email });
 
+        setLoad((preVal) => !preVal);
         dispatch(setLogin(response.data.token[0]));
-        navigate({ pathname: "/dashboard" });
+        navigate({ pathname: "/panel" });
       } catch (err) {
         if (err.response.status === 400) {
           setServerErrMsg(err.response.data.non_field_errors[0]);
+          setTimeout(() => {
+            setServerErrMsg("");
+          }, 5000);
+          setLoad((preVal) => !preVal);
         }
       }
     };
@@ -137,7 +145,7 @@ const SignIn = () => {
           )}
 
           {/* input-form */}
-          <form onSubmit={handlerSignup}>
+          <form>
             {/* error-text for email */}
             {error.email && (
               <div className={classes.errorText}>Error: {error.email}</div>
@@ -200,17 +208,18 @@ const SignIn = () => {
             </div>
 
             {/* submit-btn */}
-            <button className={classes.btn}>SIGN IN</button>
+            <LoginBtn
+              onClick={handlerSignup}
+              disabled={isLoading}
+              startIcon={
+                isLoading ? (
+                  <CircularProgress size={20} color="inherit" />
+                ) : null
+              }
+            >
+              Sign in
+            </LoginBtn>
           </form>
-
-          {/* already-signedIn */}
-          {/* <p className={classes.bottomText}>
-            Don't have an account?
-            <Link className={classes.linkText} to="/signUp">
-              {" "}
-              Sign Up
-            </Link>
-          </p> */}
         </div>
       </div>
     </div>

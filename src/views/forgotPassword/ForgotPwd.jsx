@@ -2,18 +2,20 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 //custom imports
+import { LoginBtn } from "../../components/Styles/StyledBtns";
 import axiosInstance from "../../components/Axios/axiosInstance";
 import ModalForgotPwd from "./modal/ModalForgotPwd";
 
 //stylying imports
 import classes from "./forgotPwd.module.css";
+import { CircularProgress } from "@mui/material";
 
 //pic imports
 import emailPic from "../../assets/SignupImages/mail.png";
 
 const ForgotPwd = () => {
   const [isModal, setIsModal] = useState(false);
-
+  const [isLoading, setLoad] = useState(false);
   const [values, setValues] = useState({
     Email: "",
   });
@@ -58,6 +60,7 @@ const ForgotPwd = () => {
     };
 
     const payload = JSON.stringify(newUser);
+    setLoad((preVal) => !preVal);
 
     //Asychornous func for posting the request to server.
     const forgotPwdApi = async () => {
@@ -67,11 +70,16 @@ const ForgotPwd = () => {
           payload
         );
         if (response.data) {
+          setLoad((preVal) => !preVal);
           setIsModal(true);
         }
       } catch (err) {
         if (err.response.data.errorCode === 400) {
           setServerErrMsg(err.response.data.message);
+          setTimeout(() => {
+            setServerErrMsg("");
+          }, 5000);
+          setLoad((preVal) => !preVal);
         }
       }
     };
@@ -137,7 +145,17 @@ const ForgotPwd = () => {
             </div>
 
             {/* submit-btn */}
-            <button className={classes.btn}>SEND RESET CODE</button>
+            <LoginBtn
+              onClick={handlerSignup}
+              disabled={isLoading}
+              startIcon={
+                isLoading ? (
+                  <CircularProgress size={20} color="inherit" />
+                ) : null
+              }
+            >
+              send reset code
+            </LoginBtn>
           </form>
 
           {/* already-signedIn */}
