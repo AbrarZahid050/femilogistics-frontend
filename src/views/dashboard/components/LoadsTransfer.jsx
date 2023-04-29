@@ -1,9 +1,8 @@
-//styling imports:
+// chart imports
 import { ArcElement, Chart as ChartJS, Tooltip } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+//styling imports
 import classes from "../dashboard.module.css";
-// import "../style.css";
-
 //svg imports:
 import arrow_left from "../../../assets/DashboardImages/arrow_left.svg";
 import arrow_right from "../../../assets/DashboardImages/arrow_right.svg";

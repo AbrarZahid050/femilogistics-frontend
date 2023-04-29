@@ -1,12 +1,12 @@
 import {
-  styled,
   Button,
+  FormControlLabel,
   FormLabel,
   InputBase,
   Radio,
-  FormControlLabel,
-  useRadioGroup,
   Switch,
+  styled,
+  useRadioGroup,
 } from "@mui/material";
 import { grey, indigo } from "@mui/material/colors";
 
@@ -70,6 +70,7 @@ export const StyledInput = styled(InputBase)(() => ({
 }));
 
 //--------------------------------------Styled Radio-------------------------------------------------//
+
 const BpIcon = styled("span")(() => ({
   borderRadius: "50%",
   width: 16,

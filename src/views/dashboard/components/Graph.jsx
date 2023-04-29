@@ -157,7 +157,6 @@ const LoadsGraph = () => {
           display: false,
         },
         min: 0,
-        // max: 1000,
         ticks: {
           stepSize: 200,
           padding: 20,

@@ -1,7 +1,6 @@
 .main_side_drawer_wrapper {
   min-width: 250px;
   background: #282842;
-  /* height: 91vh; */
   min-height: 100vh;
   box-shadow: inset -1px 0px 0px #e2e2ea;
   overflow: auto;

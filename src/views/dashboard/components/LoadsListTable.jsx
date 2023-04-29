@@ -1,7 +1,3 @@
-import { nanoid } from "@reduxjs/toolkit";
-import { useState } from "react";
-
-//styling imports:
 import {
   Table,
   TableBody,
@@ -10,8 +6,10 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { nanoid } from "@reduxjs/toolkit";
+import { useState } from "react";
 
-// import "../style.css";
+//styling imports:
 import classes from "../dashboard.module.css";
 
 //svg imports:

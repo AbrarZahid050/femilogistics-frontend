@@ -11,17 +11,19 @@ import {
   Divider,
   IconButton,
   MenuItem,
+  Stack,
   Tooltip,
   Typography,
 } from "@mui/material";
+import { NavbarBtn } from "../../components/Styles/StyledBtns.js";
 import { StyledMenu } from "./StyledMenu";
 import "./style.css";
 
 //svg imports:
 import avatar from "../../assets/NavbarImages/avatar.jpg";
 import bell_icon from "../../assets/NavbarImages/bell_icon.svg";
-import plus_order from "../../assets/NavbarImages/plus_order.svg";
-import search from "../../assets/NavbarImages/search.svg";
+import { ReactComponent as PlusOrder } from "../../assets/NavbarImages/plus_order.svg";
+import { ReactComponent as Search } from "../../assets/NavbarImages/search.svg";
 import { setLogout } from "../../redux/slices/authSlice";
 
 const Navbar = () => {
@@ -53,13 +55,12 @@ const Navbar = () => {
           <h2>Triton</h2>
         </div>
         <div className="search-wrapper">
-          <div className="new-order-wrapper">
-            <img src={plus_order} alt="error" />
-            <p>New Order</p>
-          </div>
-          <div className="search-icon">
-          <img src={search} alt="error"  />
-          </div>
+          <Stack spacing={2} direction="row">
+            <NavbarBtn startIcon={<PlusOrder />}>New Order</NavbarBtn>
+            <NavbarBtn>
+              <Search />
+            </NavbarBtn>
+          </Stack>
         </div>
       </div>
 

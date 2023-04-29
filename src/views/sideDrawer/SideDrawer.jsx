@@ -1,10 +1,8 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-//styling imports:
+//styling imports
 import classes from "./sideDrawer.module.css";
-// import "./style.css";
-
 //svg imports:
 import carrier from "../../assets/SideDrawerImages/carrier.svg";
 import customer from "../../assets/SideDrawerImages/customer.svg";
@@ -15,9 +13,9 @@ import user from "../../assets/SideDrawerImages/user.svg";
 
 const SideDrawer = () => {
   const [isLoadsArrow, setIsLoadsArrow] = useState(false);
-  const navigate = useNavigate ();
-  const location = useLocation()
-  
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const sideDrawerLisnk = [
     {
       link_image: overview,
@@ -52,10 +50,15 @@ const SideDrawer = () => {
         {sideDrawerLisnk.map((e) => (
           <div
             key={nanoid()}
-            className={e.goto === location.search.slice(1) ? classes.link_wrapper_active : classes.link_wrapper}
+            className={
+              e.goto === location.search.slice(1)
+                ? classes.link_wrapper_active
+                : classes.link_wrapper
+            }
             onClick={() => {
               e.link_text === "Loads" && setIsLoadsArrow(!isLoadsArrow);
-              e.link_text !== "Loads" && navigate({pathname: '/panel', search:e.goto});
+              e.link_text !== "Loads" &&
+                navigate({ pathname: "/panel", search: e.goto });
             }}
           >
             <img
