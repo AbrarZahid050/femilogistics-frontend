@@ -6,22 +6,19 @@ import {
   Stack,
   Button,
   Typography,
-  FormControl,
-  RadioGroup,
   IconButton,
+  FormControl,
+  Tooltip,
 } from "@mui/material";
 import { blue, indigo, grey } from "@mui/material/colors";
-import {
-  StyledInput,
-  StyledLabel,
-  BpRadio,
-  MyFormControlLabel,
-  StyledSwitch,
-} from "../../components/Styles/StyledBtns";
+import { StyledInput, StyledLabel } from "../../components/Styles/StyledBtns";
 import Summary from "./components/Accordion/Summary";
 import { ReactComponent as ExpandMore } from "../../assets/New Load Page/downArrow.svg";
 import { ReactComponent as ExpandLess } from "../../assets/New Load Page/Path 4.svg";
+import { ReactComponent as CrossIcon } from "../../assets/New Load Page/cross.svg";
 import CustomInput from "./components/InputFields/CustomInput";
+import FreightAccounting from "./components/FreightSection/FreightAccounting";
+import Freight from "./components/FreightSection/Freight";
 
 const Carrier = () => {
   const [expand, setExpand] = useState(false);
@@ -121,187 +118,37 @@ const Carrier = () => {
           </Grid>
         </Paper>
 
-        <Paper
-          sx={{
-            p: 2,
-            background: "#FFFFFF",
-            boxShadow:
-              "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
-            borderRadius: "8px",
-          }}
-        >
-          {/* main grid */}
-          <Grid container columnSpacing={2}>
-            {/* column 1 */}
-            <Grid item xs={6}>
-              <Stack spacing={0.5}>
-                {/* heading */}
-                <Typography fontSize="18px" fontWeight="500">
-                  Feight
-                </Typography>
+        <Grid container>
+          {expand ? (
+            <>
+              <Grid item xs={9}>
+                <Freight />
+              </Grid>
 
-                {/* first input */}
-                <FormControl>
-                  <Grid container alignItems="center">
-                    <Grid item xs={3}>
-                      <StyledLabel>Commodity</StyledLabel>
-                    </Grid>
-                    <Grid item xs={9}>
-                      <StyledInput fullWidth value="Truck/Van/N/A" />
-                    </Grid>
-                  </Grid>
-                </FormControl>
-
-                {/* second input */}
-                <FormControl>
-                  <Grid container alignItems="center">
-                    <Grid item xs={3}>
-                      <StyledLabel>Case</StyledLabel>
-                    </Grid>
-                    <Grid item xs={9}>
-                      <StyledInput fullWidth value="Miami" />
-                    </Grid>
-                  </Grid>
-                </FormControl>
-
-                {/* third input */}
-                <FormControl>
-                  <Grid container alignItems="center">
-                    <Grid item xs={3}>
-                      <StyledLabel>Mileage</StyledLabel>
-                    </Grid>
-                    <Grid item xs={9}>
-                      <StyledInput fullWidth value="John Doe" />
-                    </Grid>
-                  </Grid>
-                </FormControl>
-                {/* fourth input */}
-                <FormControl>
-                  <Grid container alignItems="center">
-                    <Grid item xs={3}>
-                      <StyledLabel>Transportation</StyledLabel>
-                    </Grid>
-                    <Grid item xs={9}>
-                      <StyledInput fullWidth value="Purus id pheretra" />
-                    </Grid>
-                  </Grid>
-                </FormControl>
-                {/* fifth input */}
-                <FormControl>
-                  <Grid container alignItems="center">
-                    <Grid item xs={3}>
-                      <StyledLabel>Equip. Min</StyledLabel>
-                    </Grid>
-                    <Grid item xs={9}>
-                      <StyledInput fullWidth value="Ut sit adipiscing id" />
-                    </Grid>
-                  </Grid>
-                </FormControl>
-              </Stack>
+              <Grid item xs={3}>
+                <FreightAccounting />
+              </Grid>
+            </>
+          ) : (
+            <Grid item xs={12}>
+              <Freight />
             </Grid>
+          )}
+        </Grid>
 
-            {/* column-2 */}
-            <Grid item xs={6}>
-              <Stack spacing={0.5}>
-                {/* first input */}
-                <FormControl>
-                  <Grid container alignItems="center">
-                    <Grid item xs={3}>
-                      <StyledLabel>Load Value</StyledLabel>
-                    </Grid>
-                    <Grid item xs={9}>
-                      <StyledInput fullWidth value="Ut sit adipiscing id" />
-                    </Grid>
-                  </Grid>
-                </FormControl>
-
-                {/* second input */}
-                <FormControl>
-                  <Grid container alignItems="center">
-                    <Grid item xs={3}>
-                      <StyledLabel>Weight</StyledLabel>
-                    </Grid>
-                    <Grid item xs={9}>
-                      <StyledInput fullWidth value="Ut sit adipiscing id" />
-                    </Grid>
-                  </Grid>
-                </FormControl>
-
-                {/* third input */}
-                <FormControl>
-                  <Grid container alignItems="center">
-                    <Grid item xs={3}>
-                      <StyledLabel>Refree Temp</StyledLabel>
-                    </Grid>
-                    <Grid item xs={9}>
-                      <StyledInput fullWidth value="Ut sit adipiscing id" />
-                    </Grid>
-                  </Grid>
-                </FormControl>
-
-                {/* fourth input */}
-                <FormControl>
-                  <Grid container alignItems="center">
-                    <Grid item xs={3}>
-                      <StyledLabel>Temperature</StyledLabel>
-                    </Grid>
-                    <Grid item xs={9}>
-                      <RadioGroup
-                        row
-                        aria-labelledby="demo-row-radio-buttons-group-label"
-                        name="row-radio-buttons-group"
-                        sx={{ padding: "0 10px" }}
-                      >
-                        <MyFormControlLabel
-                          sx={{
-                            paddingRight: "20px",
-                            borderRadius: "8px",
-                          }}
-                          value="F"
-                          control={<BpRadio />}
-                          label="F"
-                        />
-                        <MyFormControlLabel
-                          sx={{
-                            borderRadius: "8px",
-                            paddingRight: "20px",
-                          }}
-                          value="C"
-                          control={<BpRadio />}
-                          label="C"
-                        />
-                      </RadioGroup>
-                    </Grid>
-                  </Grid>
-                </FormControl>
-
-                {/* fifth input */}
-                <FormControl>
-                  <Grid container alignItems="center" height="40px">
-                    <Grid item xs={3}>
-                      <StyledLabel>Partial Vol</StyledLabel>
-                    </Grid>
-                    <Grid item xs={9} alignItems="center">
-                      <StyledSwitch />
-                    </Grid>
-                  </Grid>
-                </FormControl>
-
-                {/* sixth input */}
-                <FormControl>
-                  <Grid container alignItems="center" height="40px">
-                    <Grid item xs={3}>
-                      <StyledLabel>Team Service</StyledLabel>
-                    </Grid>
-                    <Grid item xs={9} alignItems="center">
-                      <StyledSwitch />
-                    </Grid>
-                  </Grid>
-                </FormControl>
-              </Stack>
-            </Grid>
-          </Grid>
-        </Paper>
+        <Box>
+          <Button
+            variant="contained"
+            sx={{
+              background: indigo[900],
+              fontSize: "15px",
+              height: "30px",
+              borderRadius: "7px",
+            }}
+          >
+            Add Carrier
+          </Button>
+        </Box>
 
         <Paper
           elevation={0}
@@ -372,190 +219,354 @@ const Carrier = () => {
 
             {/* Accordion detail */}
             {expand ? (
-              <Stack
-                direction="row"
-                flexWrap="wrap"
-                justifyContent="space-between"
-              >
-                {/* first card */}
-                <Paper sx={{ width: { xl: "33%", sm: "420px" }, p: 2 }}>
-                  <Stack spacing={0.5}>
-                    {/* heading */}
-                    <Typography fontSize="18px" fontWeight="500">
-                      Carrier
-                    </Typography>
+              // main-container
+              <Box width="100%" display="flex" gap={2} flexWrap="wrap">
+                {/* card-1 */}
+                <Box width="530px">
+                  <Paper
+                    sx={{
+                      p: 2,
+                      height: "100%",
+                      background: "#FFFFFF",
+                      boxShadow:
+                        "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <Stack spacing={1}>
+                      <Typography variant="h6" fontSize="18px">
+                        Freight
+                      </Typography>
 
-                    {/* first input */}
-                    <FormControl>
-                      <Grid container alignItems="center">
-                        <Grid item xs={3}>
-                          <StyledLabel>Search</StyledLabel>
-                        </Grid>
-                        <Grid item xs={9}>
-                          <StyledInput
-                            fullWidth
-                            value="ASAP TRANS CORP (38243) Homeglen, IL"
-                            multiline
-                            rows={2}
-                          />
-                        </Grid>
-                      </Grid>
-                    </FormControl>
+                      {/* 1st input */}
+                      <CustomInput>
+                        <StyledLabel>Search</StyledLabel>
+                        <StyledInput fullWidth multiline rows={2} />
+                      </CustomInput>
 
-                    {/* second input */}
-                    <FormControl>
-                      <Grid container alignItems="center">
-                        <Grid item xs={3}>
-                          <StyledLabel>Name</StyledLabel>
-                        </Grid>
-                        <Grid item xs={9}>
-                          <StyledInput fullWidth value="ASAP Trans corp" />
-                        </Grid>
-                      </Grid>
-                    </FormControl>
+                      {/* 2nd input */}
+                      <CustomInput>
+                        <StyledLabel>Name</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+                      {/* 3rd input */}
+                      <CustomInput>
+                        <StyledLabel>Insurance</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
 
-                    {/* third input */}
-                    <FormControl>
-                      <Grid container alignItems="center">
-                        <Grid item xs={3}>
-                          <StyledLabel>Insurance</StyledLabel>
-                        </Grid>
-                        <Grid item xs={9}>
-                          <StyledInput fullWidth value="John Doe" />
-                        </Grid>
-                      </Grid>
-                    </FormControl>
+                      {/* 4th input */}
+                      <CustomInput>
+                        <StyledLabel>Phone</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
 
-                    {/* fourth input */}
-                    <FormControl>
-                      <Grid container alignItems="center">
-                        <Grid item xs={3}>
-                          <StyledLabel>Phone</StyledLabel>
+                      {/* 5th input */}
+                      <CustomInput>
+                        <StyledLabel>Fax</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 6th input */}
+                      <CustomInput>
+                        <StyledLabel>Pro</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 7th input */}
+                      <CustomInput>
+                        <StyledLabel>RC Note</StyledLabel>
+                        <StyledInput fullWidth multiline rows={3} />
+                      </CustomInput>
+                    </Stack>
+                  </Paper>
+                </Box>
+
+                {/* card-2 */}
+                <Box width="530px">
+                  <Paper
+                    sx={{
+                      p: 2,
+                      height: "100%",
+                      background: "#FFFFFF",
+                      boxShadow:
+                        "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <Stack spacing={1}>
+                      {/* heading */}
+                      <Typography variant="h6" fontSize="18px">
+                        Dispatch
+                      </Typography>
+
+                      {/* 1st input */}
+                      <CustomInput>
+                        <StyledLabel>Name</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 2nd input */}
+                      <CustomInput>
+                        <StyledLabel>Phone</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+                      {/* 3rd input */}
+                      <CustomInput>
+                        <StyledLabel>Email</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 4th input */}
+                      <CustomInput>
+                        <StyledLabel>After hours Name</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 5th input */}
+                      <CustomInput>
+                        <StyledLabel>After hours Phone</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 6th input */}
+                      <CustomInput>
+                        <StyledLabel>Comment</StyledLabel>
+                        <StyledInput fullWidth multiline rows={3} />
+                      </CustomInput>
+                    </Stack>
+                  </Paper>
+                </Box>
+
+                {/* card-3 */}
+                <Box width="530px">
+                  <Paper
+                    sx={{
+                      p: 2,
+                      height: "100%",
+                      background: "#FFFFFF",
+                      boxShadow:
+                        "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <Stack spacing={1}>
+                      <Typography variant="h6" fontSize="18px">
+                        Accouting
+                      </Typography>
+                      <FormControl>
+                        <StyledLabel>AP Fee</StyledLabel>
+                        <StyledInput dir="rtl" value="$00.00" sx={{ p: 0 }} />
+                      </FormControl>
+                      <StyledLabel dir="rtl">Sub Total: $0.00</StyledLabel>
+                      <Stack direction="row" justifyContent="space-between">
+                        <Typography fontWeight="bold">Total</Typography>
+                        <Typography fontWeight="bold">Total: $30.00</Typography>
+                      </Stack>
+                    </Stack>
+                  </Paper>
+                </Box>
+
+                {/* card-4 */}
+                <Box width="803px">
+                  <Paper
+                    sx={{
+                      p: 2,
+                      height: "100%",
+                      background: "#FFFFFF",
+                      boxShadow:
+                        "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <Stack spacing={1}>
+                      <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Typography variant="h6" fontSize="18px">
+                          Driver
+                        </Typography>
+                        <Tooltip title="Close">
+                          <IconButton>
+                            <CrossIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </Stack>
+
+                      {/* 1st input */}
+                      <CustomInput labelSize={3}>
+                        <StyledLabel>Name</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 2nd input */}
+                      <CustomInput labelSize={3}>
+                        <StyledLabel>Mobile Phone</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 3rd input */}
+                      <CustomInput labelSize={3}>
+                        <StyledLabel>Alternate Phone</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 4th input */}
+                      <CustomInput labelSize={3}>
+                        <StyledLabel>Location</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 5th input */}
+                      <CustomInput labelSize={3}>
+                        <StyledLabel>Palets</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 6th input */}
+                      <Box width="100%">
+                        <Grid container>
+                          <Grid item xs={6}>
+                            <CustomInput labelSize={6}>
+                              <StyledLabel>Tractor</StyledLabel>
+                              <StyledInput fullWidth />
+                            </CustomInput>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <CustomInput labelSize={4}>
+                              <StyledLabel sx={{ paddingLeft: 5 }}>
+                                Trailer
+                              </StyledLabel>
+                              <StyledInput fullWidth />
+                            </CustomInput>
+                          </Grid>
                         </Grid>
-                        <Grid item xs={9}>
-                          <StyledInput fullWidth value="(333) 333 333" />
+                      </Box>
+
+                      {/* 7th input */}
+                      <Box width="100%">
+                        <Grid container>
+                          <Grid item xs={6}>
+                            <CustomInput labelSize={6}>
+                              <StyledLabel>Equipment</StyledLabel>
+                              <StyledInput fullWidth />
+                            </CustomInput>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <CustomInput labelSize={4}>
+                              <StyledLabel sx={{ paddingLeft: 5 }}>
+                                Equip Size
+                              </StyledLabel>
+                              <StyledInput fullWidth />
+                            </CustomInput>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </FormControl>
+                      </Box>
+                    </Stack>
+                  </Paper>
+                </Box>
 
-                    {/* fifth input */}
-                    <FormControl>
-                      <Grid container alignItems="center">
-                        <Grid item xs={3}>
-                          <StyledLabel>Fax</StyledLabel>
+                {/* card-5 */}
+                <Box width="803px">
+                  <Paper
+                    sx={{
+                      p: 2,
+                      height: "100%",
+                      background: "#FFFFFF",
+                      boxShadow:
+                        "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <Stack spacing={1}>
+                      <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Typography variant="h6" fontSize="18px">
+                          Driver
+                        </Typography>
+                        <IconButton>
+                          <CrossIcon />
+                        </IconButton>
+                      </Stack>
+
+                      {/* 1st input */}
+                      <CustomInput labelSize={3}>
+                        <StyledLabel>Name</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 2nd input */}
+                      <CustomInput labelSize={3}>
+                        <StyledLabel>Mobile Phone</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 3rd input */}
+                      <CustomInput labelSize={3}>
+                        <StyledLabel>Alternate Phone</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 4th input */}
+                      <CustomInput labelSize={3}>
+                        <StyledLabel>Location</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 5th input */}
+                      <CustomInput labelSize={3}>
+                        <StyledLabel>Palets</StyledLabel>
+                        <StyledInput fullWidth />
+                      </CustomInput>
+
+                      {/* 6th input */}
+                      <Box width="100%">
+                        <Grid container>
+                          <Grid item xs={6}>
+                            <CustomInput labelSize={6}>
+                              <StyledLabel>Tractor</StyledLabel>
+                              <StyledInput fullWidth />
+                            </CustomInput>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <CustomInput labelSize={4}>
+                              <StyledLabel sx={{ paddingLeft: 5 }}>
+                                Trailer
+                              </StyledLabel>
+                              <StyledInput fullWidth />
+                            </CustomInput>
+                          </Grid>
                         </Grid>
-                        <Grid item xs={9}>
-                          <StyledInput fullWidth value="Ut sit adipiscing id" />
+                      </Box>
+
+                      {/* 7th input */}
+                      <Box width="100%">
+                        <Grid container>
+                          <Grid item xs={6}>
+                            <CustomInput labelSize={6}>
+                              <StyledLabel>Equipment</StyledLabel>
+                              <StyledInput fullWidth />
+                            </CustomInput>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <CustomInput labelSize={4}>
+                              <StyledLabel sx={{ paddingLeft: 5 }}>
+                                Equip Size
+                              </StyledLabel>
+                              <StyledInput fullWidth />
+                            </CustomInput>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </FormControl>
-
-                    {/* sixth input */}
-                    <FormControl>
-                      <Grid container alignItems="center">
-                        <Grid item xs={3}>
-                          <StyledLabel>Pro</StyledLabel>
-                        </Grid>
-                        <Grid item xs={9}>
-                          <StyledInput fullWidth value="Ut sit adipiscing id" />
-                        </Grid>
-                      </Grid>
-                    </FormControl>
-
-                    {/* seventh input */}
-                    <FormControl>
-                      <Grid container alignItems="center">
-                        <Grid item xs={3}>
-                          <StyledLabel>RC Notes</StyledLabel>
-                        </Grid>
-                        <Grid item xs={9}>
-                          <StyledInput
-                            fullWidth
-                            value="Ut sit adipiscing id"
-                            multiline
-                            rows={3}
-                          />
-                        </Grid>
-                      </Grid>
-                    </FormControl>
-                  </Stack>
-                </Paper>
-
-                {/* second card */}
-                <Paper sx={{ width: { xl: "33%", sm: "420px" }, p: 2 }}>
-                  <Stack spacing={0.5}>
-                    {/* heading */}
-                    <Typography fontSize="18px" fontWeight="500">
-                      Disptach
-                    </Typography>
-
-                    {/* first input */}
-                    <CustomInput
-                      label="Name"
-                      labelSize={4}
-                      value="TRUCK/VAN/N/A"
-                      inputSize={8}
-                    />
-
-                    {/* second input */}
-                    <CustomInput
-                      label="Phone"
-                      labelSize={4}
-                      value="(333) 333 333"
-                      inputSize={8}
-                    />
-
-                    {/* third input */}
-                    <CustomInput
-                      label="Email"
-                      labelSize={4}
-                      value="JohnDoe@test.com"
-                      inputSize={8}
-                    />
-
-                    {/* fourth input */}
-                    <CustomInput
-                      label="After hour Name"
-                      labelSize={4}
-                      value="Purus id pharetra"
-                      inputSize={8}
-                    />
-
-                    {/* fifth input */}
-                    <CustomInput
-                      label="After hour Hour"
-                      labelSize={4}
-                      value="Ut sit adipiscing id"
-                      inputSize={8}
-                    />
-
-                    {/* sixth input */}
-                    <CustomInput
-                      label="Comment"
-                      labelSize={4}
-                      value="Ut sed iaculis lectus"
-                      inputSize={8}
-                      multiline
-                      rows={3}
-                    />
-                    {/* <FormControl>
-                      <Grid container alignItems="center">
-                        <Grid item xs={3}>
-                          <StyledLabel>Comment</StyledLabel>
-                        </Grid>
-                        <Grid item xs={9}>
-                          <StyledInput fullWidth value="Ut sit adipiscing id" />
-                        </Grid>
-                      </Grid>
-                    </FormControl> */}
-                  </Stack>
-                </Paper>
-
-                {/* third card */}
-                <Paper sx={{ width: { xl: "32%", sm: "420px" }, p: 2 }}>
-                  testing3
-                </Paper>
-              </Stack>
+                      </Box>
+                    </Stack>
+                  </Paper>
+                </Box>
+              </Box>
             ) : null}
           </Stack>
         </Paper>

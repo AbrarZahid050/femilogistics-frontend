@@ -1,29 +1,14 @@
 import { FormControl, Grid } from "@mui/material";
-import {
-  StyledInput,
-  StyledLabel,
-} from "../../../../components/Styles/StyledBtns";
 
-const CustomInput = ({
-  label,
-  value,
-  labelSize,
-  inputSize,
-  multiline,
-  rows,
-}) => {
+const CustomInput = ({ children, labelSize }) => {
   return (
-    <FormControl>
+    <FormControl fullWidth>
       <Grid container alignItems="center">
-        <Grid item xs={labelSize}>
-          <StyledLabel>{label}</StyledLabel>
+        <Grid item xs={labelSize ? labelSize : 5}>
+          {children[0]}
         </Grid>
-        <Grid item xs={inputSize}>
-          {multiline ? (
-            <StyledInput fullWidth value={value} multiline rows={rows} />
-          ) : (
-            <StyledInput fullWidth value={value} />
-          )}
+        <Grid item xs={labelSize ? 12 - labelSize : 7}>
+          {children[1]}
         </Grid>
       </Grid>
     </FormControl>

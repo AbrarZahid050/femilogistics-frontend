@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 
 import Layout from "./components/Layout/Layout";
-import RequireAuth from "./components/RequireAuth/RequireAuth";
+// import RequireAuth from "./components/RequireAuth/RequireAuth";
 import ForgotPwd from "./views/forgotPassword/ForgotPwd.jsx";
 import Panel from "./views/panel/Panel";
 import SignIn from "./views/signIn/SignIn.jsx";
