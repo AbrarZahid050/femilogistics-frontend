@@ -6,6 +6,7 @@ import Dashboard from "../dashboard/Dashboard";
 import Navbar from "../navbar/Navbar";
 import SideDrawer from "../sideDrawer/SideDrawer";
 import User from "../user/User";
+import { Stack } from "@mui/material";
 const Panel = () => {
   const location = useLocation();
 
@@ -27,10 +28,10 @@ const Panel = () => {
   return (
     <>
       <Navbar />
-      <div style={{ display: "flex" }}>
+      <Stack direction="row" overflow="auto">
         <SideDrawer />
         {showComp()}
-      </div>
+      </Stack>
     </>
   );
 };

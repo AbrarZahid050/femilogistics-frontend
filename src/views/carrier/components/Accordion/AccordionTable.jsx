@@ -48,7 +48,7 @@ const AccordionTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow>
+          <TableRow sx={{ p: 0 }}>
             <TableCell sx={{ color: "#D97706" }}>Pick Up</TableCell>
             {[
               "Pacome Anjorin",

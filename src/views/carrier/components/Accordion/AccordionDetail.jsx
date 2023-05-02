@@ -23,7 +23,7 @@ import AccordionTable from "./AccordionTable";
 
 const AccordionDetail = () => {
   return (
-    <Box width="100%" display="flex" gap={2} flexWrap="wrap">
+    <Box display="flex" gap={2} flexWrap="wrap">
       {/* card-1 */}
       <Box width="530px">
         <Paper
@@ -504,6 +504,7 @@ const AccordionDetail = () => {
             boxShadow:
               "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
             borderRadius: "8px",
+            overflowX: "auto",
           }}
         >
           <Stack spacing={2}>

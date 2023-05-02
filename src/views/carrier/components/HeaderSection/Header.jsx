@@ -32,7 +32,10 @@ const Header = () => {
             <StyledInput
               value="Customer Name"
               readOnly
-              sx={{ color: blue.A400, width: "180px" }}
+              sx={{
+                color: blue.A400,
+                width: "180px",
+              }}
             />
           </Stack>
 
