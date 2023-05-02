@@ -1,156 +1,189 @@
 import { useState } from "react";
 import {
-  Paper,
   Box,
   Grid,
   Stack,
-  Button,
-  Typography,
   IconButton,
-  FormControl,
-  Tooltip,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
 } from "@mui/material";
-import { blue, indigo, grey } from "@mui/material/colors";
-import { StyledInput, StyledLabel } from "../../components/Styles/StyledBtns";
+import { grey } from "@mui/material/colors";
 import Summary from "./components/Accordion/Summary";
-import { ReactComponent as ExpandMore } from "../../assets/New Load Page/downArrow.svg";
-import { ReactComponent as ExpandLess } from "../../assets/New Load Page/Path 4.svg";
-import { ReactComponent as CrossIcon } from "../../assets/New Load Page/cross.svg";
-import CustomInput from "./components/InputFields/CustomInput";
+// import { ReactComponent as ExpandMore } from "../../assets/New Load Page/downArrow.svg";
+// import { ReactComponent as ExpandLess } from "../../assets/New Load Page/Path 4.svg";
+import { ReactComponent as Plus } from "../../assets/New Load Page/PlusBtn.svg";
+import { ReactComponent as ExpandIcon } from "../../assets/New Load Page/Chevron Down.svg";
+import { ReactComponent as Minus } from "../../assets/New Load Page/fluent_subtract-24-filled.svg";
+
+import { GeneralBtn1 } from "../../components/Styles/StyledBtns";
+import { nanoid } from "@reduxjs/toolkit";
+
 import FreightAccounting from "./components/FreightSection/FreightAccounting";
 import Freight from "./components/FreightSection/Freight";
+import AccordionDetail from "./components/Accordion/AccordionDetail";
+import Header from "./components/HeaderSection/Header";
+
+const data = [
+  {
+    carrier1: {
+      carrier: {
+        search: "random1",
+        name: "random2",
+        insurance: "random3",
+        phone: "random4",
+        fax: "random5",
+        pro: "random6",
+        rc: "random7",
+      },
+      dispatch: {
+        name: "random1",
+        phone: "random2",
+        email: "random3",
+        afterHoursName: "random4",
+        afterHoursPhone: "random5",
+        comment: "random6",
+      },
+      accounting: {
+        apFee: 0.0,
+      },
+    },
+  },
+
+  {
+    carrier2: {
+      carrier: {
+        search: "random1",
+        name: "random2",
+        insurance: "random3",
+        phone: "random4",
+        fax: "random5",
+        pro: "random6",
+        rc: "random7",
+      },
+      dispatch: {
+        name: "random1",
+        phone: "random2",
+        email: "random3",
+        afterHoursName: "random4",
+        afterHoursPhone: "random5",
+        comment: "random6",
+      },
+      accounting: {
+        apFee: 0.0,
+      },
+    },
+  },
+];
 
 const Carrier = () => {
-  const [expand, setExpand] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
-  const handleClick = () => {
-    setExpand((preVal) => !preVal);
+  const handleChange = (panel) => {
+    return (event) => {
+      setExpanded((preVal) => {
+        if (panel === preVal) {
+          return false;
+        } else {
+          return panel;
+        }
+      });
+    };
   };
 
   return (
     <Box sx={{ width: "100%", padding: 1, background: "#F9F9F9" }}>
       <Stack spacing={2}>
-        <Paper
-          sx={{
-            p: 2,
-            background: "#FFFFFF",
-            boxShadow:
-              "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
-            borderRadius: "8px",
-          }}
-          elevation={6}
-        >
-          <Grid
-            container
-            rowSpacing={2}
-            alignItems="center"
-            width="100%"
-            justifyContent="space-between"
-          >
-            <Grid item display="inline-flex" gap={2}>
-              <Stack spacing={1} direction="row" alignItems="center">
-                <StyledLabel>Customer</StyledLabel>
-                <StyledInput
-                  value="Customer Name"
-                  readOnly
-                  sx={{ color: blue.A400, width: "180px" }}
-                />
-              </Stack>
-
-              <Stack spacing={1} direction="row" alignItems="center">
-                <StyledLabel>Status</StyledLabel>
-                <StyledInput
-                  value="Available"
-                  readOnly
-                  sx={{ width: "150px" }}
-                />
-              </Stack>
-
-              <Stack spacing={1} direction="row" alignItems="center">
-                <StyledLabel>Assinged To</StyledLabel>
-                <StyledInput
-                  value="Guest Account"
-                  readOnly
-                  sx={{ width: "150px" }}
-                />
-              </Stack>
-            </Grid>
-
-            <Grid item>
-              <Button
-                variant="contained"
-                sx={{
-                  background: indigo[900],
-                  fontSize: "15px",
-                  height: "30px",
-                  borderRadius: "7px",
-                }}
-              >
-                AR
-              </Button>
-
-              <Button
-                variant="contained"
-                sx={{
-                  background: indigo[900],
-                  fontSize: "15px",
-                  height: "30px",
-                  borderRadius: "7px",
-                  marginLeft: 2,
-                }}
-              >
-                AP
-              </Button>
-              <Button
-                variant="contained"
-                sx={{
-                  background: "#0062FF",
-                  fontSize: "15px",
-                  height: "30px",
-                  borderRadius: "7px",
-                  marginLeft: 2,
-                  width: "200px",
-                }}
-              >
-                Submit
-              </Button>
-            </Grid>
-          </Grid>
-        </Paper>
+        <Header />
 
         <Grid container>
-          {expand ? (
-            <>
-              <Grid item xs={9}>
-                <Freight />
-              </Grid>
-
-              <Grid item xs={3}>
-                <FreightAccounting />
-              </Grid>
-            </>
-          ) : (
-            <Grid item xs={12}>
-              <Freight />
+          <Grid item xs={expanded ? 9 : 12}>
+            <Freight />
+          </Grid>
+          {expanded ? (
+            <Grid item xs={3}>
+              <FreightAccounting />
             </Grid>
-          )}
+          ) : null}
         </Grid>
 
         <Box>
-          <Button
-            variant="contained"
-            sx={{
-              background: indigo[900],
-              fontSize: "15px",
-              height: "30px",
-              borderRadius: "7px",
-            }}
-          >
+          <GeneralBtn1 variant="contained" startIcon={<Plus />}>
             Add Carrier
-          </Button>
+          </GeneralBtn1>
         </Box>
 
-        <Paper
+        <Box>
+          {data.map((carrier) => {
+            const panelName = Object.keys(carrier);
+            return (
+              <Box key={nanoid()} marginBottom={2}>
+                <Accordion
+                  expanded={expanded === panelName[0]}
+                  sx={{
+                    background: "#FFFFFF",
+                    boxShadow:
+                      "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
+                    borderRadius: "8px",
+                  }}
+                >
+                  <AccordionSummary
+                    sx={{
+                      "&.MuiAccordionSummary-root": {
+                        pointerEvents: "none",
+                      },
+                      "&.Mui-expanded": {
+                        bgcolor: grey[200],
+                      },
+                    }}
+                    expandIcon={
+                      <IconButton
+                        sx={{ pointerEvents: "auto" }}
+                        onClick={handleChange(panelName[0])}
+                      >
+                        <ExpandIcon />
+                      </IconButton>
+                    }
+                  >
+                    {expanded === panelName[0] ? (
+                      <Box sx={{ pointerEvents: "auto" }}>
+                        <GeneralBtn1
+                          variant="contained"
+                          sx={{ marginRight: 1 }}
+                          disabled
+                          startIcon={<Minus />}
+                        >
+                          remove carrier
+                        </GeneralBtn1>
+                        <GeneralBtn1 variant="contained">
+                          rate confirmation
+                        </GeneralBtn1>
+                      </Box>
+                    ) : (
+                      <Box
+                        display="flex"
+                        width="90%"
+                        justifyContent="space-between"
+                      >
+                        <Summary
+                          title="Carrier"
+                          detail="ASAP TRANS CORP (38243) Homeglen, IL"
+                        />
+                        <Summary title="Dispatch" detail="Truck 320" />
+                        <Summary title="Accounting" detail="Total: $2120.00" />
+                      </Box>
+                    )}
+                  </AccordionSummary>
+                  <AccordionDetails sx={{ bgcolor: grey[200] }}>
+                    <AccordionDetail />
+                  </AccordionDetails>
+                </Accordion>
+              </Box>
+            );
+          })}
+        </Box>
+
+        {/* <Paper
           elevation={0}
           sx={
             expand
@@ -164,35 +197,21 @@ const Carrier = () => {
                 }
           }
         >
-          <Stack direction="column" spacing={2}>
-            {/* Accordion summary */}
+          <Stack spacing={2}>
+            
             <Box display="flex" justifyContent="space-between" height="30px">
               {expand ? (
-                <Box display="inline-flex" alignItems="center">
-                  <Button
+                <Box display="inline-flex" alignItems="center" gap={2}>
+                  <GeneralBtn1
                     variant="contained"
                     disabled
-                    sx={{
-                      background: indigo[900],
-                      fontSize: "15px",
-                      height: "30px",
-                      borderRadius: "7px",
-                      marginRight: 2,
-                    }}
+                    startIcon={<Minus />}
                   >
-                    - Remove Carrier
-                  </Button>
-                  <Button
-                    variant="contained"
-                    sx={{
-                      background: indigo[900],
-                      fontSize: "15px",
-                      height: "30px",
-                      borderRadius: "7px",
-                    }}
-                  >
+                    Remove Carrier
+                  </GeneralBtn1>
+                  <GeneralBtn1 variant="contained">
                     Rate Confirmation
-                  </Button>
+                  </GeneralBtn1>
                 </Box>
               ) : (
                 <>
@@ -217,359 +236,9 @@ const Carrier = () => {
               </IconButton>
             </Box>
 
-            {/* Accordion detail */}
-            {expand ? (
-              // main-container
-              <Box width="100%" display="flex" gap={2} flexWrap="wrap">
-                {/* card-1 */}
-                <Box width="530px">
-                  <Paper
-                    sx={{
-                      p: 2,
-                      height: "100%",
-                      background: "#FFFFFF",
-                      boxShadow:
-                        "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <Stack spacing={1}>
-                      <Typography variant="h6" fontSize="18px">
-                        Freight
-                      </Typography>
-
-                      {/* 1st input */}
-                      <CustomInput>
-                        <StyledLabel>Search</StyledLabel>
-                        <StyledInput fullWidth multiline rows={2} />
-                      </CustomInput>
-
-                      {/* 2nd input */}
-                      <CustomInput>
-                        <StyledLabel>Name</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-                      {/* 3rd input */}
-                      <CustomInput>
-                        <StyledLabel>Insurance</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 4th input */}
-                      <CustomInput>
-                        <StyledLabel>Phone</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 5th input */}
-                      <CustomInput>
-                        <StyledLabel>Fax</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 6th input */}
-                      <CustomInput>
-                        <StyledLabel>Pro</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 7th input */}
-                      <CustomInput>
-                        <StyledLabel>RC Note</StyledLabel>
-                        <StyledInput fullWidth multiline rows={3} />
-                      </CustomInput>
-                    </Stack>
-                  </Paper>
-                </Box>
-
-                {/* card-2 */}
-                <Box width="530px">
-                  <Paper
-                    sx={{
-                      p: 2,
-                      height: "100%",
-                      background: "#FFFFFF",
-                      boxShadow:
-                        "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <Stack spacing={1}>
-                      {/* heading */}
-                      <Typography variant="h6" fontSize="18px">
-                        Dispatch
-                      </Typography>
-
-                      {/* 1st input */}
-                      <CustomInput>
-                        <StyledLabel>Name</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 2nd input */}
-                      <CustomInput>
-                        <StyledLabel>Phone</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-                      {/* 3rd input */}
-                      <CustomInput>
-                        <StyledLabel>Email</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 4th input */}
-                      <CustomInput>
-                        <StyledLabel>After hours Name</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 5th input */}
-                      <CustomInput>
-                        <StyledLabel>After hours Phone</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 6th input */}
-                      <CustomInput>
-                        <StyledLabel>Comment</StyledLabel>
-                        <StyledInput fullWidth multiline rows={3} />
-                      </CustomInput>
-                    </Stack>
-                  </Paper>
-                </Box>
-
-                {/* card-3 */}
-                <Box width="530px">
-                  <Paper
-                    sx={{
-                      p: 2,
-                      height: "100%",
-                      background: "#FFFFFF",
-                      boxShadow:
-                        "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <Stack spacing={1}>
-                      <Typography variant="h6" fontSize="18px">
-                        Accouting
-                      </Typography>
-                      <FormControl>
-                        <StyledLabel>AP Fee</StyledLabel>
-                        <StyledInput dir="rtl" value="$00.00" sx={{ p: 0 }} />
-                      </FormControl>
-                      <StyledLabel dir="rtl">Sub Total: $0.00</StyledLabel>
-                      <Stack direction="row" justifyContent="space-between">
-                        <Typography fontWeight="bold">Total</Typography>
-                        <Typography fontWeight="bold">Total: $30.00</Typography>
-                      </Stack>
-                    </Stack>
-                  </Paper>
-                </Box>
-
-                {/* card-4 */}
-                <Box width="803px">
-                  <Paper
-                    sx={{
-                      p: 2,
-                      height: "100%",
-                      background: "#FFFFFF",
-                      boxShadow:
-                        "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <Stack spacing={1}>
-                      <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                      >
-                        <Typography variant="h6" fontSize="18px">
-                          Driver
-                        </Typography>
-                        <Tooltip title="Close">
-                          <IconButton>
-                            <CrossIcon />
-                          </IconButton>
-                        </Tooltip>
-                      </Stack>
-
-                      {/* 1st input */}
-                      <CustomInput labelSize={3}>
-                        <StyledLabel>Name</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 2nd input */}
-                      <CustomInput labelSize={3}>
-                        <StyledLabel>Mobile Phone</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 3rd input */}
-                      <CustomInput labelSize={3}>
-                        <StyledLabel>Alternate Phone</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 4th input */}
-                      <CustomInput labelSize={3}>
-                        <StyledLabel>Location</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 5th input */}
-                      <CustomInput labelSize={3}>
-                        <StyledLabel>Palets</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 6th input */}
-                      <Box width="100%">
-                        <Grid container>
-                          <Grid item xs={6}>
-                            <CustomInput labelSize={6}>
-                              <StyledLabel>Tractor</StyledLabel>
-                              <StyledInput fullWidth />
-                            </CustomInput>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <CustomInput labelSize={4}>
-                              <StyledLabel sx={{ paddingLeft: 5 }}>
-                                Trailer
-                              </StyledLabel>
-                              <StyledInput fullWidth />
-                            </CustomInput>
-                          </Grid>
-                        </Grid>
-                      </Box>
-
-                      {/* 7th input */}
-                      <Box width="100%">
-                        <Grid container>
-                          <Grid item xs={6}>
-                            <CustomInput labelSize={6}>
-                              <StyledLabel>Equipment</StyledLabel>
-                              <StyledInput fullWidth />
-                            </CustomInput>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <CustomInput labelSize={4}>
-                              <StyledLabel sx={{ paddingLeft: 5 }}>
-                                Equip Size
-                              </StyledLabel>
-                              <StyledInput fullWidth />
-                            </CustomInput>
-                          </Grid>
-                        </Grid>
-                      </Box>
-                    </Stack>
-                  </Paper>
-                </Box>
-
-                {/* card-5 */}
-                <Box width="803px">
-                  <Paper
-                    sx={{
-                      p: 2,
-                      height: "100%",
-                      background: "#FFFFFF",
-                      boxShadow:
-                        "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <Stack spacing={1}>
-                      <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                      >
-                        <Typography variant="h6" fontSize="18px">
-                          Driver
-                        </Typography>
-                        <IconButton>
-                          <CrossIcon />
-                        </IconButton>
-                      </Stack>
-
-                      {/* 1st input */}
-                      <CustomInput labelSize={3}>
-                        <StyledLabel>Name</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 2nd input */}
-                      <CustomInput labelSize={3}>
-                        <StyledLabel>Mobile Phone</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 3rd input */}
-                      <CustomInput labelSize={3}>
-                        <StyledLabel>Alternate Phone</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 4th input */}
-                      <CustomInput labelSize={3}>
-                        <StyledLabel>Location</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 5th input */}
-                      <CustomInput labelSize={3}>
-                        <StyledLabel>Palets</StyledLabel>
-                        <StyledInput fullWidth />
-                      </CustomInput>
-
-                      {/* 6th input */}
-                      <Box width="100%">
-                        <Grid container>
-                          <Grid item xs={6}>
-                            <CustomInput labelSize={6}>
-                              <StyledLabel>Tractor</StyledLabel>
-                              <StyledInput fullWidth />
-                            </CustomInput>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <CustomInput labelSize={4}>
-                              <StyledLabel sx={{ paddingLeft: 5 }}>
-                                Trailer
-                              </StyledLabel>
-                              <StyledInput fullWidth />
-                            </CustomInput>
-                          </Grid>
-                        </Grid>
-                      </Box>
-
-                      {/* 7th input */}
-                      <Box width="100%">
-                        <Grid container>
-                          <Grid item xs={6}>
-                            <CustomInput labelSize={6}>
-                              <StyledLabel>Equipment</StyledLabel>
-                              <StyledInput fullWidth />
-                            </CustomInput>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <CustomInput labelSize={4}>
-                              <StyledLabel sx={{ paddingLeft: 5 }}>
-                                Equip Size
-                              </StyledLabel>
-                              <StyledInput fullWidth />
-                            </CustomInput>
-                          </Grid>
-                        </Grid>
-                      </Box>
-                    </Stack>
-                  </Paper>
-                </Box>
-              </Box>
-            ) : null}
+            {expand ? <AccordionDetail /> : null}
           </Stack>
-        </Paper>
+        </Paper> */}
       </Stack>
     </Box>
   );

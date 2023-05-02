@@ -48,6 +48,26 @@ export const NavbarBtn = styled(Button)(() => {
   };
 });
 
+export const GeneralBtn1 = styled(Button)(() => ({
+  background: "#282842",
+  fontSize: "15px",
+  // height: "30px",
+  borderRadius: "7px",
+  "&:hover": { background: "#0062FF" },
+  "&.Mui-disabled": {
+    background: "#6B7280",
+    color: "white",
+  },
+}));
+
+export const GeneralBtn2 = styled(Button)(() => ({
+  background: "#0062FF",
+  fontSize: "15px",
+  // height: "30px",
+  borderRadius: "7px",
+  "&:hover": { background: "#282842" },
+}));
+
 export const StyledLabel = styled(FormLabel)(() => ({
   "&.Mui-focused": { color: "#0062FF" },
   "&.Mui-error": { color: "#d32f2f" },

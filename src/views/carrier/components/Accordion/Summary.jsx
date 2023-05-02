@@ -9,8 +9,9 @@ const Summary = ({ title, detail }) => {
       alignItems="center"
       padding="0 10px"
       borderRadius={1}
+      gap={10}
     >
-      <Typography fontSize="16px" fontWeight="500" marginRight={4}>
+      <Typography fontSize="16px" fontWeight="500">
         {title}
       </Typography>
       <Typography>{detail}</Typography>

@@ -32,7 +32,7 @@ const Freight = () => {
           <Stack spacing={0.5}>
             {/* heading */}
             <Typography fontSize="18px" fontWeight="500">
-              Feight
+              Freight
             </Typography>
 
             {/* first input */}
