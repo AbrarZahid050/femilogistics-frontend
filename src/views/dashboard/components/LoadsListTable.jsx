@@ -98,6 +98,7 @@ const LoadsListTable = () => {
             </div>
           </div>
         </div>
+
         <TableContainer className={classes.loads_list_table_container}>
           <Table className={classes.loads_list_table_wrapper}>
             <TableHead>

@@ -28,7 +28,7 @@ const Panel = () => {
   return (
     <>
       <Navbar />
-      <Stack direction="row" overflow="auto">
+      <Stack direction="row" overflow="auto" sx={{ bgcolor: "#FAFAFA" }}>
         <SideDrawer />
         {showComp()}
       </Stack>

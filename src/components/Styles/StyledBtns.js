@@ -32,6 +32,31 @@ export const LoginBtn = styled(Button)(() => {
   };
 });
 
+export const CancelBtn = styled(Button)(() => {
+  return {
+    fontSize: "16px",
+    width: "100%",
+    borderRadius: 8,
+    background: "white",
+    color: "#6F758B",
+    border: `1px solid #6F758B`,
+    margin: "1rem 0",
+
+    "&:hover": {
+      color: grey[800],
+      border: `1px solid ${grey[800]}`,
+      background: grey[200],
+      // boxShadow:
+      //   "0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 10px 10px -5px rgba(0, 0, 0, 0.04)",
+    },
+
+    "&.Mui-disabled": {
+      background: grey[500],
+      border: `1px solid ${grey[700]}`,
+    },
+  };
+});
+
 // Navbar btn:
 export const NavbarBtn = styled(Button)(() => {
   return {
