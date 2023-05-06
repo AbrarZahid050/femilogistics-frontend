@@ -16,9 +16,7 @@ import SortBy from "./components/SortBy";
 import { NavbarBtn } from "../../components/Styles/StyledBtns";
 import { ReactComponent as Plus } from "../../assets/Users/plus.svg";
 import { ReactComponent as Dots } from "../../assets/Users/three-dots.svg";
-
 import { nanoid } from "@reduxjs/toolkit";
-
 import NewUserModal from "./components/Modal/NewUserModal";
 
 const User = () => {

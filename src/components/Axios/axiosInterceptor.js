@@ -1,11 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const authInterceptor = axios.create({
+const axiosAuthInterceptor = axios.create({
   baseURL: process.env.PORT || "https://femilogistics-37754.botics.co/",
 });
 
-authInterceptor.interceptors.request.use(
+axiosAuthInterceptor.interceptors.request.use(
   (request) => {
     const token = Cookies.get("accessToken");
     console.log(`token: ${token}`);
@@ -17,4 +17,4 @@ authInterceptor.interceptors.request.use(
   }
 );
 
-export default authInterceptor;
+export default axiosAuthInterceptor;

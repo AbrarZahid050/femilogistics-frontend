@@ -41,6 +41,7 @@ export const CancelBtn = styled(Button)(() => {
     color: "#6F758B",
     border: `1px solid #6F758B`,
     margin: "1rem 0",
+    boxShadow: "none",
 
     "&:hover": {
       color: grey[800],

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 //custom imports:
+import { setLogout } from "../../redux/slices/authSlice";
 // import useAuth from "../../hooks/useAuth";
 // import Cookies from "js-cookie";
 
@@ -24,7 +25,6 @@ import avatar from "../../assets/NavbarImages/avatar.jpg";
 import { ReactComponent as Bell } from "../../assets/NavbarImages/bell_icon.svg";
 import { ReactComponent as PlusOrder } from "../../assets/NavbarImages/plus_order.svg";
 import { ReactComponent as Search } from "../../assets/NavbarImages/search.svg";
-import { setLogout } from "../../redux/slices/authSlice";
 
 const Navbar = () => {
   // const { setAuth } = useAuth();
