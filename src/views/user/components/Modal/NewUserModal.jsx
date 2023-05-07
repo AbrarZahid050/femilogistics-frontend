@@ -7,6 +7,7 @@ import {
   Paper,
   MenuItem,
   Select,
+  IconButton,
 } from "@mui/material";
 import {
   StyledInput,
@@ -18,7 +19,6 @@ import { ReactComponent as SelectArrows } from "../../../../assets/Users/selectA
 import CustomInput from "../../../carrier/components/InputFields/CustomInput";
 import { createNewUser } from "../../../../redux/slices/userSlice";
 import { useDispatch } from "react-redux";
-import axiosAuthInterceptor from "../../../../components/Axios/axiosInterceptor";
 
 const NewUserModal = ({ open, onclose }) => {
   const dispatch = useDispatch();
@@ -121,7 +121,11 @@ const NewUserModal = ({ open, onclose }) => {
                 name="role"
                 input={<StyledInput fullWidth />}
                 IconComponent={() => {
-                  return <SelectArrows style={{ marginRight: "10px" }} />;
+                  return (
+                    <IconButton>
+                      <SelectArrows />
+                    </IconButton>
+                  );
                 }}
               >
                 <MenuItem value={1}>System Admin</MenuItem>

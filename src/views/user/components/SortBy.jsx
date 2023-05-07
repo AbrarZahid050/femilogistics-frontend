@@ -7,7 +7,6 @@ const Customer = () => {
   const [checkbox, setCheck] = useState("All");
 
   const handleClick = (event) => {
-    // console.log(event.currentTarget.parentElement.parentElement.parentElement);
     setAnchorEl(event.currentTarget.parentElement.parentElement.parentElement);
   };
 
