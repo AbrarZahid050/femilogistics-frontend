@@ -105,12 +105,12 @@ const SignIn = () => {
         dispatch(setLogin(response.data.token[0]));
         navigate({ pathname: "/panel" });
       } catch (err) {
+        setLoad((preVal) => !preVal);
         if (err.response.status === 400) {
           setServerErrMsg(err.response.data.non_field_errors[0]);
           setTimeout(() => {
             setServerErrMsg("");
           }, 5000);
-          setLoad((preVal) => !preVal);
         }
       }
     };

@@ -16,22 +16,13 @@ import {
 } from "../../../../components/Styles/StyledBtns";
 import { ReactComponent as SelectArrows } from "../../../../assets/Users/selectArrows.svg";
 import CustomInput from "../../../carrier/components/InputFields/CustomInput";
-import authInterceptor from "../../../../components/Axios/axiosInterceptor";
+// import authInterceptor from "../../../../components/Axios/axiosInterceptor";
 
 const NewUserModal = ({ open, onclose }) => {
   const [role, setRole] = useState("");
 
   const handleChange = (event) => {
     setRole(event.target.value);
-  };
-
-  const fetchData = async () => {
-    try {
-      const resp = await authInterceptor.get("users/");
-      console.log(resp);
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   return (
@@ -96,7 +87,7 @@ const NewUserModal = ({ open, onclose }) => {
             <CancelBtn variant="contained" fullWidth onClick={onclose}>
               cancel
             </CancelBtn>
-            <LoginBtn variant="contained" fullWidth onClick={fetchData}>
+            <LoginBtn variant="contained" fullWidth>
               save
             </LoginBtn>
           </Box>
