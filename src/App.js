@@ -7,8 +7,8 @@ import ForgotPwd from "./views/forgotPassword/ForgotPwd.jsx";
 import Panel from "./views/panel/Panel";
 import SignIn from "./views/signIn/SignIn.jsx";
 
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 // Local Fonts File (Roboto)
 import "./assets/Fonts/Roboto/Roboto-Bold.ttf";
@@ -18,7 +18,7 @@ import "./assets/Fonts/Roboto/Roboto-Regular.ttf";
 const App = () => {
   return (
     <>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* public routes */}

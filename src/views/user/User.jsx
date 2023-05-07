@@ -10,6 +10,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  CircularProgress,
 } from "@mui/material";
 import SortBy from "./components/SortBy";
 import { NavbarBtn } from "../../components/Styles/StyledBtns";
@@ -23,7 +24,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllUsers,
   getUsersStatus,
-  getUsersError,
+  // getUsersError,
   fetchUsers,
 } from "../../redux/slices/userSlice";
 import { useEffect } from "react";
@@ -34,7 +35,7 @@ const User = () => {
 
   const usersList = useSelector(selectAllUsers);
   const requestStatus = useSelector(getUsersStatus);
-  const error = useSelector(getUsersError);
+  // const error = useSelector(getUsersError);
 
   const [isModal, setModal] = useState(false);
 
@@ -51,7 +52,19 @@ const User = () => {
   let content;
 
   if (requestStatus === "loading") {
-    content = <p>Loading...</p>;
+    content = (
+      <Box
+        width="100%"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Stack alignItems="center">
+          <CircularProgress size="100px" />
+          <Typography variant="h5">Loading...</Typography>
+        </Stack>
+      </Box>
+    );
   } else if (requestStatus === "succeeded") {
     content = (
       <Box width="100%" height="100%" p={2}>

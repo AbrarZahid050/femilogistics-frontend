@@ -29,13 +29,13 @@ const NewUserModal = ({ open, onclose }) => {
     phone: "",
     role: "",
   });
-  const [error, setError] = useState({
-    userName: "",
-    email: "",
-    phone: "",
-    role: "",
-  });
-  const [serverErrMsg, setServerErrMsg] = useState("");
+  // const [error, setError] = useState({
+  //   userName: "",
+  //   email: "",
+  //   phone: "",
+  //   role: "",
+  // });
+  // const [serverErrMsg, setServerErrMsg] = useState("");
 
   //* fn to handle onChange attr of input fields.
   const inputChangeHandler = (event) => {
