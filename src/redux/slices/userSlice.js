@@ -12,6 +12,12 @@ export const fetchUsers = createAsyncThunk("users/list", async () => {
   return response.data;
 });
 
+export const createNewUser = createAsyncThunk("user/create", async (data) => {
+  console.log(data); //json
+  const response = await axiosAuthInterceptor.post("users/", data);
+  return response;
+});
+
 const userSlice = createSlice({
   name: "users",
   initialState,
@@ -28,6 +34,15 @@ const userSlice = createSlice({
       .addCase(fetchUsers.rejected, (state, action) => {
         state.state = "failed";
         state.error = action.error.message;
+      })
+      .addCase(createNewUser.pending, (state, action) => {
+        console.log("loading...");
+      })
+      .addCase(createNewUser.rejected, (state, action) => {
+        console.log(action.error);
+      })
+      .addCase(createNewUser.fulfilled, (state, action) => {
+        console.log(action.payload);
       });
   },
 });

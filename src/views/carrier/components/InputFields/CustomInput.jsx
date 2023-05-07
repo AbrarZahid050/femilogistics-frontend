@@ -1,6 +1,6 @@
 import { FormControl, Grid } from "@mui/material";
 
-const CustomInput = ({ children, labelSize }) => {
+const CustomInput = ({ children, labelSize, onchange }) => {
   return (
     <FormControl fullWidth>
       <Grid container alignItems="center">

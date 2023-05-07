@@ -16,13 +16,44 @@ import {
 } from "../../../../components/Styles/StyledBtns";
 import { ReactComponent as SelectArrows } from "../../../../assets/Users/selectArrows.svg";
 import CustomInput from "../../../carrier/components/InputFields/CustomInput";
-// import authInterceptor from "../../../../components/Axios/axiosInterceptor";
+import { createNewUser } from "../../../../redux/slices/userSlice";
+import { useDispatch } from "react-redux";
+import axiosAuthInterceptor from "../../../../components/Axios/axiosInterceptor";
 
 const NewUserModal = ({ open, onclose }) => {
-  const [role, setRole] = useState("");
+  const dispatch = useDispatch();
 
-  const handleChange = (event) => {
-    setRole(event.target.value);
+  const [values, setValues] = useState({
+    userName: "",
+    email: "",
+    phone: "",
+    role: "",
+  });
+  const [error, setError] = useState({
+    userName: "",
+    email: "",
+    phone: "",
+    role: "",
+  });
+  const [serverErrMsg, setServerErrMsg] = useState("");
+
+  //* fn to handle onChange attr of input fields.
+  const inputChangeHandler = (event) => {
+    let key = event.target.name;
+    let value = event.target.value;
+    setValues({ ...values, [key]: value });
+  };
+
+  const handleSubmit = async () => {
+    const userData = {
+      username: values.userName,
+      email: values.email,
+      phone: values.phone,
+      role: values.role,
+    };
+
+    const data = JSON.stringify(userData);
+    dispatch(createNewUser(data));
   };
 
   return (
@@ -51,17 +82,32 @@ const NewUserModal = ({ open, onclose }) => {
           >
             <CustomInput>
               <StyledLabel>User Name</StyledLabel>
-              <StyledInput fullWidth />
+              <StyledInput
+                fullWidth
+                name="userName"
+                onChange={inputChangeHandler}
+                value={values.userName}
+              />
             </CustomInput>
 
             <CustomInput>
               <StyledLabel>User Email</StyledLabel>
-              <StyledInput fullWidth />
+              <StyledInput
+                fullWidth
+                name="email"
+                onChange={inputChangeHandler}
+                value={values.email}
+              />
             </CustomInput>
 
             <CustomInput>
               <StyledLabel>User Contact</StyledLabel>
-              <StyledInput fullWidth />
+              <StyledInput
+                fullWidth
+                name="phone"
+                onChange={inputChangeHandler}
+                value={values.phone}
+              />
             </CustomInput>
 
             <CustomInput>
@@ -69,17 +115,23 @@ const NewUserModal = ({ open, onclose }) => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={role}
+                value={values.role}
                 label="Age"
-                onChange={handleChange}
+                onChange={inputChangeHandler}
+                name="role"
                 input={<StyledInput fullWidth />}
                 IconComponent={() => {
                   return <SelectArrows style={{ marginRight: "10px" }} />;
                 }}
               >
-                <MenuItem value={"Driver"}>Driver</MenuItem>
-                <MenuItem value={"Admin"}>Admin</MenuItem>
-                <MenuItem value={"Sub-Admin"}>Sub-Admin</MenuItem>
+                <MenuItem value={1}>System Admin</MenuItem>
+                <MenuItem value={2}>Office Admin</MenuItem>
+                <MenuItem value={3}>Accounts Admin</MenuItem>
+                <MenuItem value={4}>Operations</MenuItem>
+                <MenuItem value={5}>Developer</MenuItem>
+                <MenuItem value={6}>Super Admin</MenuItem>
+                <MenuItem value={7}>Integration</MenuItem>
+                <MenuItem value={8}>Driver</MenuItem>
               </Select>
             </CustomInput>
           </Box>
@@ -87,7 +139,7 @@ const NewUserModal = ({ open, onclose }) => {
             <CancelBtn variant="contained" fullWidth onClick={onclose}>
               cancel
             </CancelBtn>
-            <LoginBtn variant="contained" fullWidth>
+            <LoginBtn variant="contained" fullWidth onClick={handleSubmit}>
               save
             </LoginBtn>
           </Box>

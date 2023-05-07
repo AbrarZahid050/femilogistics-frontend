@@ -110,15 +110,15 @@ const User = () => {
                 <TableBody>
                   {usersList.results.map((cellValue, index) => {
                     return (
-                      <TableRow key={nanoid()} sx={{ p: 0 }}>
-                        <TableCell>{cellValue.name}</TableCell>
-                        <TableCell>{cellValue.name}</TableCell>
-                        <TableCell>{cellValue.email}</TableCell>
-                        <TableCell>{cellValue.phone}</TableCell>
-                        <TableCell>{cellValue.role}</TableCell>
+                      <TableRow key={nanoid()} sx={{ p: 0, }}>
+                        <TableCell sx={{borderBottom: 'none'}}>{cellValue.name}</TableCell>
+                        <TableCell sx={{borderBottom: 'none'}}>{cellValue.name}</TableCell>
+                        <TableCell sx={{borderBottom: 'none'}}>{cellValue.email}</TableCell>
+                        <TableCell sx={{borderBottom: 'none'}}>{cellValue.phone}</TableCell>
+                        <TableCell sx={{borderBottom: 'none'}}>{cellValue.role}</TableCell>
                         <TableCell
                           width="25px"
-                          sx={{ p: 1, textAlign: "center" }}
+                          sx={{ p: 1, textAlign: "center", borderBottom: 'none' }}
                         >
                           <Box width="100%" height="100%">
                             <IconButton size="large">
