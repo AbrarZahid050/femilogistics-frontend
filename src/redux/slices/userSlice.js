@@ -8,7 +8,8 @@ const initialState = {
 };
 
 export const fetchUsers = createAsyncThunk("users/list", async () => {
-  const response = await axiosAuthInterceptor.get("users/");
+  const response = await axiosAuthInterceptor.get("users/?page=1");
+  console.log(response);
   return response.data;
 });
 
@@ -18,31 +19,58 @@ export const createNewUser = createAsyncThunk("user/create", async (data) => {
   return response;
 });
 
+export const deleteUser = createAsyncThunk("user/delete", async (userId) => {
+  console.log(userId);
+  const response = await axiosAuthInterceptor.delete(`users/${userId}/`);
+  return response.data;
+});
+
 const userSlice = createSlice({
   name: "users",
   initialState,
   reducers: {},
   extraReducers(builder) {
     builder
+
+      //---------------------------------------fetch user thunk fun-------------------------
       .addCase(fetchUsers.pending, (state, action) => {
         state.status = "loading";
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.users = action.payload;
+        const newArr = [...action.payload.results];
+        const sortedArr = newArr.sort(
+          (first, second) =>
+            new Date(second.updated_on) - new Date(first.updated_on)
+        );
+        state.users = sortedArr;
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.state = "failed";
         state.error = action.error.message;
       })
+      //<--------------------------cases for createNewUser thunk fun----------------------------->
       .addCase(createNewUser.pending, (state, action) => {
-        console.log("loading...");
+        // state.status = "loading";
       })
       .addCase(createNewUser.rejected, (state, action) => {
-        console.log(action.error);
+        state.status = "failed";
+        state.error = action.error.message;
       })
       .addCase(createNewUser.fulfilled, (state, action) => {
-        console.log(action.payload);
+        state.status = "idle";
+      })
+
+      //<-------------------------cases for deleteUser thunk fun---------------------------------->
+      .addCase(deleteUser.pending, (state, action) => {
+        // state.status = "loading";
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.status = "idle";
       });
   },
 });

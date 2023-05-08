@@ -1,4 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+//custom components:
+import SortBy from "./components/SortBy";
+import NewUserModal from "./components/Modal/NewUserModal";
+import ThreeDotsMenu from "./components/ThreeDotsMenu";
+
+//custom styling components:
+import { NavbarBtn } from "../../components/Styles/StyledBtns";
+
+//mui stylying components:
 import {
   Box,
   Stack,
@@ -12,35 +22,63 @@ import {
   TableBody,
   CircularProgress,
 } from "@mui/material";
-import SortBy from "./components/SortBy";
-import { NavbarBtn } from "../../components/Styles/StyledBtns";
+
+//svg imports:
 import { ReactComponent as Plus } from "../../assets/Users/plus.svg";
 
-import { nanoid } from "@reduxjs/toolkit";
-import NewUserModal from "./components/Modal/NewUserModal";
-
 //redux imports:
+import { nanoid } from "@reduxjs/toolkit";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllUsers,
   getUsersStatus,
   // getUsersError,
   fetchUsers,
+  deleteUser,
 } from "../../redux/slices/userSlice";
-import { useEffect } from "react";
-import ThreeDotsMenu from "./components/ThreeDotsMenu";
+import DeleteUserModal from "./components/Modal/DeleteUserModal";
+
+const roles = [
+  "SystemAdmin",
+  "OfficeAdmin",
+  "AccountAdmin",
+  "Operations",
+  "Developer",
+  "Super Admin",
+];
 
 const User = () => {
   const dispatch = useDispatch();
 
+  //redux selector:
   const usersList = useSelector(selectAllUsers);
   const requestStatus = useSelector(getUsersStatus);
   // const error = useSelector(getUsersError);
 
-  const [isModal, setModal] = useState(false);
+  //have 2 modals in total:
+  //==> newCustomerModal. ==> userDeleteModal.
+  const [displayNewCustomerModal, setNewCustomerModal] = useState(false);
+  const [displayDeleteCustomerModal, setModalForDelete] = useState(false);
+  const [userInfoforDeleteModal, setUserInfo] = useState(null);
 
-  const handleModalClick = (event) => {
-    setModal((preVal) => !preVal);
+  const handleNewCustomerModalClick = () => {
+    setNewCustomerModal((preVal) => !preVal);
+  };
+
+  const handleDeleteModalClick = (_, userId) => {
+    console.log(userId);
+    if (userId) {
+      const userName = usersList.find((val) => val.id === userId);
+      setUserInfo(userName);
+    } else if (!userId) {
+      setUserInfo(null);
+    }
+    setModalForDelete((preVal) => !preVal);
+  };
+
+  const deleteUserClickHandler = () => {
+    dispatch(deleteUser(userInfoforDeleteModal.id));
+    setModalForDelete(false);
   };
 
   useEffect(() => {
@@ -85,7 +123,7 @@ const User = () => {
                   background: "#FFFFFF",
                   borderRadius: "10px",
                 }}
-                onClick={handleModalClick}
+                onClick={handleNewCustomerModalClick}
               >
                 <Plus />
               </NavbarBtn>
@@ -119,14 +157,16 @@ const User = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {usersList.results.map((cellValue, index) => {
+                  {usersList.map((cellValue, index) => {
                     return (
                       <TableRow key={nanoid()} sx={{ p: 0 }}>
                         <TableCell sx={{ borderBottom: "none" }}>
-                          {cellValue.name}
+                          {cellValue.username}
                         </TableCell>
-                        <TableCell sx={{ borderBottom: "none" }}>
-                          {cellValue.name}
+                        <TableCell
+                          sx={{ borderBottom: "none", color: "#0062FF" }}
+                        >
+                          {cellValue.username}
                         </TableCell>
                         <TableCell sx={{ borderBottom: "none" }}>
                           {cellValue.email}
@@ -145,7 +185,14 @@ const User = () => {
                             borderBottom: "none",
                           }}
                         >
-                          <ThreeDotsMenu />
+                          <ThreeDotsMenu
+                            userId={cellValue.id}
+                            deleteUserHandlerProps={(userId) => {
+                              const args = null;
+                              console.log(userId);
+                              handleDeleteModalClick(args, userId);
+                            }}
+                          />
                         </TableCell>
                       </TableRow>
                     );
@@ -153,11 +200,23 @@ const User = () => {
                 </TableBody>
               </Table>
             </TableContainer>
+            {/* pagination code */}
           </Box>
         </Stack>
-        <NewUserModal open={isModal} onclose={handleModalClick} />
+        <NewUserModal
+          open={displayNewCustomerModal}
+          onclose={handleNewCustomerModalClick}
+        />
+        <DeleteUserModal
+          open={displayDeleteCustomerModal}
+          cancelHandler={handleDeleteModalClick}
+          deleteHandler={deleteUserClickHandler}
+          username={userInfoforDeleteModal?.username}
+        />
       </Box>
     );
+  } else if (requestStatus === "failed") {
+    content = <Typography>Error!</Typography>;
   }
 
   return <>{content}</>;

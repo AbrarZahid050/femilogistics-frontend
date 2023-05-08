@@ -1,10 +1,19 @@
 import { useState } from "react";
+
+//mui styling components:
 import { Box, IconButton, Menu, MenuItem, Divider } from "@mui/material";
+
+//svg import:
 import { ReactComponent as Dots } from "../../../assets/Users/three-dots.svg";
 
-const ThreeDotsMenu = () => {
+const ThreeDotsMenu = ({ userId, deleteUserHandlerProps }) => {
   //menu achor element state:
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const deleteUserHandler = () => {
+    deleteUserHandlerProps(userId);
+    handleClose();
+  };
 
   const anchorHandler = (event) => {
     setAnchorEl(event.currentTarget);
@@ -23,7 +32,9 @@ const ThreeDotsMenu = () => {
         <MenuItem>Edit User</MenuItem>
         <MenuItem>Flag User</MenuItem>
         <Divider />
-        <MenuItem sx={{ color: "#EF4444" }}>Delete User</MenuItem>
+        <MenuItem sx={{ color: "#EF4444" }} onClick={deleteUserHandler}>
+          Delete User
+        </MenuItem>
       </Menu>
     </Box>
   );

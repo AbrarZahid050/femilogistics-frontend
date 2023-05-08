@@ -54,6 +54,7 @@ const NewUserModal = ({ open, onclose }) => {
 
     const data = JSON.stringify(userData);
     dispatch(createNewUser(data));
+    onclose();
   };
 
   return (
