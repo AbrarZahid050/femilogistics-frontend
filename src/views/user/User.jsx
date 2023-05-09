@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import SortBy from "./components/SortBy";
 import NewUserModal from "./components/Modal/NewUserModal";
 import ThreeDotsMenu from "./components/ThreeDotsMenu";
+import DeleteUserModal from "./components/Modal/DeleteUserModal";
 
 //custom styling components:
 import { NavbarBtn } from "../../components/Styles/StyledBtns";
@@ -21,6 +22,8 @@ import {
   TableCell,
   TableBody,
   CircularProgress,
+  Pagination,
+  Tooltip,
 } from "@mui/material";
 
 //svg imports:
@@ -35,16 +38,19 @@ import {
   // getUsersError,
   fetchUsers,
   deleteUser,
+  getCount,
 } from "../../redux/slices/userSlice";
-import DeleteUserModal from "./components/Modal/DeleteUserModal";
+import { grey } from "@mui/material/colors";
 
 const roles = [
-  "SystemAdmin",
-  "OfficeAdmin",
-  "AccountAdmin",
+  "System Admin",
+  "Office Admin",
+  "Accounts Admin",
   "Operations",
   "Developer",
   "Super Admin",
+  "Integration",
+  "Driver",
 ];
 
 const User = () => {
@@ -52,6 +58,7 @@ const User = () => {
 
   //redux selector:
   const usersList = useSelector(selectAllUsers);
+  const count = useSelector(getCount);
   const requestStatus = useSelector(getUsersStatus);
   // const error = useSelector(getUsersError);
 
@@ -61,12 +68,18 @@ const User = () => {
   const [displayDeleteCustomerModal, setModalForDelete] = useState(false);
   const [userInfoforDeleteModal, setUserInfo] = useState(null);
 
+  //pagination's state:
+
   const handleNewCustomerModalClick = () => {
     setNewCustomerModal((preVal) => !preVal);
   };
 
+  const pageChangeHandler = (event, pageNumber) => {
+    // dispatch(fetchUsers(pageNumber));
+  };
+
   const handleDeleteModalClick = (_, userId) => {
-    console.log(userId);
+    // console.log(userId);
     if (userId) {
       const userName = usersList.find((val) => val.id === userId);
       setUserInfo(userName);
@@ -118,15 +131,17 @@ const User = () => {
 
             <Box display="flex" alignItems="center" flexDirection="row" gap={2}>
               <SortBy />
-              <NavbarBtn
-                sx={{
-                  background: "#FFFFFF",
-                  borderRadius: "10px",
-                }}
-                onClick={handleNewCustomerModalClick}
-              >
-                <Plus />
-              </NavbarBtn>
+              <Tooltip title="Create New User">
+                <NavbarBtn
+                  sx={{
+                    background: "#FFFFFF",
+                    borderRadius: "10px",
+                  }}
+                  onClick={handleNewCustomerModalClick}
+                >
+                  <Plus />
+                </NavbarBtn>
+              </Tooltip>
             </Box>
           </Stack>
 
@@ -146,7 +161,16 @@ const User = () => {
                     {["USERNAME", "NAME", "EMAIL", "PHONE", "ROLE"].map(
                       (heading) => (
                         <TableCell
-                          sx={{ color: "#6B7280", width: "100px", p: 1 }}
+                          sx={
+                            heading === "ROLE"
+                              ? {
+                                  color: "#6B7280",
+                                  width: "100px",
+                                  p: 1,
+                                  textAlign: "center",
+                                }
+                              : { color: "#6B7280", width: "100px", p: 1 }
+                          }
                           key={nanoid()}
                         >
                           {heading}
@@ -174,9 +198,29 @@ const User = () => {
                         <TableCell sx={{ borderBottom: "none" }}>
                           {cellValue.phone}
                         </TableCell>
-                        <TableCell sx={{ borderBottom: "none" }}>
-                          {cellValue.role}
-                        </TableCell>
+                        {roles.map((role, index) => {
+                          if (index + 1 === cellValue.role) {
+                            return (
+                              <TableCell
+                                key={nanoid()}
+                                sx={{
+                                  borderBottom: "none",
+                                  textAlign: "center",
+                                }}
+                              >
+                                <Box
+                                  bgcolor={grey[200]}
+                                  display="inline-block"
+                                  p="5px"
+                                  borderRadius={2}
+                                >
+                                  {role}
+                                </Box>
+                              </TableCell>
+                            );
+                          }
+                          return null;
+                        })}
                         <TableCell
                           width="25px"
                           sx={{
@@ -189,7 +233,7 @@ const User = () => {
                             userId={cellValue.id}
                             deleteUserHandlerProps={(userId) => {
                               const args = null;
-                              console.log(userId);
+                              // console.log(userId);
                               handleDeleteModalClick(args, userId);
                             }}
                           />
@@ -200,7 +244,19 @@ const User = () => {
                 </TableBody>
               </Table>
             </TableContainer>
+
             {/* pagination code */}
+            <Box marginTop={2}>
+              <Pagination
+                size="large"
+                siblingCount={0}
+                color="primary"
+                count={count}
+                onChange={pageChangeHandler}
+                variant="outlined"
+                shape="rounded"
+              />
+            </Box>
           </Box>
         </Stack>
         <NewUserModal

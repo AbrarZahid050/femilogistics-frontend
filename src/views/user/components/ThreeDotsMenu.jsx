@@ -1,7 +1,14 @@
 import { useState } from "react";
 
 //mui styling components:
-import { Box, IconButton, Menu, MenuItem, Divider } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Divider,
+  Tooltip,
+} from "@mui/material";
 
 //svg import:
 import { ReactComponent as Dots } from "../../../assets/Users/three-dots.svg";
@@ -25,9 +32,11 @@ const ThreeDotsMenu = ({ userId, deleteUserHandlerProps }) => {
 
   return (
     <Box width="100%" height="100%">
-      <IconButton size="large" onClick={anchorHandler}>
-        <Dots />
-      </IconButton>
+      <Tooltip title="Edit User">
+        <IconButton size="large" onClick={anchorHandler}>
+          <Dots />
+        </IconButton>
+      </Tooltip>
       <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleClose}>
         <MenuItem>Edit User</MenuItem>
         <MenuItem>Flag User</MenuItem>

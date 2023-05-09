@@ -2,25 +2,27 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosAuthInterceptor from "../../components/Axios/axiosInterceptor";
 
 const initialState = {
+  count: 0,
   users: [],
   status: "idle", // 'idle' | 'loading' | 'succeded' | 'failed'
   error: null,
 };
 
-export const fetchUsers = createAsyncThunk("users/list", async () => {
-  const response = await axiosAuthInterceptor.get("users/?page=1");
-  console.log(response);
+export const fetchUsers = createAsyncThunk("users/list", async (page) => {
+  // console.log(page);
+  const response = await axiosAuthInterceptor.get("users/");
+  // console.log(response);
   return response.data;
 });
 
 export const createNewUser = createAsyncThunk("user/create", async (data) => {
-  console.log(data); //json
+  // console.log(data);
   const response = await axiosAuthInterceptor.post("users/", data);
   return response;
 });
 
 export const deleteUser = createAsyncThunk("user/delete", async (userId) => {
-  console.log(userId);
+  // console.log(userId);
   const response = await axiosAuthInterceptor.delete(`users/${userId}/`);
   return response.data;
 });
@@ -44,6 +46,7 @@ const userSlice = createSlice({
             new Date(second.updated_on) - new Date(first.updated_on)
         );
         state.users = sortedArr;
+        state.count = action.payload.count;
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.state = "failed";
@@ -78,5 +81,6 @@ const userSlice = createSlice({
 export const selectAllUsers = (state) => state.users.users;
 export const getUsersStatus = (state) => state.users.status;
 export const getUsersError = (state) => state.users.error;
+export const getCount = (state) => state.users.count;
 
 export default userSlice.reducer;

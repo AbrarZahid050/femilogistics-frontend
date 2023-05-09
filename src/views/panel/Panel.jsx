@@ -5,7 +5,7 @@ import Customer from "../customer/Customer";
 import Dashboard from "../dashboard/Dashboard";
 import Navbar from "../navbar/Navbar";
 import SideDrawer from "../sideDrawer/SideDrawer";
-import User from "../user/User";
+import User from "../../views/user/User";
 import { Stack } from "@mui/material";
 const Panel = () => {
   const location = useLocation();
