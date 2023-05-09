@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
+//react-router imports:
+import { useNavigate } from "react-router-dom";
+
 //custom imports:
 import { setLogout } from "../../redux/slices/authSlice";
 // import useAuth from "../../hooks/useAuth";
@@ -30,6 +33,7 @@ const Navbar = () => {
   // const { setAuth } = useAuth();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -105,7 +109,14 @@ const Navbar = () => {
               <Typography sx={{ fontWeight: "bold" }}>John Trivolta</Typography>
             </Box>
             <Divider />
-            <MenuItem>View my Profile</MenuItem>
+            <MenuItem
+              onClick={(event) => {
+                navigate({ pathname: "/panel", search: "/profile" });
+                handleClose(event);
+              }}
+            >
+              View my Profile
+            </MenuItem>
             <MenuItem>Edit Profile</MenuItem>
             <MenuItem>Change Password</MenuItem>
             <Divider />

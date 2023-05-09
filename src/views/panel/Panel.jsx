@@ -7,6 +7,7 @@ import Navbar from "../navbar/Navbar";
 import SideDrawer from "../sideDrawer/SideDrawer";
 import User from "../../views/user/User";
 import { Stack } from "@mui/material";
+import Profile from "../Profile/Profile";
 const Panel = () => {
   const location = useLocation();
 
@@ -14,6 +15,8 @@ const Panel = () => {
     switch (location.search.slice(1)) {
       case "/overview":
         return <Dashboard />;
+      case "/profile":
+        return <Profile />;
       case "/carrier":
         return <Carrier />;
       case "/user":
