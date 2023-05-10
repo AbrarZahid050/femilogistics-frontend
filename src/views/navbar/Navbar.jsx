@@ -120,11 +120,39 @@ const Navbar = () => {
             <MenuItem>Edit Profile</MenuItem>
             <MenuItem>Change Password</MenuItem>
             <Divider />
-            <MenuItem>Subscriptions</MenuItem>
+            <MenuItem
+              onClick={(event) => {
+                navigate({ pathname: "/panel", search: "/subs" });
+                handleClose(event);
+              }}
+            >
+              Subscriptions
+            </MenuItem>
             <MenuItem>Invite Friends</MenuItem>
-            <MenuItem>Send Feedback</MenuItem>
-            <MenuItem>Terms and Conditions</MenuItem>
-            <MenuItem>Privacy Policy</MenuItem>
+            <MenuItem
+              onClick={(event) => {
+                navigate({ pathname: "/panel", search: "/sendfeedback" });
+                handleClose(event);
+              }}
+            >
+              Send Feedback
+            </MenuItem>
+            <MenuItem
+              onClick={(event) => {
+                navigate({ pathname: "/panel", search: "/terms" });
+                handleClose(event);
+              }}
+            >
+              Terms and Conditions
+            </MenuItem>
+            <MenuItem
+              onClick={(event) => {
+                navigate({ pathname: "/panel", search: "/policy" });
+                handleClose(event);
+              }}
+            >
+              Privacy Policy
+            </MenuItem>
             <Divider />
             <MenuItem onClick={handleClose} name="signOut">
               Sign Out

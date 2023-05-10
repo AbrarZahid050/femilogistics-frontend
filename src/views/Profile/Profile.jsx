@@ -39,7 +39,7 @@ const Profile = () => {
       justifyContent="center"
     >
       <Paper elevation={6}>
-        <Box p={2} width="500px" display="flex" flexDirection="column" gap={2}>
+        <Box p={3} width="500px" display="flex" flexDirection="column" gap={2}>
           {/* paper 1 */}
           <Box>
             <Paper variant="outlined">
