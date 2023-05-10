@@ -6,15 +6,25 @@ import { useNavigate } from "react-router-dom";
 
 //custom imports:
 import { setLogout } from "../../redux/slices/authSlice";
+import CustomInput from "../carrier/components/InputFields/CustomInput";
+import {
+  StyledInput,
+  StyledLabel,
+  CancelBtn,
+  LoginBtn,
+} from "../../components/Styles/StyledBtns.js";
 // import useAuth from "../../hooks/useAuth";
 // import Cookies from "js-cookie";
 
 //styling imports:
 import {
   Box,
+  Card,
+  Paper,
   Divider,
   IconButton,
   MenuItem,
+  Modal,
   Stack,
   Tooltip,
   Typography,
@@ -29,6 +39,55 @@ import { ReactComponent as Bell } from "../../assets/NavbarImages/bell_icon.svg"
 import { ReactComponent as PlusOrder } from "../../assets/NavbarImages/plus_order.svg";
 import { ReactComponent as Search } from "../../assets/NavbarImages/search.svg";
 
+const FeedbackModal = ({ open, onclose }) => {
+  return (
+    <Modal
+      open={open}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Card sx={{ width: "500px" }}>
+        <Box bgcolor="#282842" p={2} width="100%">
+          <Typography variant="h6" color="white">
+            SEND FEEDBACK
+          </Typography>
+        </Box>
+        <Box p={2}>
+          <Box
+            component={Paper}
+            variant="outlined"
+            p={2}
+            gap={1}
+            display="flex"
+            flexDirection="column"
+          >
+            <CustomInput>
+              <StyledLabel>Email</StyledLabel>
+              <StyledInput fullWidth name="email" />
+            </CustomInput>
+
+            <CustomInput doNotAlign={true}>
+              <StyledLabel>Message</StyledLabel>
+              <StyledInput fullWidth name="message" multiline rows={5} />
+            </CustomInput>
+          </Box>
+          <Box display="flex" gap={1} marginTop={2}>
+            <CancelBtn variant="contained" fullWidth onClick={onclose}>
+              cancel
+            </CancelBtn>
+            <LoginBtn variant="contained" fullWidth>
+              submit
+            </LoginBtn>
+          </Box>
+        </Box>
+      </Card>
+    </Modal>
+  );
+};
+
 const Navbar = () => {
   // const { setAuth } = useAuth();
 
@@ -37,6 +96,8 @@ const Navbar = () => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  const [isModal, setModal] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -50,6 +111,10 @@ const Navbar = () => {
       dispatch(setLogout());
     }
     setAnchorEl(null);
+  };
+
+  const handleFeedbackModal = () => {
+    setModal((preVal) => !preVal);
   };
 
   return (
@@ -131,7 +196,7 @@ const Navbar = () => {
             <MenuItem>Invite Friends</MenuItem>
             <MenuItem
               onClick={(event) => {
-                navigate({ pathname: "/panel", search: "/sendfeedback" });
+                handleFeedbackModal();
                 handleClose(event);
               }}
             >
@@ -160,11 +225,13 @@ const Navbar = () => {
           </StyledMenu>
         </Stack>
       </Box>
+      <FeedbackModal open={isModal} onclose={handleFeedbackModal} />
     </Box>
   );
 };
 
 export default Navbar;
+
 //--------------------------------------------------------------------------//
 // <div className="main-navbar-container">
 //   <div className="navbar-wrapper-left">
