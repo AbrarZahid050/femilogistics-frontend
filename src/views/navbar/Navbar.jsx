@@ -5,14 +5,14 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 //custom imports:
-import { setLogout } from "../../redux/slices/authSlice";
-import CustomInput from "../carrier/components/InputFields/CustomInput";
 import {
-  StyledInput,
-  StyledLabel,
   CancelBtn,
   LoginBtn,
+  StyledInput,
+  StyledLabel,
 } from "../../components/Styles/StyledBtns.js";
+import { setLogout } from "../../redux/slices/authSlice";
+import CustomInput from "../carrier/components/InputFields/CustomInput";
 // import useAuth from "../../hooks/useAuth";
 // import Cookies from "js-cookie";
 
@@ -20,11 +20,11 @@ import {
 import {
   Box,
   Card,
-  Paper,
   Divider,
   IconButton,
   MenuItem,
   Modal,
+  Paper,
   Stack,
   Tooltip,
   Typography,

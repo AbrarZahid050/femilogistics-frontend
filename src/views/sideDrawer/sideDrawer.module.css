@@ -1,7 +1,6 @@
 .main_side_drawer_wrapper {
-  min-width: 250px;
+  height: 100%;
   background: #282842;
-  min-height: 100vh;
   box-shadow: inset -1px 0px 0px #e2e2ea;
   overflow: auto;
   -ms-overflow-style: none;
@@ -21,7 +20,7 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #6f758b;
-  padding: 30px 20px 10px 20px;
+  padding-top: 10px;
 }
 
 .side_drawer_wrapper {
@@ -30,14 +29,14 @@
   flex-direction: column;
 }
 .link_wrapper_active {
-  display: flex;
-  align-items: center;
-  padding: 18px 20px;
-  gap: 20px;
-  cursor: pointer;
-  background: #000029;
-  border-left: 1px solid #ffffff;
-  margin-right: 1px;
+  display: flex !important;
+  align-items: center !important;
+  padding: 24px 20px !important;
+  gap: 20px !important;
+  cursor: pointer !important;
+  background: #000029 !important;
+  border-left: 1px solid #ffffff !important;
+  margin-right: 1px !important;
 }
 
 .link_wrapper_active > p {
@@ -51,17 +50,19 @@
 }
 
 .link_wrapper {
-  display: flex;
-  align-items: center;
-  padding: 18px 20px;
-  gap: 20px;
-  cursor: pointer;
+  display: flex !important;
+  align-items: center !important;
+  padding: 24px 20px !important;
+  gap: 20px !important;
+  cursor: pointer !important;
+  background: #282842 !important;
+  margin-right: 1px !important;
 }
 
 .link_wrapper:hover {
-  background: #000029;
-  border-left: 1px solid #ffffff;
-  margin-right: 1px;
+  background: #000029 !important;
+  border-left: 1px solid #ffffff !important;
+  margin-right: 1px !important;
 }
 
 .link_wrapper_image {
