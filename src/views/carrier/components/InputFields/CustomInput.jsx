@@ -1,6 +1,6 @@
 import { FormControl, Grid } from "@mui/material";
 
-const CustomInput = ({ children, labelSize, onchange, doNotAlign }) => {
+const CustomInput = ({ children, labelSize, doNotAlign }) => {
   return (
     <FormControl fullWidth>
       <Grid container alignItems={doNotAlign ? "none" : "center"}>

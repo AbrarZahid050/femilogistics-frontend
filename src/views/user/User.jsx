@@ -41,6 +41,7 @@ import {
   getCount,
 } from "../../redux/slices/userSlice";
 import { grey } from "@mui/material/colors";
+import CustomPagination from "./components/Pagination/CustomPagination";
 
 const roles = [
   "System Admin",
@@ -69,13 +70,17 @@ const User = () => {
   const [userInfoforDeleteModal, setUserInfo] = useState(null);
 
   //pagination's state:
+  const [currentPage, setPage] = useState(1);
+  const limit = 5;
 
   const handleNewCustomerModalClick = () => {
     setNewCustomerModal((preVal) => !preVal);
   };
 
   const pageChangeHandler = (event, pageNumber) => {
-    // dispatch(fetchUsers(pageNumber));
+    dispatch(fetchUsers(limit * (pageNumber - 1)));
+
+    setPage(pageNumber);
   };
 
   const handleDeleteModalClick = (_, userId) => {
@@ -96,7 +101,7 @@ const User = () => {
 
   useEffect(() => {
     if (requestStatus === "idle") {
-      dispatch(fetchUsers());
+      dispatch(fetchUsers(currentPage));
     }
   }, [requestStatus, dispatch]);
 
@@ -247,14 +252,10 @@ const User = () => {
 
             {/* pagination code */}
             <Box marginTop={2}>
-              <Pagination
-                size="large"
-                siblingCount={0}
-                color="primary"
+              <CustomPagination
                 count={count}
-                onChange={pageChangeHandler}
-                variant="outlined"
-                shape="rounded"
+                currentPage={currentPage}
+                pageChangeHandler={pageChangeHandler}
               />
             </Box>
           </Box>

@@ -9,9 +9,11 @@ const initialState = {
 };
 
 export const fetchUsers = createAsyncThunk("users/list", async (page) => {
-  // console.log(page);
-  const response = await axiosAuthInterceptor.get("users/");
-  // console.log(response);
+  const response = await axiosAuthInterceptor.get(
+    `users/?limit=5&offset=${page}`
+  );
+  // const response = await axiosAuthInterceptor.get(`users/`);
+
   return response.data;
 });
 
