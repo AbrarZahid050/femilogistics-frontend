@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 //styling imports
 import classes from "./sideDrawer.module.css";
+
 //svg imports:
 import carrier from "../../assets/SideDrawerImages/carrier.svg";
 import customer from "../../assets/SideDrawerImages/customer.svg";
@@ -14,6 +15,7 @@ import user from "../../assets/SideDrawerImages/user.svg";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import MenuIcon from "@mui/icons-material/Menu";
+
 import { List } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -131,6 +133,9 @@ const SideDrawer = () => {
             onClick={handleDrawerOpen}
             sx={{
               ...(open && { display: "none" }),
+              "&:hover": {
+                bgcolor: "#000029",
+              },
             }}
           >
             <MenuIcon style={{ color: "white", margin: "10px" }} />
@@ -144,6 +149,9 @@ const SideDrawer = () => {
               onClick={handleDrawerClose}
               sx={{
                 ...(!open && { display: "none" }),
+                "&:hover": {
+                  bgcolor: "#000029",
+                },
               }}
             >
               {theme.direction === "rtl" ? (
@@ -156,7 +164,7 @@ const SideDrawer = () => {
           <h2 style={{ paddingLeft: open ? "22px" : "10px" }}>Main</h2>
           <List>
             {sideDrawerLisnk.map((e, index) => (
-              <ListItem disablePadding>
+              <ListItem key={nanoid()} disablePadding>
                 <ListItemButton
                   key={nanoid()}
                   className={

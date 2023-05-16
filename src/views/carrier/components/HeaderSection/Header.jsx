@@ -57,7 +57,6 @@ const Header = () => {
         <Grid item>
           <Stack direction="row" spacing={2}>
             <GeneralBtn1 variant="contained">AR</GeneralBtn1>
-            <GeneralBtn1 variant="contained">AP</GeneralBtn1>
             <GeneralBtn2 variant="contained" sx={{ width: "200px" }}>
               Submit
             </GeneralBtn2>

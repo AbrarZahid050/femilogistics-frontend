@@ -9,8 +9,9 @@ const initialState = {
 };
 
 export const fetchUsers = createAsyncThunk("users/list", async (page) => {
+  // console.log(page);
   const response = await axiosAuthInterceptor.get(
-    `users/?limit=5&offset=${page}`
+    `users/?limit=10&offset=${page}`
   );
   // const response = await axiosAuthInterceptor.get(`users/`);
 
@@ -56,14 +57,14 @@ const userSlice = createSlice({
       })
       //<--------------------------cases for createNewUser thunk fun----------------------------->
       .addCase(createNewUser.pending, (state, action) => {
-        // state.status = "loading";
+        // state.status = "loading"; //commented it so that the User component doesn't render twice
       })
       .addCase(createNewUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })
       .addCase(createNewUser.fulfilled, (state, action) => {
-        state.status = "idle";
+        state.status = "idle"; //setting the status to idle so the User component would render, see the useEffect Hook in the User.jsx
       })
 
       //<-------------------------cases for deleteUser thunk fun---------------------------------->

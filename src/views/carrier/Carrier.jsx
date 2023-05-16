@@ -155,9 +155,14 @@ const Carrier = () => {
                         >
                           remove carrier
                         </GeneralBtn1>
-                        <GeneralBtn1 variant="contained">
+                        <GeneralBtn1
+                          variant="contained"
+                          sx={{ marginRight: 1 }}
+                        >
                           rate confirmation
                         </GeneralBtn1>
+
+                        <GeneralBtn1 variant="contained">AR</GeneralBtn1>
                       </Box>
                     ) : (
                       <Box
@@ -182,66 +187,68 @@ const Carrier = () => {
             );
           })}
         </Box>
-
-        {/* <Paper
-          elevation={0}
-          sx={
-            expand
-              ? { p: 2, background: grey[200] }
-              : {
-                  p: 2,
-                  background: "#FFFFFF",
-                  boxShadow:
-                    "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
-                  borderRadius: "8px",
-                }
-          }
-        >
-          <Stack spacing={2}>
-            
-            <Box display="flex" justifyContent="space-between" height="30px">
-              {expand ? (
-                <Box display="inline-flex" alignItems="center" gap={2}>
-                  <GeneralBtn1
-                    variant="contained"
-                    disabled
-                    startIcon={<Minus />}
-                  >
-                    Remove Carrier
-                  </GeneralBtn1>
-                  <GeneralBtn1 variant="contained">
-                    Rate Confirmation
-                  </GeneralBtn1>
-                </Box>
-              ) : (
-                <>
-                  <Summary
-                    title="Carrier"
-                    detail="ASAP TRANS CORP (38243) Homeglen, IL"
-                  />
-                  <Summary title="Dispatch" detail="Truck 320" />
-                  <Summary title="Accounting" detail="Total: $2120.00" />
-                </>
-              )}
-
-              <IconButton
-                onClick={handleClick}
-                sx={{ height: "30px", width: "30px" }}
-              >
-                {expand ? (
-                  <ExpandLess fontSize={25} />
-                ) : (
-                  <ExpandMore fontSize={25} />
-                )}
-              </IconButton>
-            </Box>
-
-            {expand ? <AccordionDetail /> : null}
-          </Stack>
-        </Paper> */}
       </Stack>
     </Box>
   );
 };
 
 export default Carrier;
+
+//  below is the code which should be ignored as it was the an old iteration, would be deleted in final production
+
+/* <Paper
+  elevation={0}
+  sx={
+    expand
+      ? { p: 2, background: grey[200] }
+      : {
+          p: 2,
+          background: "#FFFFFF",
+          boxShadow:
+            "0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)",
+          borderRadius: "8px",
+        }
+  }
+>
+  <Stack spacing={2}>
+    
+    <Box display="flex" justifyContent="space-between" height="30px">
+      {expand ? (
+        <Box display="inline-flex" alignItems="center" gap={2}>
+          <GeneralBtn1
+            variant="contained"
+            disabled
+            startIcon={<Minus />}
+          >
+            Remove Carrier
+          </GeneralBtn1>
+          <GeneralBtn1 variant="contained">
+            Rate Confirmation
+          </GeneralBtn1>
+        </Box>
+      ) : (
+        <>
+          <Summary
+            title="Carrier"
+            detail="ASAP TRANS CORP (38243) Homeglen, IL"
+          />
+          <Summary title="Dispatch" detail="Truck 320" />
+          <Summary title="Accounting" detail="Total: $2120.00" />
+        </>
+      )}
+
+      <IconButton
+        onClick={handleClick}
+        sx={{ height: "30px", width: "30px" }}
+      >
+        {expand ? (
+          <ExpandLess fontSize={25} />
+        ) : (
+          <ExpandMore fontSize={25} />
+        )}
+      </IconButton>
+    </Box>
+
+    {expand ? <AccordionDetail /> : null}
+  </Stack>
+</Paper> */

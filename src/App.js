@@ -18,7 +18,6 @@ import "./assets/Fonts/Roboto/Roboto-Regular.ttf";
 const App = () => {
   return (
     <>
-      {/* <ToastContainer /> */}
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* public routes */}

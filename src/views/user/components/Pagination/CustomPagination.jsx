@@ -1,5 +1,4 @@
 import { Pagination } from "@mui/material";
-import { useState } from "react";
 
 const CustomPagination = ({ count, currentPage, pageChangeHandler }) => {
   return (
@@ -7,7 +6,7 @@ const CustomPagination = ({ count, currentPage, pageChangeHandler }) => {
       size="large"
       siblingCount={0}
       color="primary"
-      count={Math.ceil(count / 5)}
+      count={Math.ceil(count / 10)}
       page={currentPage}
       onChange={pageChangeHandler}
       variant="outlined"

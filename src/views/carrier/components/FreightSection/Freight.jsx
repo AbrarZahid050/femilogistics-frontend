@@ -70,6 +70,7 @@ const Freight = () => {
                 </Grid>
               </Grid>
             </FormControl>
+
             {/* fourth input */}
             <FormControl>
               <Grid container alignItems="center">
@@ -81,6 +82,7 @@ const Freight = () => {
                 </Grid>
               </Grid>
             </FormControl>
+
             {/* fifth input */}
             <FormControl>
               <Grid container alignItems="center">

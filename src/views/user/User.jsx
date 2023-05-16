@@ -22,7 +22,6 @@ import {
   TableCell,
   TableBody,
   CircularProgress,
-  Pagination,
   Tooltip,
 } from "@mui/material";
 
@@ -64,28 +63,30 @@ const User = () => {
   // const error = useSelector(getUsersError);
 
   //have 2 modals in total:
-  //==> newCustomerModal. ==> userDeleteModal.
+  //1) newCustomerModal. 2) userDeleteModal.
   const [displayNewCustomerModal, setNewCustomerModal] = useState(false);
   const [displayDeleteCustomerModal, setModalForDelete] = useState(false);
   const [userInfoforDeleteModal, setUserInfo] = useState(null);
 
   //pagination's state:
   const [currentPage, setPage] = useState(1);
-  const limit = 5;
+  const limit = 10;
 
   const handleNewCustomerModalClick = () => {
     setNewCustomerModal((preVal) => !preVal);
   };
 
+  //handler to change the page, this is passed as a props to CustomPagination.
   const pageChangeHandler = (event, pageNumber) => {
     dispatch(fetchUsers(limit * (pageNumber - 1)));
-
     setPage(pageNumber);
   };
 
+  //this handler is responsible for toggling the modal for deleting users.
   const handleDeleteModalClick = (_, userId) => {
-    // console.log(userId);
     if (userId) {
+      //finding the detail of the user which is to be deleted,
+      //only used for displaying the name.
       const userName = usersList.find((val) => val.id === userId);
       setUserInfo(userName);
     } else if (!userId) {
@@ -101,9 +102,9 @@ const User = () => {
 
   useEffect(() => {
     if (requestStatus === "idle") {
-      dispatch(fetchUsers(currentPage));
+      dispatch(fetchUsers(limit * (currentPage - 1)));
     }
-  }, [requestStatus, dispatch]);
+  }, [requestStatus, dispatch, currentPage]);
 
   let content;
 
@@ -166,6 +167,7 @@ const User = () => {
                     {["USERNAME", "NAME", "EMAIL", "PHONE", "ROLE"].map(
                       (heading) => (
                         <TableCell
+                          key={nanoid()}
                           sx={
                             heading === "ROLE"
                               ? {
@@ -176,7 +178,6 @@ const User = () => {
                                 }
                               : { color: "#6B7280", width: "100px", p: 1 }
                           }
-                          key={nanoid()}
                         >
                           {heading}
                         </TableCell>
