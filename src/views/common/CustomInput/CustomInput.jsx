@@ -18,7 +18,7 @@ export const CustomInput = ({ children, doNotAlign, labelSize, isError }) => (
   </FormControl>
 );
 
-export const TextMaskCustom = forwardRef(function TextMaskCustom(props, ref) {
+export const TextMaskCustom = forwardRef((props, ref) => {
   const { onChange, ...other } = props;
   return (
     <IMaskInput
@@ -31,6 +31,28 @@ export const TextMaskCustom = forwardRef(function TextMaskCustom(props, ref) {
         return null;
       }}
       inputRef={ref}
+      onAccept={(value) => onChange({ target: { name: props.name, value } })}
+      overwrite
+    />
+  );
+});
+
+export const NumberMaskCustom = forwardRef((props, ref) => {
+  const { onChange, ...other } = props;
+
+  return (
+    <IMaskInput
+      {...other}
+      mask={Number}
+      scale={2} // digits after point, 0 for integers
+      signed={false} // disallow negative
+      thousandsSeparator={other.name === "postal_code" ? "" : ","}
+      padFractionalZeros={false} // if true, then pads zeros at end to the length of scale
+      normalizeZeros={true} // appends or removes zeros at ends
+      radix="." // fractional delimiter
+      // mapToRadix={["."]}
+      inputRef={ref}
+      onChange={() => {}}
       onAccept={(value) => onChange({ target: { name: props.name, value } })}
       overwrite
     />

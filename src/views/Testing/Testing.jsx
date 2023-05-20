@@ -19,11 +19,16 @@ const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
   return (
     <IMaskInput
       {...other}
-      mask="1 (#00) 000-0000"
-      definitions={{
-        "#": /[1-9]/,
-      }}
+      mask={Number}
+      scale={2} // digits after point, 0 for integers
+      signed={false} // disallow negative
+      // thousandsSeparator=""
+      padFractionalZeros={false} // if true, then pads zeros at end to the length of scale
+      normalizeZeros={true} // appends or removes zeros at ends
+      radix="." // fractional delimiter
+      // mapToRadix={["."]}
       inputRef={ref}
+      onChange={() => {}}
       onAccept={(value) => onChange({ target: { name: props.name, value } })}
       overwrite
     />

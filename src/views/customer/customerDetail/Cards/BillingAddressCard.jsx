@@ -2,8 +2,10 @@ import { Paper, Stack, Typography } from "@mui/material";
 
 import {
   CustomInput,
+  NumberMaskCustom,
   TextMaskCustom,
 } from "../../../common/CustomInput/CustomInput";
+
 import {
   StyledLabel,
   StyledInput,
@@ -13,23 +15,29 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import {
   addBillingDetail,
-  customerDetails,
+  billingInfoValidation,
   billingDetails,
   getErrors,
 } from "../../../../redux/slices/createCustomerSlice";
 
-const BillingAddressCard = ({ children }) => {
+const BillingAddressCard = () => {
   const dispatch = useDispatch();
   const customer = useSelector(billingDetails);
+  const errors = useSelector(getErrors);
 
   const changeHandler = (event) => {
     const key = event.target.name;
-    const value = event.target.value;
+    let value = event.target.value;
 
     dispatch(addBillingDetail({ key, value }));
   };
 
-  console.log(customer);
+  const blurHandler = (event) => {
+    const key = event.target.name;
+    const value = event.target.value;
+    dispatch(billingInfoValidation({ key, value }));
+  };
+
   return (
     <Paper
       sx={{
@@ -46,73 +54,81 @@ const BillingAddressCard = ({ children }) => {
         </Typography>
 
         {/* address-1 */}
-        <CustomInput labelSize={3}>
+        <CustomInput labelSize={3} isError={errors.billing_address.address_1}>
           <StyledLabel>Address 1</StyledLabel>
           <StyledInput
             fullWidth
             name="address_1"
             onChange={changeHandler}
-            value={customer.address_1}
+            value={customer.address_1 || ""}
+            onBlur={blurHandler}
           />
         </CustomInput>
 
         {/* address-2 */}
-        <CustomInput labelSize={3}>
+        <CustomInput labelSize={3} isError={errors.billing_address.address_2}>
           <StyledLabel>Address 2</StyledLabel>
           <StyledInput
             fullWidth
             name="address_2"
             onChange={changeHandler}
             value={customer.address_2 || ""}
+            onBlur={blurHandler}
           />
         </CustomInput>
 
         {/* city */}
-        <CustomInput labelSize={3}>
+        <CustomInput labelSize={3} isError={errors.billing_address.city}>
           <StyledLabel>City</StyledLabel>
           <StyledInput
             fullWidth
             name="city"
             onChange={changeHandler}
             value={customer.city || ""}
+            onBlur={blurHandler}
           />
         </CustomInput>
 
         {/* state */}
-        <CustomInput labelSize={3}>
+        <CustomInput labelSize={3} isError={errors.billing_address.state}>
           <StyledLabel>State</StyledLabel>
           <StyledInput
             fullWidth
             name="state"
             onChange={changeHandler}
             value={customer.state || ""}
+            onBlur={blurHandler}
           />
         </CustomInput>
 
         {/* postal card */}
-        <CustomInput labelSize={3}>
-          <StyledLabel>Postal Card</StyledLabel>
+        <CustomInput labelSize={3} isError={errors.billing_address.postal_code}>
+          <StyledLabel>Postal Code</StyledLabel>
           <StyledInput
             fullWidth
-            name="postal_card"
+            name="postal_code"
             onChange={changeHandler}
-            value={customer.postal_card || ""}
+            value={customer.postal_code || ""}
+            inputComponent={NumberMaskCustom}
+            onBlur={blurHandler}
           />
         </CustomInput>
 
         {/* quantity */}
-        <CustomInput labelSize={3}>
+        <CustomInput labelSize={3} isError={errors.billing_address.quantity}>
           <StyledLabel>Quantity</StyledLabel>
           <StyledInput
             fullWidth
             name="quantity"
             onChange={changeHandler}
             value={customer.quantity || ""}
+            inputComponent={NumberMaskCustom}
+            onBlur={blurHandler}
           />
         </CustomInput>
 
         {/* phone */}
-        <CustomInput labelSize={3}>
+        <CustomInput labelSize={3} isError={errors.billing_address.phone}>
           <StyledLabel>Phone</StyledLabel>
           <StyledInput
             fullWidth
@@ -120,6 +136,7 @@ const BillingAddressCard = ({ children }) => {
             onChange={changeHandler}
             inputComponent={TextMaskCustom}
             value={customer.phone || ""}
+            onBlur={blurHandler}
           />
         </CustomInput>
       </Stack>

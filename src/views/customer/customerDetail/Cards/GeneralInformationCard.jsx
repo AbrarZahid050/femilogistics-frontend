@@ -4,6 +4,7 @@ import {
   CustomInput,
   TextMaskCustom,
 } from "../../../common/CustomInput/CustomInput";
+
 import {
   StyledLabel,
   StyledInput,
@@ -11,6 +12,7 @@ import {
 
 //redux-toolkit imports:
 import { useSelector, useDispatch } from "react-redux";
+
 import {
   addDetail,
   customerDetails,
@@ -36,8 +38,6 @@ const GeneralInformationCard = () => {
     const value = event.target.value;
     dispatch(generalInfoValidation({ key, value }));
   };
-
-  console.log("rendering customer:", customer);
 
   return (
     <Paper
