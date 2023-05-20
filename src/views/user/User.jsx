@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 //custom components:
-import SortBy from "./components/SortBy";
+import SortBy from "../common/SortElement/SortBy";
 import NewUserModal from "./components/Modal/NewUserModal";
 import ThreeDotsMenu from "./components/ThreeDotsMenu";
 import DeleteUserModal from "./components/Modal/DeleteUserModal";
@@ -24,6 +24,7 @@ import {
   CircularProgress,
   Tooltip,
 } from "@mui/material";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 //svg imports:
 import { ReactComponent as Plus } from "../../assets/Users/plus.svg";
@@ -34,7 +35,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllUsers,
   getUsersStatus,
-  // getUsersError,
+  getUsersError,
   fetchUsers,
   deleteUser,
   getCount,
@@ -60,7 +61,7 @@ const User = () => {
   const usersList = useSelector(selectAllUsers);
   const count = useSelector(getCount);
   const requestStatus = useSelector(getUsersStatus);
-  // const error = useSelector(getUsersError);
+  const error = useSelector(getUsersError);
 
   //have 2 modals in total:
   //1) newCustomerModal. 2) userDeleteModal.
@@ -274,7 +275,19 @@ const User = () => {
       </Box>
     );
   } else if (requestStatus === "failed") {
-    content = <Typography>Error!</Typography>;
+    content = (
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        width="100%"
+      >
+        <ErrorOutlineIcon sx={{ fontSize: "80px", color: "#FF2020" }} />
+        <Typography variant="h4" color="#FF2020">
+          {error}
+        </Typography>
+      </Box>
+    );
   }
 
   return <>{content}</>;
