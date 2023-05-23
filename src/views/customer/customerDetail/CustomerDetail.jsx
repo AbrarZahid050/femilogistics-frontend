@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+
 import { Box, Stack } from "@mui/material";
 
-import { grey } from "@mui/material/colors";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import {
   CancelBtn,
@@ -10,107 +12,100 @@ import {
   StyledLabel,
 } from "../../../components/Styles/StyledBtns";
 import CustomerHeaderCard from "./CustomerHeaderCard";
-
 import GeneralInformationCard from "./Cards/GeneralInformationCard";
 import BillingAddressCard from "./Cards/BillingAddressCard";
 import ManagersCard from "./Cards/ManagersCard";
-import { nanoid } from "@reduxjs/toolkit";
 import FinanceCard from "./Cards/FinanceCard";
 import NoteToCarrierCard from "./Cards/NoteToCarrierCard";
 
+//redux import:
+import { useDispatch, useSelector } from "react-redux";
+import { addErrors } from "../../../redux/slices/errorCustomerSlice";
+import {
+  customerDetailsById,
+  getCustomerById,
+} from "../../../redux/slices/customerSlice";
+
+//react-router-dom:
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+
+//yup schema:
+const schema = yup.object().shape({
+  customer: yup.string().required("Customer is requried."),
+  status: yup.string().required("Status is requried."),
+  name: yup.string().required("Name is requried."),
+  email: yup.string().required("Email is requried."),
+  identifier: yup.string().required("Identifier is requried."),
+  phone: yup.string().required("Phone is requried."),
+  fax: yup.string().required("Fax is requried."),
+  billing_address: yup.object().shape({
+    address_1: yup.string().required("Address 1 is required."),
+    address_2: yup.string().required("Address 2 is required."),
+    city: yup.string().required("City is required."),
+    state: yup.string().required("State is required."),
+    postal_code: yup.string().required("Postal code is required."),
+    quantity: yup.string().required("Quantity is required."),
+    phone: yup.string().required("Phone is required."),
+  }),
+  account_manager: yup.string().required("Account manager is required."),
+  customer_account_manager: yup
+    .string()
+    .required("Customer account manager is required."),
+  credit_limit: yup.string().required("Credit limit is required."),
+  payment_terms: yup.string().required("Payment terms is required."),
+  available_credit: yup.string().required("Available credit is required."),
+  // note_to_carrier: yup.string().required("Note is required."),
+});
+
 const CustomerDetail = () => {
-  const [values, setValues] = useState({
-    status: "ab",
-    name: "",
-    email: "",
-    identifier: "",
-    phone: "",
-    fax: "",
-    billing_address: {
-      address_1: "",
-      address_2: "",
-      city: "",
-      state: "",
-      postal_code: "",
-      phone: "",
-      quantity: "",
-    },
+  const dispatch = useDispatch();
+
+  const customerbyId = useSelector(customerDetailsById);
+
+  const { register, handleSubmit, control } = useForm({
+    defaultValues: customerbyId,
+    resolver: yupResolver(schema),
   });
 
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
+  const submitHandler = (data) => {
+    console.log(data);
   };
 
+  const errorHandler = (errors) => {
+    dispatch(addErrors(errors));
+  };
+
+  console.log("parent rendering...", customerbyId);
   return (
     <Box width="100%" p={2}>
       <Stack spacing={2}>
         <CustomerHeaderCard>
           <StyledLabel>Customer</StyledLabel>
-          <StyledInput fullWidth />
+          <StyledInput fullWidth {...register("customer")} />
           <CancelBtn sx={{ margin: "0 16px 0 0" }}>delete</CancelBtn>
-          <LoginBtn sx={{ m: 0 }}>save</LoginBtn>
+          <LoginBtn
+            sx={{ m: 0 }}
+            onClick={handleSubmit(submitHandler, errorHandler)}
+          >
+            save
+          </LoginBtn>
         </CustomerHeaderCard>
-
         <Box display="flex" gap={2} flexWrap="wrap" justifyContent="stretch">
           <Box width="500px" height="420px">
-            <GeneralInformationCard
-              values={values}
-              handleChange={(event) => handleChange(event)}
-            />
-
-            {/* <GeneralInformationCard>
-              {["status", "name", "email", "identifier", "phone", "fax"].map(
-                (label) => (
-                  <StyledInput
-                  fullWidth
-                  value={values[label]}
-                  onChange={handleChange}
-                  name={label}
-                  inputComponent={TextMaskCustom}
-                    
-                  />
-                )
-              )}
-            </GeneralInformationCard> */}
+            <GeneralInformationCard register={register} control={control} />
           </Box>
           <Box width="500px">
-            <BillingAddressCard>
-              {[
-                "address1",
-                "address2",
-                "city",
-                "state",
-                "postalCard",
-                "quantity",
-                "phone",
-              ].map((label) => (
-                <StyledInput key={nanoid()} fullWidth name={label} />
-              ))}
-            </BillingAddressCard>
+            <BillingAddressCard register={register} control={control} />
           </Box>
           <Box width="500px">
-            <ManagersCard>
-              {["accountManager", "customerAccountManager"].map((label) => (
-                <StyledInput key={nanoid()} fullWidth name={label} />
-              ))}
-            </ManagersCard>
+            <ManagersCard register={register} />
           </Box>
           <Box width="500px">
-            <FinanceCard>
-              {["creditLimit", "paymentTerms", "availableCredit"].map(
-                (label) => (
-                  <StyledInput key={nanoid()} fullWidth name={label} />
-                )
-              )}
-            </FinanceCard>
+            <FinanceCard register={register} control={control} />
           </Box>
           <Box width="500px">
-            <NoteToCarrierCard>
-              <StyledInput fullWidth multiline rows={3} />
-            </NoteToCarrierCard>
+            <NoteToCarrierCard register={register} />
           </Box>
         </Box>
       </Stack>

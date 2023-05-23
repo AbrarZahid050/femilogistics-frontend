@@ -9,31 +9,25 @@ import {
   CustomInput,
   NumberMaskCustom,
 } from "../../../common/CustomInput/CustomInput";
+import { Controller } from "react-hook-form";
 
-import { useDispatch, useSelector } from "react-redux";
+//redux import:
+import { useSelector, useDispatch } from "react-redux";
 import {
-  addFinanceDetail,
-  financeInfoValidation,
-  getErrors,
-  financeDetails,
-} from "../../../../redux/slices/createCustomerSlice";
+  getFinanceInfoCardErrors,
+  removeFinanceInfoError,
+} from "../../../../redux/slices/errorCustomerSlice";
 
-const FinanceCard = () => {
+const FinanceCard = ({ register, control }) => {
+  const errors = useSelector(getFinanceInfoCardErrors);
   const dispatch = useDispatch();
-  const customer = useSelector(financeDetails);
-  const errors = useSelector(getErrors);
 
-  const changeHandler = (event) => {
+  const handlerForBlur = (event) => {
     const key = event.target.name;
-    let value = event.target.value;
-
-    dispatch(addFinanceDetail({ key, value }));
-  };
-
-  const blurHandler = (event) => {
-    const key = event.target.name;
-    const value = event.target.value;
-    dispatch(financeInfoValidation({ key, value }));
+    console.log(key);
+    if (errors[key]) {
+      dispatch(removeFinanceInfoError(key));
+    }
   };
 
   return (
@@ -50,46 +44,69 @@ const FinanceCard = () => {
         <Typography variant="h6" fontSize="18px">
           FINANCE
         </Typography>
-        <CustomInput labelSize={3} isError={errors.credit_limit}>
+        <CustomInput
+          labelSize={3}
+          isError={errors.credit_limit ? errors.credit_limit.message : ""}
+        >
           <StyledLabel>Credit Limit</StyledLabel>
-          <StyledInput
-            fullWidth
+          <Controller
             name="credit_limit"
-            onChange={changeHandler}
-            value={customer.credit_limit || ""}
-            onBlur={blurHandler}
-            inputComponent={NumberMaskCustom}
-            startAdornment={
-              <InputAdornment position="start">
-                <p>$</p>
-              </InputAdornment>
-            }
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <StyledInput
+                fullWidth
+                name="credit_limit"
+                onBlur={handlerForBlur}
+                value={value || ""}
+                onChange={onChange}
+                inputComponent={NumberMaskCustom}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <p>$</p>
+                  </InputAdornment>
+                }
+              />
+            )}
           />
         </CustomInput>
-        <CustomInput labelSize={3} isError={errors.payment_terms}>
+
+        <CustomInput
+          labelSize={3}
+          isError={errors.payment_terms ? errors.payment_terms.message : ""}
+        >
           <StyledLabel>Payment Terms</StyledLabel>
           <StyledInput
-            name="payment_terms"
             fullWidth
-            onChange={changeHandler}
-            value={customer.payment_terms || ""}
-            onBlur={blurHandler}
+            {...register("payment_terms")}
+            onBlur={handlerForBlur}
           />
         </CustomInput>
-        <CustomInput labelSize={3} isError={errors.available_credit}>
+
+        <CustomInput
+          labelSize={3}
+          isError={
+            errors.available_credit ? errors.available_credit.message : ""
+          }
+        >
           <StyledLabel>Available Credit</StyledLabel>
-          <StyledInput
+          <Controller
             name="available_credit"
-            fullWidth
-            onChange={changeHandler}
-            value={customer.available_credit || ""}
-            onBlur={blurHandler}
-            inputComponent={NumberMaskCustom}
-            startAdornment={
-              <InputAdornment position="start">
-                <p>$</p>
-              </InputAdornment>
-            }
+            control={control}
+            render={({ field: { value, onChange } }) => (
+              <StyledInput
+                fullWidth
+                name="available_credit"
+                onBlur={handlerForBlur}
+                value={value || ""}
+                onChange={onChange}
+                inputComponent={NumberMaskCustom}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <p>$</p>
+                  </InputAdornment>
+                }
+              />
+            )}
           />
         </CustomInput>
       </Stack>

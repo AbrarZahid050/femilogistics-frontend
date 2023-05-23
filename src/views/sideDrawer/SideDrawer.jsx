@@ -175,7 +175,7 @@ const SideDrawer = () => {
                   onClick={() => {
                     e.link_text === "Loads" && setIsLoadsArrow(!isLoadsArrow);
                     e.link_text !== "Loads" &&
-                      navigate({ pathname: "/panel", search: e.goto });
+                      navigate({ pathname: `/panel${e.goto}` });
                   }}
                 >
                   <img

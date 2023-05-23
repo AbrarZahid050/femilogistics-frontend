@@ -9,34 +9,25 @@ import {
   StyledLabel,
   StyledInput,
 } from "../../../../components/Styles/StyledBtns";
+import { Controller } from "react-hook-form";
 
-//redux-toolkit imports:
+//redux imports:
 import { useSelector, useDispatch } from "react-redux";
-
 import {
-  addDetail,
-  customerDetails,
-  generalInfoValidation,
-  getErrors,
-} from "../../../../redux/slices/createCustomerSlice";
+  getGeneralInfoCardErrors,
+  removeGeneralInfoError,
+} from "../../../../redux/slices/errorCustomerSlice";
 
-//to formate the phone numbers:
-
-const GeneralInformationCard = () => {
+const GeneralInformationCard = ({ register, control }) => {
   const dispatch = useDispatch();
-  const customer = useSelector(customerDetails);
-  const errors = useSelector(getErrors);
+  const errors = useSelector(getGeneralInfoCardErrors);
 
-  const changeHandler = (event) => {
+  const handlerForBlur = (event) => {
     const key = event.target.name;
-    const value = event.target.value;
-    dispatch(addDetail({ key, value }));
-  };
 
-  const blurHandler = (event) => {
-    const key = event.target.name;
-    const value = event.target.value;
-    dispatch(generalInfoValidation({ key, value }));
+    if (errors[key]) {
+      dispatch(removeGeneralInfoError(key));
+    }
   };
 
   return (
@@ -55,71 +46,93 @@ const GeneralInformationCard = () => {
         </Typography>
 
         {/* Status intput */}
-        <CustomInput labelSize={3} isError={errors.status}>
+        <CustomInput
+          labelSize={3}
+          isError={errors.status ? errors.status.message : ""}
+        >
           <StyledLabel>Status</StyledLabel>
           <StyledInput
             fullWidth
-            name="status"
-            value={customer.status || ""}
-            onChange={changeHandler}
-            onBlur={blurHandler}
+            {...register("status")}
+            onBlur={handlerForBlur}
           />
         </CustomInput>
 
-        <CustomInput labelSize={3} isError={errors.name}>
+        <CustomInput
+          labelSize={3}
+          isError={errors.name ? errors.name.message : ""}
+        >
           <StyledLabel>Name</StyledLabel>
           <StyledInput
             fullWidth
-            name="name"
-            value={customer.name || ""}
-            onChange={changeHandler}
-            onBlur={blurHandler}
+            {...register("name")}
+            onBlur={handlerForBlur}
           />
         </CustomInput>
 
-        <CustomInput labelSize={3} isError={errors.email}>
+        <CustomInput
+          labelSize={3}
+          isError={errors.email ? errors.email.message : ""}
+        >
           <StyledLabel>Email</StyledLabel>
           <StyledInput
             fullWidth
-            name="email"
-            value={customer.email || ""}
-            onChange={changeHandler}
-            onBlur={blurHandler}
+            {...register("email")}
+            onBlur={handlerForBlur}
           />
         </CustomInput>
 
-        <CustomInput labelSize={3} isError={errors.identifier}>
+        <CustomInput
+          labelSize={3}
+          isError={errors.identifier ? errors.identifier.message : ""}
+        >
           <StyledLabel>Identifier</StyledLabel>
           <StyledInput
             fullWidth
-            name="identifier"
-            value={customer.identifier || ""}
-            onChange={changeHandler}
-            onBlur={blurHandler}
+            {...register("identifier")}
+            onBlur={handlerForBlur}
           />
         </CustomInput>
 
-        <CustomInput labelSize={3}>
+        <CustomInput
+          labelSize={3}
+          isError={errors.phone ? errors.phone.message : ""}
+        >
           <StyledLabel>Phone</StyledLabel>
-          <StyledInput
-            fullWidth
-            value={customer.phone || ""}
+          <Controller
             name="phone"
-            inputComponent={TextMaskCustom}
-            onChange={changeHandler}
-            onBlur={blurHandler}
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <StyledInput
+                fullWidth
+                name="phone"
+                onBlur={handlerForBlur}
+                value={value || ""}
+                onChange={onChange}
+                inputComponent={TextMaskCustom}
+              />
+            )}
           />
         </CustomInput>
 
-        <CustomInput labelSize={3}>
+        <CustomInput
+          labelSize={3}
+          isError={errors.fax ? errors.fax.message : ""}
+        >
           <StyledLabel>Fax</StyledLabel>
-          <StyledInput
-            fullWidth
-            value={customer.fax || ""}
+          <Controller
             name="fax"
-            inputComponent={TextMaskCustom}
-            onChange={changeHandler}
-            onBlur={blurHandler}
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <StyledInput
+                name="fax"
+                fullWidth
+                onBlur={handlerForBlur}
+                value={value || ""}
+                onChange={onChange}
+                inputComponent={TextMaskCustom}
+              />
+            )}
           />
         </CustomInput>
       </Stack>

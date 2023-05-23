@@ -6,30 +6,23 @@ import {
   StyledInput,
 } from "../../../../components/Styles/StyledBtns";
 
-import { useDispatch, useSelector } from "react-redux";
+//redux:
+import { useSelector, useDispatch } from "react-redux";
 import {
-  managerDetails,
-  getErrors,
-  addManagersDetail,
-  managersInfoValidation,
-} from "../../../../redux/slices/createCustomerSlice";
+  getManagerInfoCardErrors,
+  removeManagerInfoError,
+} from "../../../../redux/slices/errorCustomerSlice";
 
-const ManagersCard = () => {
+const ManagersCard = ({ register }) => {
+  const errors = useSelector(getManagerInfoCardErrors);
   const dispatch = useDispatch();
-  const customer = useSelector(managerDetails);
-  const errors = useSelector(getErrors);
 
-  const changeHandler = (event) => {
+  const handlerForBlur = (event) => {
     const key = event.target.name;
-    let value = event.target.value;
-
-    dispatch(addManagersDetail({ key, value }));
-  };
-
-  const blurHandler = (event) => {
-    const key = event.target.name;
-    const value = event.target.value;
-    dispatch(managersInfoValidation({ key, value }));
+    console.log(key);
+    if (errors[key]) {
+      dispatch(removeManagerInfoError(key));
+    }
   };
 
   return (
@@ -46,24 +39,30 @@ const ManagersCard = () => {
         <Typography variant="h6" fontSize="18px">
           MANAGERS
         </Typography>
-        <CustomInput labelSize={4} isError={errors.account_manager}>
+        <CustomInput
+          labelSize={4}
+          isError={errors.account_manager ? errors.account_manager.message : ""}
+        >
           <StyledLabel>Account Manager</StyledLabel>
           <StyledInput
-            name="account_manager"
             fullWidth
-            onChange={changeHandler}
-            value={customer.account_manager || ""}
-            onBlur={blurHandler}
+            {...register("account_manager")}
+            onBlur={handlerForBlur}
           />
         </CustomInput>
-        <CustomInput labelSize={4} isError={errors.customer_account_manager}>
+        <CustomInput
+          labelSize={4}
+          isError={
+            errors.customer_account_manager
+              ? errors.customer_account_manager.message
+              : ""
+          }
+        >
           <StyledLabel>Customer Account Manager</StyledLabel>
           <StyledInput
-            name="customer_account_manager"
             fullWidth
-            onChange={changeHandler}
-            value={customer.customer_account_manager || ""}
-            onBlur={blurHandler}
+            {...register("customer_account_manager")}
+            onBlur={handlerForBlur}
           />
         </CustomInput>
       </Stack>

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import {
   Box,
   Stack,
@@ -10,14 +12,38 @@ import {
   Paper,
   TableBody,
 } from "@mui/material";
+
 import SortBy from "../common/SortElement/SortBy";
 import { NavbarBtn } from "../../components/Styles/StyledBtns";
 import { ReactComponent as Plus } from "../../assets/Users/plus.svg";
-import { nanoid } from "@reduxjs/toolkit";
+
 import { useNavigate } from "react-router-dom";
+
+//redux imports:
+import { allCustomers, fetchCustomers } from "../../redux/slices/customerSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getCustomerById } from "../../redux/slices/customerSlice";
 
 const Customer = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const customers = useSelector(allCustomers);
+
+  useEffect(() => {
+    dispatch(fetchCustomers(0));
+  }, [dispatch]);
+
+  const handleClick = (event) => {
+    const customerId = event.target.id;
+    if (customerId) {
+      dispatch(getCustomerById({ id: customerId }));
+      navigate({
+        pathname: `/panel/customer/editcustomer/${customerId}`,
+      });
+    }
+  };
+
   return (
     <Box width="100%" p={2}>
       <Stack spacing={2}>
@@ -36,8 +62,7 @@ const Customer = () => {
               sx={{ background: "#FFFFFF", borderRadius: "10px" }}
               onClick={() => {
                 navigate({
-                  pathname: "/panel",
-                  search: "/customer/newcustomer",
+                  pathname: "/panel/customer/newcustomer",
                 });
               }}
             >
@@ -73,7 +98,7 @@ const Customer = () => {
                     "AVAILABLE CREDIT",
                   ].map((cellValue) => (
                     <TableCell
-                      key={nanoid()}
+                      key={cellValue}
                       sx={
                         cellValue === "ID"
                           ? {
@@ -93,23 +118,120 @@ const Customer = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Array(1, 2).map(() => (
+                {customers.map((customer) => (
                   <TableRow
-                    key={nanoid()}
+                    key={customer.id}
                     sx={{ "&:hover": { background: "rgba(0, 98, 255, 0.03)" } }}
                   >
-                    {[
-                      "994",
-                      "Complete",
-                      "A0B1C010",
-                      "Pacome Anjorin",
-                      "1921 General Passage Seattle, WA 98185",
-                      "Whitehorse",
-                      "RI",
-                      "48144",
-                      " $1,078.00",
-                      " $6,072.00",
-                    ].map((cellVal, index) => (
+                    <TableCell
+                      id={customer.id}
+                      onClick={handleClick}
+                      sx={{
+                        p: 1,
+                        textAlign: "center",
+                        color: "#0062FF",
+                        borderBottom: "none",
+                        "&:hover": {
+                          textDecoration: "underline",
+                          cursor: "pointer",
+                        },
+                      }}
+                    >
+                      {customer.id}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        p: 1,
+                        borderBottom: "none",
+                      }}
+                    >
+                      {customer.status}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        p: 1,
+                        borderBottom: "none",
+                      }}
+                    >
+                      {customer.identifier}
+                    </TableCell>
+                    <TableCell
+                      id={customer.id}
+                      onClick={handleClick}
+                      sx={{
+                        p: 1,
+                        color: "#0062FF",
+                        borderBottom: "none",
+                        "&:hover": {
+                          textDecoration: "underline",
+                          cursor: "pointer",
+                        },
+                      }}
+                    >
+                      {customer.name}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        p: 1,
+                        borderBottom: "none",
+                      }}
+                    >
+                      {customer.billing_address.address_1}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        p: 1,
+                        borderBottom: "none",
+                      }}
+                    >
+                      {customer.billing_address.city}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        p: 1,
+                        borderBottom: "none",
+                      }}
+                    >
+                      {customer.billing_address.state}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        p: 1,
+                        borderBottom: "none",
+                      }}
+                    >
+                      {customer.billing_address.postal_code}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        p: 1,
+                        borderBottom: "none",
+                      }}
+                    >
+                      {customer.credit_limit}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        p: 1,
+                        borderBottom: "none",
+                      }}
+                    >
+                      {customer.available_credit}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Stack>
+    </Box>
+  );
+};
+
+export default Customer;
+
+/* {customer.map((cellVal, index) => (
                       <TableCell
                         key={nanoid()}
                         sx={
@@ -127,16 +249,4 @@ const Customer = () => {
                       >
                         {cellVal}
                       </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
-      </Stack>
-    </Box>
-  );
-};
-
-export default Customer;
+                    ))} */

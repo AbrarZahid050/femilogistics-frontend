@@ -1,4 +1,4 @@
-import { FormControl, Grid, Typography } from "@mui/material";
+import { FormControl, FormHelperText, Grid } from "@mui/material";
 import { forwardRef } from "react";
 import { IMaskInput } from "react-imask";
 
@@ -11,10 +11,10 @@ export const CustomInput = ({ children, doNotAlign, labelSize, isError }) => (
       <Grid item xs={labelSize ? 12 - labelSize : 7}>
         {children[1]}
       </Grid>
+      <FormHelperText sx={{ margin: "auto" }} color="#d32f2f">
+        {isError}
+      </FormHelperText>
     </Grid>
-    <Typography align="center" color="#d32f2f">
-      {isError}
-    </Typography>
   </FormControl>
 );
 

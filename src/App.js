@@ -28,7 +28,9 @@ const App = () => {
 
           {/* protected routes */}
           <Route element={<RequireAuth />}>
-            <Route path="/panel" element={<Panel />} />
+            <Route path="panel/*" element={<Panel />}>
+              <Route path="*" element={<Panel />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<h1>404 Not Found</h1>} />

@@ -1,29 +1,13 @@
-import { FormControl, Paper, Stack, Typography } from "@mui/material";
+import { FormControl, Paper } from "@mui/material";
 
-import { CustomInput } from "../../../common/CustomInput/CustomInput";
 import {
   StyledInput,
   StyledLabel,
 } from "../../../../components/Styles/StyledBtns";
 
-//redux imports:
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addNote,
-  noteDetail,
-} from "../../../../redux/slices/createCustomerSlice";
+//redux:
 
-const NoteToCarrierCard = () => {
-  const dispatch = useDispatch();
-  const customer = useSelector(noteDetail);
-
-  const blurHandler = (event) => {
-    const key = event.target.name;
-    const value = event.target.value;
-
-    dispatch(addNote({ key, value }));
-  };
-
+const NoteToCarrierCard = ({ register }) => {
   return (
     <Paper
       sx={{
@@ -38,13 +22,7 @@ const NoteToCarrierCard = () => {
         <StyledLabel variant="h6" fontSize="18px">
           NOTE TO CARRIER
         </StyledLabel>
-        <StyledInput
-          multiline
-          rows={3}
-          name="note_to_carrier"
-          onBlur={blurHandler}
-          value={customer.note_to_carrier}
-        />
+        <StyledInput multiline rows={3} {...register("note_to_carrier")} />
       </FormControl>
     </Paper>
   );
