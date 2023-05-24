@@ -20,9 +20,13 @@ import { ReactComponent as Plus } from "../../assets/Users/plus.svg";
 import { useNavigate } from "react-router-dom";
 
 //redux imports:
-import { allCustomers, fetchCustomers } from "../../redux/slices/customerSlice";
+import {
+  allCustomers,
+  fetchCustomers,
+  setCustomerById,
+} from "../../redux/slices/customerSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { getCustomerById } from "../../redux/slices/customerSlice";
+import { fetchCustomerById } from "../../redux/slices/customerSlice";
 
 const Customer = () => {
   const navigate = useNavigate();
@@ -34,13 +38,18 @@ const Customer = () => {
     dispatch(fetchCustomers(0));
   }, [dispatch]);
 
-  const handleClick = (event) => {
+  const handleClick = async (event) => {
     const customerId = event.target.id;
     if (customerId) {
-      dispatch(getCustomerById({ id: customerId }));
-      navigate({
-        pathname: `/panel/customer/editcustomer/${customerId}`,
-      });
+      try {
+        const responseFromApi = await dispatch(
+          fetchCustomerById(customerId)
+        ).unwrap();
+        dispatch(setCustomerById(responseFromApi.data));
+        navigate({ pathname: `editcustomer/${customerId}` });
+      } catch (errorFromApi) {
+        console.log(errorFromApi);
+      }
     }
   };
 
@@ -103,12 +112,12 @@ const Customer = () => {
                         cellValue === "ID"
                           ? {
                               color: "#6B7280",
-                              p: 1,
+                              p: 2,
                               textAlign: "center",
                             }
                           : {
                               color: "#6B7280",
-                              p: 1,
+                              p: 2,
                             }
                       }
                     >
@@ -127,7 +136,7 @@ const Customer = () => {
                       id={customer.id}
                       onClick={handleClick}
                       sx={{
-                        p: 1,
+                        p: 2,
                         textAlign: "center",
                         color: "#0062FF",
                         borderBottom: "none",
@@ -141,7 +150,7 @@ const Customer = () => {
                     </TableCell>
                     <TableCell
                       sx={{
-                        p: 1,
+                        p: 2,
                         borderBottom: "none",
                       }}
                     >
@@ -149,7 +158,7 @@ const Customer = () => {
                     </TableCell>
                     <TableCell
                       sx={{
-                        p: 1,
+                        p: 2,
                         borderBottom: "none",
                       }}
                     >
@@ -159,7 +168,7 @@ const Customer = () => {
                       id={customer.id}
                       onClick={handleClick}
                       sx={{
-                        p: 1,
+                        p: 2,
                         color: "#0062FF",
                         borderBottom: "none",
                         "&:hover": {
@@ -172,7 +181,7 @@ const Customer = () => {
                     </TableCell>
                     <TableCell
                       sx={{
-                        p: 1,
+                        p: 2,
                         borderBottom: "none",
                       }}
                     >
@@ -180,7 +189,7 @@ const Customer = () => {
                     </TableCell>
                     <TableCell
                       sx={{
-                        p: 1,
+                        p: 2,
                         borderBottom: "none",
                       }}
                     >
@@ -188,7 +197,7 @@ const Customer = () => {
                     </TableCell>
                     <TableCell
                       sx={{
-                        p: 1,
+                        p: 2,
                         borderBottom: "none",
                       }}
                     >
@@ -196,7 +205,7 @@ const Customer = () => {
                     </TableCell>
                     <TableCell
                       sx={{
-                        p: 1,
+                        p: 2,
                         borderBottom: "none",
                       }}
                     >
@@ -204,19 +213,19 @@ const Customer = () => {
                     </TableCell>
                     <TableCell
                       sx={{
-                        p: 1,
+                        p: 2,
                         borderBottom: "none",
                       }}
                     >
-                      {customer.credit_limit}
+                      $ {customer.credit_limit}
                     </TableCell>
                     <TableCell
                       sx={{
-                        p: 1,
+                        p: 2,
                         borderBottom: "none",
                       }}
                     >
-                      {customer.available_credit}
+                      $ {customer.available_credit}
                     </TableCell>
                   </TableRow>
                 ))}

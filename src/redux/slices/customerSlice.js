@@ -1,14 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosAuthInterceptor from "../../components/Axios/axiosInterceptor";
-import Cookie from "js-cookie";
-
-let customerById = sessionStorage.getItem("customerById");
-customerById = JSON.parse(customerById);
 
 const initialState = {
   count: 0,
   customers: [],
-  customerById: customerById || {},
+  customerById: null,
   status: "idle", // 'idle' | 'loading' | 'succeded' | 'failed'
   error: null,
 };
@@ -23,42 +19,82 @@ export const fetchCustomers = createAsyncThunk(
   }
 );
 
+export const fetchCustomerById = createAsyncThunk(
+  "customer/id",
+  async (customerId) => {
+    const response = await axiosAuthInterceptor.get(
+      `load/customer/${customerId}/`
+    );
+    return response;
+  }
+);
+
+export const createCustomer = createAsyncThunk("customer/new", async (data) => {
+  console.log(data);
+  const response = await axiosAuthInterceptor.post("load/customer/", data);
+  return response;
+});
+
+export const updateCustomer = createAsyncThunk(
+  "customer/update",
+  async (payload) => {
+    const { id, data } = payload;
+
+    const response = await axiosAuthInterceptor.put(
+      `load/customer/${id}/`,
+      data
+    );
+    return response;
+  }
+);
+
+export const deleteCustomer = createAsyncThunk(
+  "customer/delete",
+  async (customerId) => {
+    const response = await axiosAuthInterceptor.delete(
+      `load/customer/${customerId}/`
+    );
+    return response;
+  }
+);
+
 const customerSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    getCustomerById: (state, action) => {
-      const { id } = action.payload;
-      const integerID = parseInt(id);
-
-      const newState = state.customers.map((customer) => {
-        if (integerID === customer.id) {
-          const customerById = JSON.stringify(customer);
-          console.log(customerById);
-          sessionStorage.setItem("customerById", customerById);
-          return customer;
-        }
-        return null;
-      });
-      state.customerById = newState[0];
+    setCustomerById: (state, action) => {
+      state.customerById = action.payload;
     },
   },
   extraReducers(builder) {
     builder
       //cases for fetchCustomers thunk:
       .addCase(fetchCustomers.pending, (state, action) => {
-        console.log("pending.");
+        sessionStorage.removeItem("customerById");
+        state.customerById = {};
+        // console.log("pending.");
       })
       .addCase(fetchCustomers.rejected, (state, action) => {
         console.log(action);
       })
       .addCase(fetchCustomers.fulfilled, (state, action) => {
         state.customers = action.payload.data.results;
+      })
+
+      //cases for deleteCustomer thunk:
+      .addCase(deleteCustomer.pending, (state, action) => {
+        console.log("pending customer delete api.");
+      })
+      .addCase(deleteCustomer.rejected, (state, action) => {
+        console.log("rejected customer delete request.", action.payload);
+      })
+      .addCase(deleteCustomer.fulfilled, (state, action) => {
+        console.log("cusotmer deleted successfully.");
       });
   },
 });
 
-export const { getCustomerById } = customerSlice.actions;
+export const { getCustomerById, setCustomerById } = customerSlice.actions;
 
 export const allCustomers = (state) => state.customers.customers;
 export const customerDetailsById = (state) => state.customers.customerById;

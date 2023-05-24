@@ -47,7 +47,7 @@ export const NumberMaskCustom = forwardRef((props, ref) => {
       scale={2} // digits after point, 0 for integers
       signed={false} // disallow negative
       thousandsSeparator={other.name === "postal_code" ? "" : ","}
-      padFractionalZeros={false} // if true, then pads zeros at end to the length of scale
+      padFractionalZeros={true} // if true, then pads zeros at end to the length of scale
       normalizeZeros={true} // appends or removes zeros at ends
       radix="." // fractional delimiter
       // mapToRadix={["."]}

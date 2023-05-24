@@ -23,6 +23,7 @@ const Panel = () => {
       <Navbar />
       <Stack direction="row" overflow="auto" sx={{ bgcolor: "#FAFAFA" }}>
         <SideDrawer />
+
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/overview" element={<Dashboard />} />

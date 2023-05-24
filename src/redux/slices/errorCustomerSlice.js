@@ -13,7 +13,6 @@ export const errorCustomerSlice = createSlice({
   initialState,
   reducers: {
     addErrors: (state, action) => {
-      console.log(action.payload);
       const {
         status,
         name,
@@ -55,6 +54,14 @@ export const errorCustomerSlice = createSlice({
     removeNoteInfoError: (state, action) => {
       state.noteToCarrierErrors[action.payload] = null;
     },
+
+    removeAllErrors: (state, action) => {
+      state.generalInfoErrors = {};
+      state.billingAddressErrors = {};
+      state.financeErrors = {};
+      state.managerErrors = {};
+      state.noteToCarrierErrors = {};
+    },
   },
 });
 
@@ -66,6 +73,7 @@ export const {
   removeFinanceInfoError,
   removeManagerInfoError,
   removeNoteInfoError,
+  removeAllErrors,
 } = errorCustomerSlice.actions;
 
 //writing it here instead of writing in the component:

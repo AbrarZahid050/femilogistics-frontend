@@ -11,7 +11,6 @@ const axiosAuthInterceptor = axios.create({
 axiosAuthInterceptor.interceptors.request.use(
   (request) => {
     const token = Cookies.get("accessToken");
-    // console.log(`token: ${token}`);
     request.headers.Authorization = `Bearer ${token}`;
     return request;
   },

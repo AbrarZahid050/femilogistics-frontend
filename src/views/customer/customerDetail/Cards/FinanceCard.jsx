@@ -24,7 +24,6 @@ const FinanceCard = ({ register, control }) => {
 
   const handlerForBlur = (event) => {
     const key = event.target.name;
-    console.log(key);
     if (errors[key]) {
       dispatch(removeFinanceInfoError(key));
     }
