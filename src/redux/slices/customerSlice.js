@@ -30,7 +30,6 @@ export const fetchCustomerById = createAsyncThunk(
 );
 
 export const createCustomer = createAsyncThunk("customer/new", async (data) => {
-  console.log(data);
   const response = await axiosAuthInterceptor.post("load/customer/", data);
   return response;
 });
@@ -78,6 +77,7 @@ const customerSlice = createSlice({
         console.log(action);
       })
       .addCase(fetchCustomers.fulfilled, (state, action) => {
+        state.count = action.payload.data.count;
         state.customers = action.payload.data.results;
       })
 
@@ -98,5 +98,6 @@ export const { getCustomerById, setCustomerById } = customerSlice.actions;
 
 export const allCustomers = (state) => state.customers.customers;
 export const customerDetailsById = (state) => state.customers.customerById;
+export const customerCount = (state) => state.customers.count;
 
 export default customerSlice.reducer;

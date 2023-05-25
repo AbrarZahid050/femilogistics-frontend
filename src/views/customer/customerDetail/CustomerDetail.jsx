@@ -42,7 +42,10 @@ const schema = yup.object().shape({
   customer: yup.string().required("Customer is requried."),
   status: yup.string().required("Status is requried."),
   name: yup.string().required("Name is requried."),
-  email: yup.string().required("Email is requried."),
+  email: yup
+    .string()
+    .required("Email is requried.")
+    .email("Email should be valid."),
   identifier: yup.string().required("Identifier is requried."),
   phone: yup.string().required("Phone is requried."),
   fax: yup.string().required("Fax is requried."),
@@ -111,38 +114,38 @@ const CustomerDetail = () => {
     }
   };
 
-  const formatData = (data) => {
-    const clonedData = { ...data };
-    const { phone, fax, credit_limit, available_credit, billing_address } =
-      clonedData;
+  // const formatData = (data) => {
+  //   const clonedData = { ...data };
+  //   const { phone, fax, credit_limit, available_credit, billing_address } =
+  //     clonedData;
 
-    const newPhone = phone
-      .replaceAll(" ", "")
-      .replaceAll("(", "")
-      .replace(")", "")
-      .replace("-", "");
-    const newFax = fax
-      .replaceAll(" ", "")
-      .replaceAll("(", "")
-      .replace(")", "")
-      .replace("-", "");
-    // const newCreditLimit = credit_limit.replaceAll(",", "");
-    // const newAvailableCredit = available_credit.replaceAll(",", "");
-    const newBillingPhone = billing_address.phone
-      .replaceAll(" ", "")
-      .replaceAll("(", "")
-      .replaceAll(")", "")
-      .replaceAll("-", "");
-    // const newBillingQuantity = billing_address.quantity.replaceAll(",", "");
+  //   const newPhone = phone
+  //     .replaceAll(" ", "")
+  //     .replaceAll("(", "")
+  //     .replace(")", "")
+  //     .replace("-", "");
+  //   const newFax = fax
+  //     .replaceAll(" ", "")
+  //     .replaceAll("(", "")
+  //     .replace(")", "")
+  //     .replace("-", "");
+  //   // const newCreditLimit = credit_limit.replaceAll(",", "");
+  //   // const newAvailableCredit = available_credit.replaceAll(",", "");
+  //   const newBillingPhone = billing_address.phone
+  //     .replaceAll(" ", "")
+  //     .replaceAll("(", "")
+  //     .replaceAll(")", "")
+  //     .replaceAll("-", "");
+  //   // const newBillingQuantity = billing_address.quantity.replaceAll(",", "");
 
-    clonedData.phone = newPhone;
-    clonedData.fax = newFax;
-    // clonedData.available_credit = newAvailableCredit;
-    // clonedData.credit_limit = newCreditLimit;
-    clonedData.billing_address.phone = newBillingPhone;
-    // clonedData.billing_address.quantity = newBillingQuantity;
-    return clonedData;
-  };
+  //   clonedData.phone = newPhone;
+  //   clonedData.fax = newFax;
+  //   // clonedData.available_credit = newAvailableCredit;
+  //   // clonedData.credit_limit = newCreditLimit;
+  //   clonedData.billing_address.phone = newBillingPhone;
+  //   // clonedData.billing_address.quantity = newBillingQuantity;
+  //   return clonedData;
+  // };
 
   const errorHandler = (errors) => {
     dispatch(addErrors(errors));

@@ -106,11 +106,20 @@ const BillingAddressCard = ({ register, control }) => {
           isError={errors.postal_code ? errors.postal_code.message : ""}
         >
           <StyledLabel>Postal Code</StyledLabel>
-          <StyledInput
-            fullWidth
-            {...register("billing_address.postal_code")}
-            onBlur={handlerForBlur}
-          />
+          <Controller
+            name="billing_address.postal_code"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <StyledInput
+                fullWidth
+                name="billing_address.postal_code"
+                value={value || ""}
+                onChange={onChange}
+                onBlur={handlerForBlur}
+                inputComponent={NumberMaskCustom}
+              />
+            )}
+          ></Controller>
         </CustomInput>
 
         {/* quantity */}
