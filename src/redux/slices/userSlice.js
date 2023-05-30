@@ -48,6 +48,7 @@ const userSlice = createSlice({
           (first, second) =>
             new Date(second.updated_on) - new Date(first.updated_on)
         );
+
         state.users = sortedArr;
         state.count = action.payload.count;
       })
@@ -62,6 +63,7 @@ const userSlice = createSlice({
       .addCase(createNewUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+        console.log(action);
       })
       .addCase(createNewUser.fulfilled, (state, action) => {
         state.status = "idle"; //setting the status to idle so the User component would render, see the useEffect Hook in the User.jsx

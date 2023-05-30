@@ -51,7 +51,6 @@ const Customer = () => {
   };
 
   useEffect(() => {
-    console.log("useEffect running..");
     if (customers) {
       dispatch(fetchCustomers(limit * (currentPage - 1)));
     }

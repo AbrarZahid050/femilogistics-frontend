@@ -176,7 +176,7 @@ const Navbar = () => {
             <Divider />
             <MenuItem
               onClick={(event) => {
-                navigate({ pathname: "/panel", search: "/profile" });
+                navigate({ pathname: "/panel/profile" });
                 handleClose(event);
               }}
             >
@@ -187,7 +187,7 @@ const Navbar = () => {
             <Divider />
             <MenuItem
               onClick={(event) => {
-                navigate({ pathname: "/panel", search: "/subs" });
+                navigate({ pathname: "/panel/subs" });
                 handleClose(event);
               }}
             >
@@ -204,7 +204,7 @@ const Navbar = () => {
             </MenuItem>
             <MenuItem
               onClick={(event) => {
-                navigate({ pathname: "/panel", search: "/terms" });
+                navigate({ pathname: "/panel/terms" });
                 handleClose(event);
               }}
             >
@@ -212,7 +212,7 @@ const Navbar = () => {
             </MenuItem>
             <MenuItem
               onClick={(event) => {
-                navigate({ pathname: "/panel", search: "/policy" });
+                navigate({ pathname: "/panel/policy" });
                 handleClose(event);
               }}
             >
