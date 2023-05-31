@@ -12,7 +12,7 @@ const TableSwitch = () => {
   return (
     <Stack direction="row">
       <Typography width="30px">{switchState ? "Yes" : "No"}</Typography>
-      <StyledSwitch onClick={handleClick} />
+      <StyledSwitch onChange={handleClick} />
     </Stack>
   );
 };

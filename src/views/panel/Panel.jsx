@@ -16,6 +16,7 @@ import SendFeedback from "../sendFeedback/SendFeedback";
 import Terms from "../termsAndConditions/Terms";
 import PrivatePolicy from "../termsAndConditions/PrivatePolicy";
 import Subs from "../subs/Subs";
+import Testing from "../Testing/Testing";
 
 const Panel = () => {
   return (
@@ -40,6 +41,7 @@ const Panel = () => {
             path="/customer/editcustomer/:id"
             element={<CustomerDetail />}
           />
+          <Route path="/testing" element={<Testing />} />
         </Routes>
       </Stack>
     </>

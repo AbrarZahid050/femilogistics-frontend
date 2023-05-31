@@ -6,7 +6,6 @@ import RequireAuth from "./components/RequireAuth/RequireAuth";
 import ForgotPwd from "./views/forgotPassword/ForgotPwd.jsx";
 import Panel from "./views/panel/Panel";
 import SignIn from "./views/signIn/SignIn.jsx";
-import FormattedInputs from "./views/Testing/Testing";
 
 // import { ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
@@ -24,7 +23,6 @@ const App = () => {
           {/* public routes */}
           <Route path="/" element={<SignIn />} />
           <Route path="/forgotpassword" element={<ForgotPwd />} />
-          <Route path="/testing" element={<FormattedInputs />} />
 
           {/* protected routes */}
           <Route element={<RequireAuth />}>
